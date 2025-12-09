@@ -82,6 +82,21 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
     color: '#ff9999',
   })
 
+  // Inner planet controls
+  const innerPlanet = useControls('Inner Planet', {
+    scale: { value: 0.6, min: 0.1, max: 1.5, step: 0.05, label: 'Scale' },
+    transmission: { value: 1, min: 0, max: 1, step: 0.01 },
+    roughness: { value: 0.2, min: 0, max: 1, step: 0.01 },
+    thickness: { value: 1, min: 0, max: 5, step: 0.1 },
+    ior: { value: 1.5, min: 1, max: 2.5, step: 0.05 },
+    chromaticAberration: { value: 0.5, min: 0, max: 1, step: 0.01 },
+    anisotropy: { value: 0.3, min: 0, max: 1, step: 0.01 },
+    distortion: { value: 0.2, min: 0, max: 1, step: 0.01 },
+    distortionScale: { value: 0.5, min: 0, max: 1, step: 0.01 },
+    temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
+    color: '#ff9999',
+  })
+
   const bluePlanet = useControls('Blue Planet', {
     transmission: { value: 1, min: 0, max: 1, step: 0.01 },
     roughness: { value: 0.15, min: 0, max: 1, step: 0.01 },
@@ -133,6 +148,36 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
 
   return (
     <group scale={scale} position={position} dispose={null}>
+      {/* Small inner planet at center */}
+      <mesh
+        ref={(ref) => { if (ref) meshRefs.current.innerPlanet = ref }}
+        castShadow
+        receiveShadow
+        geometry={nodes.Sphere.geometry}
+        position={[0, 0, 0]}
+        rotation={[0.221, 0.142, 0.563]}
+        scale={innerPlanet.scale}
+        onPointerOver={(e) => { e.stopPropagation(); onHover(5) }}
+        onPointerOut={() => onHover(null)}
+      >
+        <MeshTransmissionMaterial
+          backside
+          samples={global.samples}
+          resolution={global.resolution}
+          transmission={innerPlanet.transmission}
+          roughness={innerPlanet.roughness}
+          thickness={innerPlanet.thickness}
+          ior={innerPlanet.ior}
+          chromaticAberration={hoveredPlanet === 5 ? 1 : innerPlanet.chromaticAberration}
+          anisotropy={innerPlanet.anisotropy}
+          distortion={hoveredPlanet === 5 ? innerPlanet.distortion * 2 : innerPlanet.distortion}
+          distortionScale={innerPlanet.distortionScale}
+          temporalDistortion={innerPlanet.temporalDistortion}
+          color={innerPlanet.color}
+        />
+      </mesh>
+
+      {/* Main planet */}
       <mesh
         ref={(ref) => { if (ref) meshRefs.current.main = ref }}
         castShadow
