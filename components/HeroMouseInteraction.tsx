@@ -257,12 +257,12 @@ export default function HeroMouseInteraction() {
 
   // Lighting controls
   const lighting = useControls('Lighting', {
-    ambientIntensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Ambient' },
-    frontLightIntensity: { value: 2, min: 0, max: 5, step: 0.1, label: 'Front Light' },
-    sideLightIntensity: { value: 1.5, min: 0, max: 5, step: 0.1, label: 'Side Light' },
-    backLightIntensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Back Light' },
-    pointLight1Intensity: { value: 1.5, min: 0, max: 5, step: 0.1, label: 'Point Light 1' },
-    pointLight2Intensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Point Light 2' },
+    ambientIntensity: { value: 2, min: 0, max: 5, step: 0.1, label: 'Ambient' },
+    frontLightIntensity: { value: 3.5, min: 0, max: 5, step: 0.1, label: 'Front Light' },
+    sideLightIntensity: { value: 2.5, min: 0, max: 5, step: 0.1, label: 'Side Light' },
+    backLightIntensity: { value: 2, min: 0, max: 5, step: 0.1, label: 'Back Light' },
+    pointLight1Intensity: { value: 2.5, min: 0, max: 5, step: 0.1, label: 'Point Light 1' },
+    pointLight2Intensity: { value: 2, min: 0, max: 5, step: 0.1, label: 'Point Light 2' },
   })
 
   // Environment controls
@@ -272,8 +272,8 @@ export default function HeroMouseInteraction() {
       options: ['sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
       label: 'Preset'
     },
-    environmentIntensity: { value: 1, min: 0, max: 2, step: 0.1, label: 'Intensity' },
-    blur: { value: 0, min: 0, max: 1, step: 0.01, label: 'Blur' },
+    environmentIntensity: { value: 1.2, min: 0, max: 2, step: 0.1, label: 'Intensity' },
+    blur: { value: 0.3, min: 0, max: 1, step: 0.01, label: 'Blur' },
   })
 
   return (
@@ -286,7 +286,7 @@ export default function HeroMouseInteraction() {
         {/* Bright ambient light for glass materials */}
         <ambientLight intensity={lighting.ambientIntensity} />
 
-        {/* Main directional light from front */}
+        {/* Main directional light from front - increased for more reflection */}
         <directionalLight
           position={[5, 5, 5]}
           intensity={lighting.frontLightIntensity}
@@ -307,9 +307,19 @@ export default function HeroMouseInteraction() {
           color="#88ccff"
         />
 
+        {/* Additional spotlight for main planet reflection */}
+        <spotLight
+          position={[0, 10, 10]}
+          intensity={3}
+          angle={0.6}
+          penumbra={0.5}
+          color="#ffffff"
+        />
+
         {/* Point lights for highlights */}
         <pointLight position={[10, 10, 10]} intensity={lighting.pointLight1Intensity} color="#ffffff" />
         <pointLight position={[-10, -10, -10]} intensity={lighting.pointLight2Intensity} color="#ffaacc" />
+        <pointLight position={[0, 5, 8]} intensity={2} color="#ffffff" />
 
         {/* Environment map for reflections and refractions */}
         <Environment
