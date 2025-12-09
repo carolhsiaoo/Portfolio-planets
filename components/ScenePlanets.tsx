@@ -5,7 +5,7 @@ import { OrbitControls, Environment } from '@react-three/drei'
 import { useControls } from 'leva'
 import { Model } from './PlanetsModel'
 
-export default function SceneMoon() {
+export default function ScenePlanets() {
   // Lighting controls
   const lighting = useControls('Lighting', {
     ambientIntensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Ambient' },

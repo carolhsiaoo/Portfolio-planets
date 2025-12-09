@@ -71,39 +71,39 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
   // Leva controls (same as original)
   const mainPlanet = useControls('Main Planet (Red)', {
     transmission: { value: 1, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.2, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 1, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1.5, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.5, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.2, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.5, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
-    color: '#ff9999',
+    roughness: { value: 0.17, min: 0, max: 1, step: 0.01 },
+    thickness: { value: 0.6, min: 0, max: 5, step: 0.1 },
+    ior: { value: 1.4, min: 1, max: 2.5, step: 0.05 },
+    chromaticAberration: { value: 0.4, min: 0, max: 1, step: 0.01 },
+    anisotropy: { value: 0.13, min: 0, max: 1, step: 0.01 },
+    distortion: { value: 0.45, min: 0, max: 1, step: 0.01 },
+    distortionScale: { value: 0.65, min: 0, max: 1, step: 0.01 },
+    temporalDistortion: { value: 0.35, min: 0, max: 1, step: 0.01 },
+    color: '#ffffff',
   })
 
   // Inner planet controls
   const innerPlanet = useControls('Inner Planet', {
     scale: { value: 0.6, min: 0.1, max: 1.5, step: 0.05, label: 'Scale' },
-    transmission: { value: 1, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.2, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 1, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1.5, min: 1, max: 2.5, step: 0.05 },
+    transmission: { value: 0.65, min: 0, max: 1, step: 0.01 },
+    roughness: { value: 0.25, min: 0, max: 1, step: 0.01 },
+    thickness: { value: 2.2, min: 0, max: 5, step: 0.1 },
+    ior: { value: 1.85, min: 1, max: 2.5, step: 0.05 },
     chromaticAberration: { value: 0.5, min: 0, max: 1, step: 0.01 },
     anisotropy: { value: 0.3, min: 0, max: 1, step: 0.01 },
     distortion: { value: 0.2, min: 0, max: 1, step: 0.01 },
     distortionScale: { value: 0.5, min: 0, max: 1, step: 0.01 },
     temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
-    color: '#ff9999',
+    color: '#c4d8ee',
   })
 
   const bluePlanet = useControls('Blue Planet', {
-    transmission: { value: 1, min: 0, max: 1, step: 0.01 },
+    transmission: { value: 0.53, min: 0, max: 1, step: 0.01 },
     roughness: { value: 0.15, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 1.2, min: 0, max: 5, step: 0.1 },
+    thickness: { value: 1, min: 0, max: 5, step: 0.1 },
     ior: { value: 1.5, min: 1, max: 2.5, step: 0.05 },
     chromaticAberration: { value: 0.6, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.3, min: 0, max: 1, step: 0.01 },
+    anisotropy: { value: 0.23, min: 0, max: 1, step: 0.01 },
     distortion: { value: 0.3, min: 0, max: 1, step: 0.01 },
     distortionScale: { value: 0.5, min: 0, max: 1, step: 0.01 },
     temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
@@ -111,29 +111,29 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
   })
 
   const yellowPlanes = useControls('Yellow Planes', {
-    transmission: { value: 1, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.1, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 0.8, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1.5, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.4, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.15, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.4, min: 0, max: 1, step: 0.01 },
+    transmission: { value: 0.85, min: 0, max: 1, step: 0.01 },
+    roughness: { value: 0.08, min: 0, max: 1, step: 0.01 },
+    thickness: { value: 0.2, min: 0, max: 5, step: 0.1 },
+    ior: { value: 1, min: 1, max: 2.5, step: 0.05 },
+    chromaticAberration: { value: 0.07, min: 0, max: 1, step: 0.01 },
+    anisotropy: { value: 0.03, min: 0, max: 1, step: 0.01 },
+    distortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
+    distortionScale: { value: 0.1, min: 0, max: 1, step: 0.01 },
     temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
     color: '#ffff66',
   })
 
   const ring = useControls('Ring', {
-    transmission: { value: 1, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.25, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 1.5, min: 0, max: 5, step: 0.1 },
+    transmission: { value: 0.22, min: 0, max: 1, step: 0.01 },
+    roughness: { value: 0.05, min: 0, max: 1, step: 0.01 },
+    thickness: { value: 0.9, min: 0, max: 5, step: 0.1 },
     ior: { value: 1.5, min: 1, max: 2.5, step: 0.05 },
     chromaticAberration: { value: 0.3, min: 0, max: 1, step: 0.01 },
     anisotropy: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.05, min: 0, max: 1, step: 0.01 },
-    color: '#ffccff',
+    distortion: { value: 0, min: 0, max: 1, step: 0.01 },
+    distortionScale: { value: 0, min: 0, max: 1, step: 0.01 },
+    temporalDistortion: { value: 0, min: 0, max: 1, step: 0.01 },
+    color: '#98b9ff',
   })
 
   const global = useControls('Global', {
@@ -302,23 +302,23 @@ export default function HeroMouseInteraction() {
 
   // Lighting controls
   const lighting = useControls('Lighting', {
-    ambientIntensity: { value: 2, min: 0, max: 5, step: 0.1, label: 'Ambient' },
+    ambientIntensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Ambient' },
     frontLightIntensity: { value: 3.5, min: 0, max: 5, step: 0.1, label: 'Front Light' },
-    sideLightIntensity: { value: 2.5, min: 0, max: 5, step: 0.1, label: 'Side Light' },
-    backLightIntensity: { value: 2, min: 0, max: 5, step: 0.1, label: 'Back Light' },
-    pointLight1Intensity: { value: 2.5, min: 0, max: 5, step: 0.1, label: 'Point Light 1' },
-    pointLight2Intensity: { value: 2, min: 0, max: 5, step: 0.1, label: 'Point Light 2' },
+    sideLightIntensity: { value: 1.5, min: 0, max: 5, step: 0.1, label: 'Side Light' },
+    backLightIntensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Back Light' },
+    pointLight1Intensity: { value: 1.5, min: 0, max: 5, step: 0.1, label: 'Point Light 1' },
+    pointLight2Intensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Point Light 2' },
   })
 
   // Environment controls
   const environment = useControls('Environment', {
     preset: {
-      value: 'city',
+      value: 'studio',
       options: ['sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
       label: 'Preset'
     },
     environmentIntensity: { value: 1.2, min: 0, max: 2, step: 0.1, label: 'Intensity' },
-    blur: { value: 0.3, min: 0, max: 1, step: 0.01, label: 'Blur' },
+    blur: { value: 0.6, min: 0, max: 1, step: 0.01, label: 'Blur' },
   })
 
   return (
