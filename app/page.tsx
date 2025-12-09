@@ -71,7 +71,7 @@ export default function Home() {
 
       {/* About Section */}
       <section id="about" className="py-20 px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-serif mb-10">About</h2>
           <p className="text-base leading-relaxed mb-5">
             I'm a product designer and creative developer of Aburi Studio based in Calgary.
@@ -94,7 +94,7 @@ export default function Home() {
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl font-serif mb-10">Let's talk!</h2>
 
           <a
