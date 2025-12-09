@@ -42,15 +42,15 @@ export default function Hero() {
           }, 300); // Stay blurred for 0.3 seconds after leaving
         }}
       >
-        <h1 className="text-6xl md:text-8xl font-serif mb-4 leading-tight text-black select-none">
+        <h1 className="text-8xl md:text-8xl font-serif font-black mb-4 leading-tight text-black select-none">
           Carol Hsiao
         </h1>
         <p className="text-2xl md:text-3xl font-serif mb-2 leading-relaxed text-black select-none">
-          Independent Front End
+          Deisnger and Developer
         </p>
         <p className="text-2xl md:text-3xl font-serif mb-6 flex items-center justify-center gap-3 leading-relaxed text-black select-none">
           <span className="text-2xl">◆</span>
-          Developer
+          Product Builder
           <span className="text-2xl">◆</span>
         </p>
         <p className="text-xl md:text-2xl font-serif text-black select-none">
