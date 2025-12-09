@@ -5,7 +5,8 @@
       "Bash(pnpm create:*)",
       "Bash(pnpm add:*)",
       "Bash(pnpm dlx tailwindcss:*)",
-      "Read(//c/Users/zhuyu/Downloads/**)"
+      "Read(//c/Users/zhuyu/Downloads/**)",
+      "Bash(mv:*)"
     ],
     "deny": [],
     "ask": []
