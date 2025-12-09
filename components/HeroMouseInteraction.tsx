@@ -8,29 +8,22 @@ import { useState, useRef, useEffect } from 'react'
 import * as THREE from 'three'
 
 // Interactive Model Component with mouse following and magnetic effects
-function InteractiveModel({ mousePosition, scale = 1.5, onHover }: { mousePosition: { x: number, y: number }, scale?: number, onHover: (planet: number | null) => void }) {
+function InteractiveModel({ mousePosition, scale = 1.5 }: { mousePosition: { x: number, y: number }, scale?: number }) {
   const groupRef = useRef<THREE.Group>(null)
   const planetRefs = useRef<THREE.Mesh[]>([])
   const [hoveredPlanet, setHoveredPlanet] = useState<number | null>(null)
 
-  const handleHover = (planet: number | null) => {
-    setHoveredPlanet(planet)
-    onHover(planet)
-  }
-
-  useFrame((state) => {
+  useFrame((state, delta) => {
     if (!groupRef.current) return
 
-    // Planets follow cursor - subtle rotation toward mouse
+    // Auto-rotate continuously
+    groupRef.current.rotation.y += delta * 0.3 // Rotate at 0.3 radians per second
+
+    // Planets follow cursor - subtle rotation toward mouse (additive)
     const targetRotationY = mousePosition.x * 0.3
     const targetRotationX = -mousePosition.y * 0.3
 
-    // Smooth lerp to target rotation
-    groupRef.current.rotation.y = THREE.MathUtils.lerp(
-      groupRef.current.rotation.y,
-      targetRotationY,
-      0.05
-    )
+    // Smooth lerp to target rotation (this adds to the auto-rotation)
     groupRef.current.rotation.x = THREE.MathUtils.lerp(
       groupRef.current.rotation.x,
       targetRotationX,
@@ -58,7 +51,7 @@ function InteractiveModel({ mousePosition, scale = 1.5, onHover }: { mousePositi
       <InteractivePlanetsModel
         scale={scale}
         position={[0, 0, 0]}
-        onHover={handleHover}
+        onHover={setHoveredPlanet}
         hoveredPlanet={hoveredPlanet}
       />
     </group>
@@ -133,19 +126,9 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
     resolution: { value: 512, min: 128, max: 2048, step: 128 },
   })
 
-  // Apply hover effects on each frame
+  // Apply hover effects on each frame (scale animation removed)
   useFrame((state) => {
-    Object.values(meshRefs.current).forEach((mesh, index) => {
-      if (!mesh) return
-
-      const isHovered = hoveredPlanet === index
-      const targetScale = isHovered ? 1.15 : 1
-
-      // Smooth scale animation
-      mesh.scale.x = THREE.MathUtils.lerp(mesh.scale.x, targetScale, 0.1)
-      mesh.scale.y = THREE.MathUtils.lerp(mesh.scale.y, targetScale, 0.1)
-      mesh.scale.z = THREE.MathUtils.lerp(mesh.scale.z, targetScale, 0.1)
-    })
+    // Scale animation removed - planets no longer expand on hover
   })
 
   return (
@@ -253,15 +236,9 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
 }
 
 // Main Scene Component
-export default function HeroMouseInteraction({ onHoverChange }: { onHoverChange?: (planet: number | null) => void }) {
+export default function HeroMouseInteraction() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
-
-  const handleHoverChange = (planet: number | null) => {
-    if (onHoverChange) {
-      onHoverChange(planet)
-    }
-  }
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -342,7 +319,7 @@ export default function HeroMouseInteraction({ onHoverChange }: { onHoverChange?
         />
 
         {/* Interactive Model with mouse tracking */}
-        <InteractiveModel mousePosition={mousePosition} scale={1.5} onHover={handleHoverChange} />
+        <InteractiveModel mousePosition={mousePosition} scale={1.5} />
 
         <OrbitControls
           enableZoom={false}
