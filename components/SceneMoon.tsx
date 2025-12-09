@@ -1,10 +1,38 @@
 'use client'
 
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, Environment } from '@react-three/drei'
+import { useControls } from 'leva'
 import { Model } from './PlanetsModel'
 
 export default function SceneMoon() {
+  // Lighting controls
+  const lighting = useControls('Lighting', {
+    ambientIntensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Ambient' },
+    frontLightIntensity: { value: 2, min: 0, max: 5, step: 0.1, label: 'Front Light' },
+    sideLightIntensity: { value: 1.5, min: 0, max: 5, step: 0.1, label: 'Side Light' },
+    backLightIntensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Back Light' },
+    pointLight1Intensity: { value: 1.5, min: 0, max: 5, step: 0.1, label: 'Point Light 1' },
+    pointLight2Intensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Point Light 2' },
+  })
+
+  // Environment controls
+  const environment = useControls('Environment', {
+    preset: {
+      value: 'city',
+      options: ['sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
+      label: 'Preset'
+    },
+    environmentIntensity: { value: 1, min: 0, max: 2, step: 0.1, label: 'Intensity' },
+    blur: { value: 0, min: 0, max: 1, step: 0.01, label: 'Blur' },
+  })
+
+  // Animation controls
+  const animation = useControls('Animation', {
+    autoRotate: { value: true, label: 'Auto Rotate' },
+    autoRotateSpeed: { value: 0.5, min: -5, max: 5, step: 0.1, label: 'Rotate Speed' },
+  })
+
   return (
     <div style={{ width: '100%', height: '100%', minHeight: '400px' }}>
       <Canvas
@@ -12,21 +40,39 @@ export default function SceneMoon() {
         gl={{ alpha: true, antialias: true }}
         style={{ background: 'transparent' }}
       >
-        {/* Darker ambient light */}
-        <ambientLight intensity={0.2} />
+        {/* Bright ambient light for glass materials */}
+        <ambientLight intensity={lighting.ambientIntensity} />
 
-        {/* Main directional light from the side for shadows */}
+        {/* Main directional light from front */}
         <directionalLight
-          position={[5, 3, 5]}
-          intensity={0.8}
+          position={[5, 5, 5]}
+          intensity={lighting.frontLightIntensity}
           color="#ffffff"
         />
 
-        {/* Subtle fill light from opposite side */}
+        {/* Key light from the side */}
         <directionalLight
-          position={[-3, -2, -3]}
-          intensity={0.3}
-          color="#4169e1"
+          position={[-5, 3, 5]}
+          intensity={lighting.sideLightIntensity}
+          color="#ffffff"
+        />
+
+        {/* Back light for rim lighting */}
+        <directionalLight
+          position={[0, -5, -5]}
+          intensity={lighting.backLightIntensity}
+          color="#88ccff"
+        />
+
+        {/* Point lights for highlights */}
+        <pointLight position={[10, 10, 10]} intensity={lighting.pointLight1Intensity} color="#ffffff" />
+        <pointLight position={[-10, -10, -10]} intensity={lighting.pointLight2Intensity} color="#ffaacc" />
+
+        {/* Environment map for reflections and refractions */}
+        <Environment
+          preset={environment.preset as any}
+          environmentIntensity={environment.environmentIntensity}
+          blur={environment.blur}
         />
 
         {/* Center the model at origin */}
@@ -37,8 +83,8 @@ export default function SceneMoon() {
         <OrbitControls
           enableZoom={false}
           enablePan={false}
-          autoRotate
-          autoRotateSpeed={0.5}
+          autoRotate={animation.autoRotate}
+          autoRotateSpeed={animation.autoRotateSpeed}
         />
       </Canvas>
     </div>

@@ -1,3 +1,5 @@
+import Image from 'next/image';
+
 export default function About() {
   return (
     <section id="about" className="py-20 px-8">
@@ -12,11 +14,14 @@ export default function About() {
         </p>
 
         <div className="inline-block">
-          <div className="w-44 h-60 bg-gray-800 rounded-3xl overflow-hidden shadow-lg">
-            {/* Placeholder for profile image */}
-            <div className="w-full h-full bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center text-gray-400 text-xs">
-              Profile Image
-            </div>
+          <div className="w-60 h-60 bg-gray-800 rounded-3xl overflow-hidden shadow-lg">
+            <Image
+              src="/carol-image.png"
+              alt="Profile"
+              width={240}
+              height={240}
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </div>
