@@ -8,27 +8,42 @@ export default function ProjectsTable() {
   ];
 
   return (
-    <section id="work" className="py-20 px-8">
+    <section id="work" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="border-t border-gray-300">
-          {/* Table Header */}
-          <div className="grid grid-cols-4 gap-8 py-5 text-xs font-medium text-gray-500 uppercase tracking-widest">
+        <div>
+          {/* Table Header - Hidden on mobile, shown on tablet+ */}
+          <div className="hidden md:grid grid-cols-4 gap-4 lg:gap-8 py-4 md:py-5 text-[10px] sm:text-xs font-medium text-gray-500 uppercase tracking-widest">
             <div>Project</div>
             <div>Type</div>
             <div>Role</div>
             <div>Year</div>
           </div>
 
-          {/* Table Rows */}
+          {/* Table Rows - Cards on mobile, table on tablet+ */}
           {projects.map((project, index) => (
             <div
               key={index}
-              className="grid grid-cols-4 gap-8 py-7 border-t border-gray-200 hover:bg-[#f5f3f0] transition-colors cursor-pointer"
+              className="border-t border-gray-200 hover:bg-[#f5f3f0] transition-colors cursor-pointer"
             >
-              <div className="font-normal text-[15px]">{project.name}</div>
-              <div className="text-gray-600 text-[15px]">{project.type}</div>
-              <div className="text-gray-600 text-[15px]">{project.role}</div>
-              <div className="text-gray-600 text-[15px]">{project.year}</div>
+              {/* Mobile Card Layout */}
+              <div className="md:hidden py-5 sm:py-6">
+                <div className="font-medium text-base sm:text-lg mb-3">{project.name}</div>
+                <div className="flex items-center gap-2 text-sm text-gray-600">
+                  <span>{project.type}</span>
+                  <span className="text-gray-300">|</span>
+                  <span>{project.role}</span>
+                  <span className="text-gray-300">|</span>
+                  <span>{project.year}</span>
+                </div>
+              </div>
+
+              {/* Tablet+ Table Layout */}
+              <div className="hidden md:grid grid-cols-4 gap-4 lg:gap-8 py-5 md:py-7">
+                <div className="font-normal text-sm md:text-[15px]">{project.name}</div>
+                <div className="text-gray-600 text-sm md:text-[15px]">{project.type}</div>
+                <div className="text-gray-600 text-sm md:text-[15px]">{project.role}</div>
+                <div className="text-gray-600 text-sm md:text-[15px]">{project.year}</div>
+              </div>
             </div>
           ))}
         </div>
