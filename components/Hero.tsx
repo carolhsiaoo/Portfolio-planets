@@ -43,12 +43,12 @@ export default function Hero() {
             <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif mb-2 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
               Designer and Developer
             </p>
-            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif mb-4 sm:mb-6 flex items-center justify-center gap-2 sm:gap-3 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
+            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif mb-2 flex items-center justify-center gap-2 sm:gap-3 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
               <span className="text-lg sm:text-xl md:text-2xl">◆</span>
               Product Builder
               <span className="text-lg sm:text-xl md:text-2xl">◆</span>
             </p>
-            <p className={`text-base sm:text-lg md:text-xl lg:text-2xl font-serif ${textColor} select-none transition-colors duration-300`}>
+            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif leading-relaxed ${textColor} select-none transition-colors duration-300`}>
               Currently Building @FireFree
             </p>
           </div>
