@@ -15,11 +15,11 @@ function useResponsiveScale() {
     const updateScale = () => {
       const width = window.innerWidth
       if (width < 640) { // mobile
-        setScale(0.8)
-      } else if (width < 768) { // small tablet
-        setScale(1.0)
-      } else if (width < 1024) { // tablet
         setScale(1.2)
+      } else if (width < 768) { // small tablet
+        setScale(1.3)
+      } else if (width < 1024) { // tablet
+        setScale(1.4)
       } else { // desktop
         setScale(1.5)
       }
