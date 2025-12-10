@@ -12,43 +12,43 @@ export default function Hero() {
   const textColor = backgroundBrightness > 127 ? 'text-black' : 'text-white';
 
   return (
-    <section className="pt-40 pb-32 px-8 relative min-h-screen flex items-center justify-center">
+    <section className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32 px-4 sm:px-6 md:px-8 relative min-h-screen flex items-center justify-center">
       {/* 3D Planets Model - Behind text (z-index 0) */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-0">
-        <div className="w-[1000px] h-[1000px]">
+        <div className="w-full h-full sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] lg:w-[1000px] lg:h-[1000px]">
           <HeroMouseInteraction onBrightnessChange={setBackgroundBrightness} isTextHovered={isTextHovered} />
         </div>
       </div>
 
       {/* Hero Content - Split layout with header-matching width */}
       <div className="absolute inset-0 z-10 pointer-events-none">
-        <div className="max-w-7xl mx-auto px-8 h-full flex flex-col justify-between py-24">
-          {/* Carol Hsiao - Top Left */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-full flex flex-col justify-between py-16 sm:py-20 md:py-24">
+          {/* Carol Hsiao - Top Left on desktop, Top Center on mobile */}
           <div
-            className="pointer-events-auto self-start"
+            className="pointer-events-auto self-center sm:self-start text-center sm:text-left"
             onMouseEnter={() => setIsTextHovered(true)}
             onMouseLeave={() => setIsTextHovered(false)}
           >
-            <h1 className={`text-6xl md:text-8xl font-serif font-black leading-tight ${textColor} select-none transition-colors duration-300`}>
+            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-black leading-tight ${textColor} select-none transition-colors duration-300`}>
               Carol Hsiao
             </h1>
           </div>
 
-          {/* Rest of text - Bottom Right */}
+          {/* Rest of text - Bottom Right on desktop, Bottom Center on mobile */}
           <div
-            className="pointer-events-auto self-end text-center flex flex-col items-center"
+            className="pointer-events-auto self-center sm:self-end text-center flex flex-col items-center"
             onMouseEnter={() => setIsTextHovered(true)}
             onMouseLeave={() => setIsTextHovered(false)}
           >
-            <p className={`text-2xl md:text-3xl font-serif mb-2 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
+            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif mb-2 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
               Designer and Developer
             </p>
-            <p className={`text-2xl md:text-3xl font-serif mb-6 flex items-center justify-center gap-3 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
-              <span className="text-2xl">◆</span>
+            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif mb-4 sm:mb-6 flex items-center justify-center gap-2 sm:gap-3 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
+              <span className="text-lg sm:text-xl md:text-2xl">◆</span>
               Product Builder
-              <span className="text-2xl">◆</span>
+              <span className="text-lg sm:text-xl md:text-2xl">◆</span>
             </p>
-            <p className={`text-xl md:text-2xl font-serif ${textColor} select-none transition-colors duration-300`}>
+            <p className={`text-base sm:text-lg md:text-xl lg:text-2xl font-serif ${textColor} select-none transition-colors duration-300`}>
               Currently Building @FireFree
             </p>
           </div>

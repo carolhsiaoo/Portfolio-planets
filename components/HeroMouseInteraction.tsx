@@ -7,6 +7,63 @@ import { Model } from './PlanetsModel'
 import { useState, useRef, useEffect } from 'react'
 import * as THREE from 'three'
 
+// Hook to detect screen size and return responsive scale
+function useResponsiveScale() {
+  const [scale, setScale] = useState(1.5)
+
+  useEffect(() => {
+    const updateScale = () => {
+      const width = window.innerWidth
+      if (width < 640) { // mobile
+        setScale(0.8)
+      } else if (width < 768) { // small tablet
+        setScale(1.0)
+      } else if (width < 1024) { // tablet
+        setScale(1.2)
+      } else { // desktop
+        setScale(1.5)
+      }
+    }
+
+    updateScale()
+    window.addEventListener('resize', updateScale)
+    return () => window.removeEventListener('resize', updateScale)
+  }, [])
+
+  return scale
+}
+
+// Responsive Camera Component
+function ResponsiveCamera() {
+  const { camera } = useThree()
+
+  useEffect(() => {
+    const updateCamera = () => {
+      const width = window.innerWidth
+      if (width < 640) { // mobile
+        camera.position.set(0, 0, 10)
+        ;(camera as THREE.PerspectiveCamera).fov = 50
+      } else if (width < 768) { // small tablet
+        camera.position.set(0, 0, 9)
+        ;(camera as THREE.PerspectiveCamera).fov = 47
+      } else if (width < 1024) { // tablet
+        camera.position.set(0, 0, 8.5)
+        ;(camera as THREE.PerspectiveCamera).fov = 45
+      } else { // desktop
+        camera.position.set(0, 0, 8)
+        ;(camera as THREE.PerspectiveCamera).fov = 45
+      }
+      camera.updateProjectionMatrix()
+    }
+
+    updateCamera()
+    window.addEventListener('resize', updateCamera)
+    return () => window.removeEventListener('resize', updateCamera)
+  }, [camera])
+
+  return null
+}
+
 // Interactive Model Component with mouse following and magnetic effects
 function InteractiveModel({ mousePosition, scale = 1.5, isTextHovered }: { mousePosition: { x: number, y: number }, scale?: number, isTextHovered?: boolean }) {
   const groupRef = useRef<THREE.Group>(null)
@@ -280,6 +337,7 @@ export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const responsiveScale = useResponsiveScale()
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -369,8 +427,11 @@ export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered
           blur={environment.blur}
         />
 
-        {/* Interactive Model with mouse tracking */}
-        <InteractiveModel mousePosition={mousePosition} scale={1.5} isTextHovered={isTextHovered} />
+        {/* Responsive Camera */}
+        <ResponsiveCamera />
+
+        {/* Interactive Model with mouse tracking - responsive scale */}
+        <InteractiveModel mousePosition={mousePosition} scale={responsiveScale} isTextHovered={isTextHovered} />
 
         <OrbitControls
           enableZoom={false}
