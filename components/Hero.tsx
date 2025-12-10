@@ -20,26 +20,39 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Hero Content - In front of planets (z-index 10) */}
-      <div
-        className="max-w-5xl mx-auto text-center relative z-10 pointer-events-auto px-16 py-12"
-        onMouseEnter={() => setIsTextHovered(true)}
-        onMouseLeave={() => setIsTextHovered(false)}
-      >
-        <h1 className={`text-8xl md:text-8xl font-serif font-black mb-4 leading-tight ${textColor} select-none transition-colors duration-300`}>
-          Carol Hsiao
-        </h1>
-        <p className={`text-2xl md:text-3xl font-serif mb-2 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
-          Deisnger and Developer
-        </p>
-        <p className={`text-2xl md:text-3xl font-serif mb-6 flex items-center justify-center gap-3 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
-          <span className="text-2xl">◆</span>
-          Product Builder
-          <span className="text-2xl">◆</span>
-        </p>
-        <p className={`text-xl md:text-2xl font-serif ${textColor} select-none transition-colors duration-300`}>
-          Currently Building @FireFree
-        </p>
+      {/* Hero Content - Split layout with header-matching width */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        <div className="max-w-7xl mx-auto px-8 h-full flex flex-col justify-between py-24">
+          {/* Carol Hsiao - Top Left */}
+          <div
+            className="pointer-events-auto self-start"
+            onMouseEnter={() => setIsTextHovered(true)}
+            onMouseLeave={() => setIsTextHovered(false)}
+          >
+            <h1 className={`text-6xl md:text-8xl font-serif font-black leading-tight ${textColor} select-none transition-colors duration-300`}>
+              Carol Hsiao
+            </h1>
+          </div>
+
+          {/* Rest of text - Bottom Right */}
+          <div
+            className="pointer-events-auto self-end text-center flex flex-col items-center"
+            onMouseEnter={() => setIsTextHovered(true)}
+            onMouseLeave={() => setIsTextHovered(false)}
+          >
+            <p className={`text-2xl md:text-3xl font-serif mb-2 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
+              Designer and Developer
+            </p>
+            <p className={`text-2xl md:text-3xl font-serif mb-6 flex items-center justify-center gap-3 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
+              <span className="text-2xl">◆</span>
+              Product Builder
+              <span className="text-2xl">◆</span>
+            </p>
+            <p className={`text-xl md:text-2xl font-serif ${textColor} select-none transition-colors duration-300`}>
+              Currently Building @FireFree
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );
