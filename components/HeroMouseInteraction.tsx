@@ -8,10 +8,13 @@ import { useState, useRef, useEffect } from 'react'
 import * as THREE from 'three'
 
 // Interactive Model Component with mouse following and magnetic effects
-function InteractiveModel({ mousePosition, scale = 1.5 }: { mousePosition: { x: number, y: number }, scale?: number }) {
+function InteractiveModel({ mousePosition, scale = 1.5, isTextHovered }: { mousePosition: { x: number, y: number }, scale?: number, isTextHovered?: boolean }) {
   const groupRef = useRef<THREE.Group>(null)
   const planetRefs = useRef<THREE.Mesh[]>([])
   const [hoveredPlanet, setHoveredPlanet] = useState<number | null>(null)
+
+  // Main planet should glow when any planet is hovered OR when text is hovered
+  const isMainPlanetActive = hoveredPlanet !== null || isTextHovered
 
   useFrame((state, delta) => {
     if (!groupRef.current) return
@@ -52,18 +55,18 @@ function InteractiveModel({ mousePosition, scale = 1.5 }: { mousePosition: { x: 
         scale={scale}
         position={[0, 0, 0]}
         onHover={setHoveredPlanet}
-        hoveredPlanet={hoveredPlanet}
+        isMainPlanetActive={isMainPlanetActive}
       />
     </group>
   )
 }
 
 // Enhanced Model with hover detection and effects
-function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
+function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive }: {
   scale: number,
   position: [number, number, number],
   onHover: (planet: number | null) => void,
-  hoveredPlanet: number | null
+  isMainPlanetActive: boolean
 }) {
   const { nodes } = useGLTF('/models/planets.glb') as any
   const meshRefs = useRef<{ [key: string]: THREE.Mesh }>({})
@@ -168,9 +171,9 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
           roughness={innerPlanet.roughness}
           thickness={innerPlanet.thickness}
           ior={innerPlanet.ior}
-          chromaticAberration={hoveredPlanet === 5 ? 1 : innerPlanet.chromaticAberration}
+          chromaticAberration={innerPlanet.chromaticAberration}
           anisotropy={innerPlanet.anisotropy}
-          distortion={hoveredPlanet === 5 ? innerPlanet.distortion * 2 : innerPlanet.distortion}
+          distortion={innerPlanet.distortion}
           distortionScale={innerPlanet.distortionScale}
           temporalDistortion={innerPlanet.temporalDistortion}
           color={innerPlanet.color}
@@ -194,9 +197,9 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
           samples={global.samples}
           resolution={global.resolution}
           {...mainPlanet}
-          // Enhanced distortion on hover
-          distortion={hoveredPlanet === 0 ? mainPlanet.distortion * 2 : mainPlanet.distortion}
-          chromaticAberration={hoveredPlanet === 0 ? 1 : mainPlanet.chromaticAberration}
+          // Enhanced distortion when hovering over ANY element or text
+          distortion={isMainPlanetActive ? mainPlanet.distortion * 2 : mainPlanet.distortion}
+          chromaticAberration={isMainPlanetActive ? 1 : mainPlanet.chromaticAberration}
         />
         <mesh
           ref={(ref) => { if (ref) meshRefs.current.blue = ref }}
@@ -214,8 +217,6 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
             samples={global.samples}
             resolution={global.resolution}
             {...bluePlanet}
-            distortion={hoveredPlanet === 1 ? bluePlanet.distortion * 2 : bluePlanet.distortion}
-            chromaticAberration={hoveredPlanet === 1 ? 1 : bluePlanet.chromaticAberration}
           />
         </mesh>
         <mesh
@@ -234,8 +235,6 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
             samples={global.samples}
             resolution={global.resolution}
             {...yellowPlanes}
-            distortion={hoveredPlanet === 2 ? yellowPlanes.distortion * 2 : yellowPlanes.distortion}
-            chromaticAberration={hoveredPlanet === 2 ? 1 : yellowPlanes.chromaticAberration}
           />
         </mesh>
         <mesh
@@ -254,8 +253,6 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
             samples={global.samples}
             resolution={global.resolution}
             {...yellowPlanes}
-            distortion={hoveredPlanet === 3 ? yellowPlanes.distortion * 2 : yellowPlanes.distortion}
-            chromaticAberration={hoveredPlanet === 3 ? 1 : yellowPlanes.chromaticAberration}
           />
         </mesh>
         <mesh
@@ -271,8 +268,6 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
             samples={global.samples}
             resolution={global.resolution}
             {...ring}
-            distortion={hoveredPlanet === 4 ? ring.distortion * 2 : ring.distortion}
-            chromaticAberration={hoveredPlanet === 4 ? 1 : ring.chromaticAberration}
           />
         </mesh>
       </mesh>
@@ -281,9 +276,10 @@ function InteractivePlanetsModel({ scale, position, onHover, hoveredPlanet }: {
 }
 
 // Main Scene Component
-export default function HeroMouseInteraction() {
+export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered = false }: { onBrightnessChange?: (brightness: number) => void, isTextHovered?: boolean }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
 
   useEffect(() => {
     const handleMouseMove = (event: MouseEvent) => {
@@ -374,7 +370,7 @@ export default function HeroMouseInteraction() {
         />
 
         {/* Interactive Model with mouse tracking */}
-        <InteractiveModel mousePosition={mousePosition} scale={1.5} />
+        <InteractiveModel mousePosition={mousePosition} scale={1.5} isTextHovered={isTextHovered} />
 
         <OrbitControls
           enableZoom={false}
