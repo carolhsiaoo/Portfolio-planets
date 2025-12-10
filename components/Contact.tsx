@@ -1,4 +1,6 @@
-export default function Contact() {
+import { memo } from 'react';
+
+const Contact = memo(function Contact() {
   const socialLinks = [
     { name: "X", url: "https://x.com/CarolXiaoo" },
     { name: "INSTAGRAM", url: "https://www.instagram.com/itscarolstudio/?next=/" },
@@ -34,4 +36,6 @@ export default function Contact() {
       </div>
     </section>
   );
-}
+});
+
+export default Contact;

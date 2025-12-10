@@ -7,8 +7,8 @@ import React, { useRef } from 'react'
 import { useGLTF, MeshTransmissionMaterial } from '@react-three/drei'
 import { useControls } from 'leva'
 
-export function Model(props) {
-  const { nodes } = useGLTF('/models/planets.glb')
+export function Model(props: any) {
+  const { nodes } = useGLTF('/models/planets.glb') as any
 
   // Leva controls for main planet
   const mainPlanet = useControls('Main Planet (Red)', {

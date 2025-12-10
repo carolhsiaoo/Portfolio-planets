@@ -6,7 +6,9 @@
       "Bash(pnpm add:*)",
       "Bash(pnpm dlx tailwindcss:*)",
       "Read(//c/Users/zhuyu/Downloads/**)",
-      "Bash(mv:*)"
+      "Bash(mv:*)",
+      "Bash(npm run build:*)",
+      "Bash(set NEXT_NO_TURBOPACK=1)"
     ],
     "deny": [],
     "ask": []

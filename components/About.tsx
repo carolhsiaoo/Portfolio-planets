@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import Image from 'next/image';
 
-export default function About() {
+const About = memo(function About() {
   return (
     <section id="about" className="py-20 px-8">
       <div className="max-w-6xl mx-auto">
@@ -27,4 +28,6 @@ export default function About() {
       </div>
     </section>
   );
-}
+});
+
+export default About;

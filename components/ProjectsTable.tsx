@@ -1,4 +1,6 @@
-export default function ProjectsTable() {
+import { memo } from 'react';
+
+const ProjectsTable = memo(function ProjectsTable() {
   const projects = [
     { name: "FireFree", type: "Development", role: "Product Design", year: "2025" },
     { name: "CoreHour", type: "Development", role: "Lead Design", year: "2025" },
@@ -50,4 +52,6 @@ export default function ProjectsTable() {
       </div>
     </section>
   );
-}
+});
+
+export default ProjectsTable;

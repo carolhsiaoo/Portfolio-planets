@@ -65,7 +65,7 @@ function ResponsiveCamera() {
 }
 
 // Interactive Model Component with mouse following and magnetic effects
-function InteractiveModel({ mousePosition, scale = 1.5, isTextHovered }: { mousePosition: { x: number, y: number }, scale?: number, isTextHovered?: boolean }) {
+function InteractiveModel({ mousePosition, scale = 1.5, isTextHovered = false }: { mousePosition: { x: number, y: number }, scale?: number, isTextHovered?: boolean }) {
   const groupRef = useRef<THREE.Group>(null)
   const planetRefs = useRef<THREE.Mesh[]>([])
   const [hoveredPlanet, setHoveredPlanet] = useState<number | null>(null)
