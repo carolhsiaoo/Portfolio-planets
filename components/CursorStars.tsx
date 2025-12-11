@@ -162,7 +162,7 @@ function StarVideo({ star }: { star: StarVideo }) {
         preload="auto"
         style={{
           mixBlendMode: 'lighten', // Better for removing black
-          filter: 'contrast(1.2) brightness(1.1)' // Enhance visibility
+          filter: 'contrast(1.2) brightness(0.95)' // Enhance visibility
         }}
       >
         <source src="/videos/star-pop.webm" type="video/webm" />

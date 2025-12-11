@@ -40,7 +40,7 @@ const ProjectsTable = memo(function ProjectsTable() {
               </div>
 
               {/* Tablet+ Table Layout */}
-              <div className="hidden md:grid grid-cols-4 gap-4 lg:gap-8 py-5 md:py-7">
+              <div className="hidden md:grid grid-cols-4 gap-4 lg:gap-8 py-6 md:py-9">
                 <div className="font-normal text-sm md:text-base">{project.name}</div>
                 <div className="text-gray-600 text-sm md:text-base">{project.type}</div>
                 <div className="text-gray-600 text-sm md:text-base">{project.role}</div>
