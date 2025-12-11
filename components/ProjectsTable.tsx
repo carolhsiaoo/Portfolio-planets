@@ -2,8 +2,8 @@ import { memo } from 'react';
 
 const ProjectsTable = memo(function ProjectsTable() {
   const projects = [
-    { name: "FireFree", type: "Website, iOS App", role: "Designer & developer", year: "2025" },
-    { name: "CoreHour", type: "Website", role: "Designer & developer", year: "2025" },
+    { name: "FireFree", type: "Web", role: "Designer & developer", year: "2025" },
+    { name: "CoreHour", type: "Web", role: "Designer & developer", year: "2025" },
     { name: "HandyTools", type: "ARVR", role: "Designer & developer", year: "2024" },
     { name: "Cleaning Service Platform", type: "Designer", role: "UI/UX Designer", year: "2023" },
     { name: "Yahoo App", type: "Mobile App", role: "UX Researcher", year: "2022" },

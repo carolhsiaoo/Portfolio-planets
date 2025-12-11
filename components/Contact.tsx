@@ -13,16 +13,16 @@ const Contact = memo(function Contact() {
   return (
     <section id="contact" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-xl sm:text-2xl mb-6 sm:mb-8 md:mb-10">Let's talk!</h2>
+        <h2 className="text-3xl font-medium mb-6 sm:mb-8 md:mb-10">Let's talk!</h2>
 
         <a
           href="mailto:carolhsiaostudio@gmail.com"
-          className="text-base sm:text-lg font-normal hover:opacity-60 transition-opacity inline-block mb-6 sm:mb-8 md:mb-10"
+          className="text-base sm:text-lg hover:opacity-60 transition-opacity inline-block mb-6 sm:mb-8 md:mb-10"
         >
           carolhsiaostudio@gmail.com
         </a>
 
-        <div className="flex flex-wrap gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm lg:text-base font-medium tracking-wider">
+        <div className="flex flex-wrap gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm lg:text-base tracking-wider">
           {socialLinks.map((link, index) => (
             <a
               key={index}
