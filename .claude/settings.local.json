@@ -8,7 +8,13 @@
       "Read(//c/Users/zhuyu/Downloads/**)",
       "Bash(mv:*)",
       "Bash(npm run build:*)",
-      "Bash(set NEXT_NO_TURBOPACK=1)"
+      "Bash(set NEXT_NO_TURBOPACK=1)",
+      "Bash(find:*)",
+      "Bash(npm run dev:*)",
+      "Bash(npx tsc:*)",
+      "Bash(del /f \"components\\CursorStars.tsx\")",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
