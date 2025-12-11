@@ -22,7 +22,7 @@ const Contact = memo(function Contact() {
           carolhsiaostudio@gmail.com
         </a>
 
-        <div className="flex flex-wrap gap-4 sm:gap-6 md:gap-8 text-[10px] sm:text-xs font-medium tracking-wider">
+        <div className="flex flex-wrap gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm lg:text-base font-medium tracking-wider">
           {socialLinks.map((link, index) => (
             <a
               key={index}

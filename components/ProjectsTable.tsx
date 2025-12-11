@@ -14,7 +14,7 @@ const ProjectsTable = memo(function ProjectsTable() {
       <div className="max-w-6xl mx-auto">
         <div>
           {/* Table Header - Hidden on mobile, shown on tablet+ */}
-          <div className="hidden md:grid grid-cols-4 gap-4 lg:gap-8 py-4 md:py-5 text-[10px] sm:text-xs font-medium text-gray-500 uppercase tracking-widest">
+          <div className="hidden md:grid grid-cols-4 gap-4 lg:gap-8 py-4 md:py-5 text-xs font-medium text-gray-500 uppercase tracking-widest">
             <div>Project</div>
             <div>Type</div>
             <div>Role</div>
@@ -41,10 +41,10 @@ const ProjectsTable = memo(function ProjectsTable() {
 
               {/* Tablet+ Table Layout */}
               <div className="hidden md:grid grid-cols-4 gap-4 lg:gap-8 py-5 md:py-7">
-                <div className="font-normal text-sm md:text-[15px]">{project.name}</div>
-                <div className="text-gray-600 text-sm md:text-[15px]">{project.type}</div>
-                <div className="text-gray-600 text-sm md:text-[15px]">{project.role}</div>
-                <div className="text-gray-600 text-sm md:text-[15px]">{project.year}</div>
+                <div className="font-normal text-sm md:text-base">{project.name}</div>
+                <div className="text-gray-600 text-sm md:text-base">{project.type}</div>
+                <div className="text-gray-600 text-sm md:text-base">{project.role}</div>
+                <div className="text-gray-600 text-sm md:text-base">{project.year}</div>
               </div>
             </div>
           ))}

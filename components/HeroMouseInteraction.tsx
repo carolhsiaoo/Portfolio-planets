@@ -2,7 +2,6 @@
 
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { OrbitControls, Environment, MeshTransmissionMaterial, useGLTF } from '@react-three/drei'
-import { useControls } from 'leva'
 import { Model } from './PlanetsModel'
 import { useState, useRef, useEffect } from 'react'
 import * as THREE from 'three'
@@ -128,78 +127,78 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
   const { nodes } = useGLTF('/models/planets.glb') as any
   const meshRefs = useRef<{ [key: string]: THREE.Mesh }>({})
 
-  // Leva controls (same as original)
-  const mainPlanet = useControls('Main Planet (Red)', {
-    transmission: { value: 1, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.17, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 0.6, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1.4, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.4, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.13, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.45, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.65, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.35, min: 0, max: 1, step: 0.01 },
+  // Material properties
+  const mainPlanet = {
+    transmission: 1,
+    roughness: 0.17,
+    thickness: 0.6,
+    ior: 1.4,
+    chromaticAberration: 0.4,
+    anisotropy: 0.13,
+    distortion: 0.45,
+    distortionScale: 0.65,
+    temporalDistortion: 0.35,
     color: '#ffffff',
-  })
+  }
 
-  // Inner planet controls
-  const innerPlanet = useControls('Inner Planet', {
-    scale: { value: 0.6, min: 0.1, max: 1.5, step: 0.05, label: 'Scale' },
-    transmission: { value: 0.65, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.25, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 2.2, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1.85, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.5, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.2, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.5, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
+  // Inner planet properties
+  const innerPlanet = {
+    scale: 0.6,
+    transmission: 0.65,
+    roughness: 0.25,
+    thickness: 2.2,
+    ior: 1.85,
+    chromaticAberration: 0.5,
+    anisotropy: 0.3,
+    distortion: 0.2,
+    distortionScale: 0.5,
+    temporalDistortion: 0.1,
     color: '#c4d8ee',
-  })
+  }
 
-  const bluePlanet = useControls('Blue Planet', {
-    transmission: { value: 0.53, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.15, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 1, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1.5, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.6, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.23, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.5, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
+  const bluePlanet = {
+    transmission: 0.53,
+    roughness: 0.15,
+    thickness: 1,
+    ior: 1.5,
+    chromaticAberration: 0.6,
+    anisotropy: 0.23,
+    distortion: 0.3,
+    distortionScale: 0.5,
+    temporalDistortion: 0.1,
     color: '#6699ff',
-  })
+  }
 
-  const yellowPlanes = useControls('Yellow Planes', {
-    transmission: { value: 0.85, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.08, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 0.2, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.07, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.03, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.1, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
+  const yellowPlanes = {
+    transmission: 0.85,
+    roughness: 0.08,
+    thickness: 0.2,
+    ior: 1,
+    chromaticAberration: 0.07,
+    anisotropy: 0.03,
+    distortion: 0.1,
+    distortionScale: 0.1,
+    temporalDistortion: 0.1,
     color: '#ffff66',
-  })
+  }
 
-  const ring = useControls('Ring', {
-    transmission: { value: 0.22, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.05, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 0.9, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1.5, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0, min: 0, max: 1, step: 0.01 },
+  const ring = {
+    transmission: 0.22,
+    roughness: 0.05,
+    thickness: 0.9,
+    ior: 1.5,
+    chromaticAberration: 0.3,
+    anisotropy: 0.3,
+    distortion: 0,
+    distortionScale: 0,
+    temporalDistortion: 0,
     color: '#98b9ff',
-  })
+  }
 
-  const global = useControls('Global', {
-    samples: { value: 16, min: 1, max: 32, step: 1 },
-    resolution: { value: 512, min: 128, max: 2048, step: 128 },
-  })
+  const global = {
+    samples: 16,
+    resolution: 512,
+  }
 
   // Apply hover effects on each frame (scale animation removed)
   useFrame((state) => {
@@ -354,26 +353,22 @@ export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered
     return () => window.removeEventListener('mousemove', handleMouseMove)
   }, [])
 
-  // Lighting controls
-  const lighting = useControls('Lighting', {
-    ambientIntensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Ambient' },
-    frontLightIntensity: { value: 3.5, min: 0, max: 5, step: 0.1, label: 'Front Light' },
-    sideLightIntensity: { value: 1.5, min: 0, max: 5, step: 0.1, label: 'Side Light' },
-    backLightIntensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Back Light' },
-    pointLight1Intensity: { value: 1.5, min: 0, max: 5, step: 0.1, label: 'Point Light 1' },
-    pointLight2Intensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Point Light 2' },
-  })
+  // Lighting settings
+  const lighting = {
+    ambientIntensity: 1,
+    frontLightIntensity: 3.5,
+    sideLightIntensity: 1.5,
+    backLightIntensity: 1,
+    pointLight1Intensity: 1.5,
+    pointLight2Intensity: 1,
+  }
 
-  // Environment controls
-  const environment = useControls('Environment', {
-    preset: {
-      value: 'studio',
-      options: ['sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
-      label: 'Preset'
-    },
-    environmentIntensity: { value: 1.2, min: 0, max: 2, step: 0.1, label: 'Intensity' },
-    blur: { value: 0.6, min: 0, max: 1, step: 0.01, label: 'Blur' },
-  })
+  // Environment settings
+  const environment = {
+    preset: 'studio' as const,
+    environmentIntensity: 1.2,
+    blur: 0.6,
+  }
 
   return (
     <div ref={containerRef} style={{ width: '100%', height: '100%', minHeight: '400px' }}>

@@ -2,36 +2,31 @@
 
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Environment } from '@react-three/drei'
-import { useControls } from 'leva'
 import { Model } from './PlanetsModel'
 
 export default function ScenePlanets() {
-  // Lighting controls
-  const lighting = useControls('Lighting', {
-    ambientIntensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Ambient' },
-    frontLightIntensity: { value: 2, min: 0, max: 5, step: 0.1, label: 'Front Light' },
-    sideLightIntensity: { value: 1.5, min: 0, max: 5, step: 0.1, label: 'Side Light' },
-    backLightIntensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Back Light' },
-    pointLight1Intensity: { value: 1.5, min: 0, max: 5, step: 0.1, label: 'Point Light 1' },
-    pointLight2Intensity: { value: 1, min: 0, max: 5, step: 0.1, label: 'Point Light 2' },
-  })
+  // Lighting settings
+  const lighting = {
+    ambientIntensity: 1,
+    frontLightIntensity: 2,
+    sideLightIntensity: 1.5,
+    backLightIntensity: 1,
+    pointLight1Intensity: 1.5,
+    pointLight2Intensity: 1,
+  }
 
-  // Environment controls
-  const environment = useControls('Environment', {
-    preset: {
-      value: 'city',
-      options: ['sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
-      label: 'Preset'
-    },
-    environmentIntensity: { value: 1, min: 0, max: 2, step: 0.1, label: 'Intensity' },
-    blur: { value: 0, min: 0, max: 1, step: 0.01, label: 'Blur' },
-  })
+  // Environment settings
+  const environment = {
+    preset: 'city' as const,
+    environmentIntensity: 1,
+    blur: 0,
+  }
 
-  // Animation controls
-  const animation = useControls('Animation', {
-    autoRotate: { value: true, label: 'Auto Rotate' },
-    autoRotateSpeed: { value: 0.5, min: -5, max: 5, step: 0.1, label: 'Rotate Speed' },
-  })
+  // Animation settings
+  const animation = {
+    autoRotate: true,
+    autoRotateSpeed: 0.5,
+  }
 
   return (
     <div style={{ width: '100%', height: '100%', minHeight: '400px' }}>

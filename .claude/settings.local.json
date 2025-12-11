@@ -14,7 +14,9 @@
       "Bash(npx tsc:*)",
       "Bash(del /f \"components\\CursorStars.tsx\")",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(mkdir:*)",
+      "Bash(pnpm install:*)"
     ],
     "deny": [],
     "ask": []
