@@ -2,11 +2,11 @@ import { memo } from 'react';
 
 const ProjectsTable = memo(function ProjectsTable() {
   const projects = [
-    { name: "FireFree", type: "Development", role: "Product Design", year: "2025" },
-    { name: "CoreHour", type: "Development", role: "Lead Design", year: "2025" },
-    { name: "HandyTools", type: "Development", role: "Web & mobile", year: "2024" },
-    { name: "Cleaning Service Platform", type: "Development", role: "UI/UX", year: "2023" },
-    { name: "Yahoo App", type: "Development", role: "Interaction", year: "2022" },
+    { name: "FireFree", type: "Website, iOS App", role: "Designer & developer", year: "2025" },
+    { name: "CoreHour", type: "Website", role: "Designer & developer", year: "2025" },
+    { name: "HandyTools", type: "ARVR", role: "Designer & developer", year: "2024" },
+    { name: "Cleaning Service Platform", type: "Designer", role: "UI/UX Designer", year: "2023" },
+    { name: "Yahoo App", type: "Mobile App", role: "UX Researcher", year: "2022" },
   ];
 
   return (
@@ -30,7 +30,7 @@ const ProjectsTable = memo(function ProjectsTable() {
               {/* Mobile Card Layout */}
               <div className="md:hidden py-5 sm:py-6">
                 <div className="font-medium text-base sm:text-lg mb-3">{project.name}</div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
+                <div className="flex items-center gap-2 text-sm">
                   <span>{project.type}</span>
                   <span className="text-gray-300">|</span>
                   <span>{project.role}</span>
@@ -42,9 +42,9 @@ const ProjectsTable = memo(function ProjectsTable() {
               {/* Tablet+ Table Layout */}
               <div className="hidden md:grid grid-cols-4 gap-8 lg:gap-16 py-5 md:py-7">
                 <div className="font-normal text-sm md:text-base text-left">{project.name}</div>
-                <div className="text-gray-600 text-sm md:text-base">{project.type}</div>
-                <div className="text-gray-600 text-sm md:text-base">{project.role}</div>
-                <div className="text-gray-600 text-sm md:text-base">{project.year}</div>
+                <div className="text-sm md:text-base">{project.type}</div>
+                <div className="text-sm md:text-base">{project.role}</div>
+                <div className="text-sm md:text-base">{project.year}</div>
               </div>
             </div>
           ))}
