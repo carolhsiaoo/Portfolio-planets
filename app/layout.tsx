@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import CursorStars from "@/components/CursorStars";
 
 export const metadata: Metadata = {
   title: "Portfolio - Planets",
@@ -14,6 +15,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased">
+        <CursorStars />
         {children}
       </body>
     </html>
