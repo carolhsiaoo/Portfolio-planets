@@ -341,7 +341,7 @@ export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered
   useEffect(() => {
     let rafId: number | null = null
     let lastTime = 0
-    const throttleMs = 16 // ~60fps max, reduce CPU load
+    const throttleMs = 33 // ~30fps, better performance with minimal UX impact
 
     const handleMouseMove = (event: MouseEvent) => {
       const currentTime = performance.now()
