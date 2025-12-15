@@ -196,8 +196,8 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
   }
 
   const global = {
-    samples: 16,
-    resolution: 512,
+    samples: 8,
+    resolution: 256,
   }
 
   // Apply hover effects on each frame (scale animation removed)
@@ -339,28 +339,52 @@ export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered
   const responsiveScale = useResponsiveScale()
 
   useEffect(() => {
+    let rafId: number | null = null
+    let lastTime = 0
+    const throttleMs = 16 // ~60fps max, reduce CPU load
+
     const handleMouseMove = (event: MouseEvent) => {
-      if (!containerRef.current) return
+      const currentTime = performance.now()
 
-      const rect = containerRef.current.getBoundingClientRect()
-      const x = ((event.clientX - rect.left) / rect.width) * 2 - 1
-      const y = -((event.clientY - rect.top) / rect.height) * 2 + 1
+      if (currentTime - lastTime < throttleMs) {
+        return // Skip if too soon
+      }
 
-      setMousePosition({ x, y })
+      if (rafId !== null) {
+        return // Already scheduled
+      }
+
+      rafId = requestAnimationFrame(() => {
+        if (!containerRef.current) {
+          rafId = null
+          return
+        }
+
+        const rect = containerRef.current.getBoundingClientRect()
+        const x = ((event.clientX - rect.left) / rect.width) * 2 - 1
+        const y = -((event.clientY - rect.top) / rect.height) * 2 + 1
+
+        setMousePosition({ x, y })
+        lastTime = currentTime
+        rafId = null
+      })
     }
 
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove)
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+      }
+    }
   }, [])
 
-  // Lighting settings
+  // Lighting settings - optimized to 4 lights total
   const lighting = {
     ambientIntensity: 1,
-    frontLightIntensity: 3.5,
-    sideLightIntensity: 1.5,
-    backLightIntensity: 1,
-    pointLight1Intensity: 1.5,
-    pointLight2Intensity: 1,
+    frontLightIntensity: 4, // Increased to compensate for removed lights
+    sideLightIntensity: 2, // Increased to compensate for removed lights
+    pointLight1Intensity: 2, // Increased to compensate for removed lights
   }
 
   // Environment settings
@@ -394,26 +418,8 @@ export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered
           color="#ffffff"
         />
 
-        {/* Back light for rim lighting */}
-        <directionalLight
-          position={[0, -5, -5]}
-          intensity={lighting.backLightIntensity}
-          color="#88ccff"
-        />
-
-        {/* Additional spotlight for main planet reflection */}
-        <spotLight
-          position={[0, 10, 10]}
-          intensity={3}
-          angle={0.6}
-          penumbra={0.5}
-          color="#ffffff"
-        />
-
-        {/* Point lights for highlights */}
+        {/* Point light for highlights - combined front highlight */}
         <pointLight position={[10, 10, 10]} intensity={lighting.pointLight1Intensity} color="#ffffff" />
-        <pointLight position={[-10, -10, -10]} intensity={lighting.pointLight2Intensity} color="#ffaacc" />
-        <pointLight position={[0, 5, 8]} intensity={2} color="#ffffff" />
 
         {/* Environment map for reflections and refractions */}
         <Environment

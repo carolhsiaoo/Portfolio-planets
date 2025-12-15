@@ -66,8 +66,8 @@ export function Model(props: any) {
 
   // Global settings
   const global = {
-    samples: 16,
-    resolution: 512,
+    samples: 8,
+    resolution: 256,
   }
 
   return (
