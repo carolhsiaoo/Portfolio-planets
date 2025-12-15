@@ -1,14 +1,33 @@
 'use client'
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import HeroMouseInteraction from "./HeroMouseInteraction";
 
 export default function Hero() {
   const [backgroundBrightness, setBackgroundBrightness] = useState(128); // 0-255
+  const [showName, setShowName] = useState(false);
+  const [showTagline, setShowTagline] = useState(false);
 
   // Determine text color based on background brightness
   // If background is bright (>127), use black text; if dark, use white text
   const textColor = backgroundBrightness > 127 ? 'text-black' : 'text-white';
+
+  useEffect(() => {
+    // Show name first
+    const nameTimer = setTimeout(() => {
+      setShowName(true);
+    }, 300);
+
+    // Show tagline after name
+    const taglineTimer = setTimeout(() => {
+      setShowTagline(true);
+    }, 900);
+
+    return () => {
+      clearTimeout(nameTimer);
+      clearTimeout(taglineTimer);
+    };
+  }, []);
 
   return (
     <section className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32 px-4 sm:px-6 md:px-8 relative min-h-[600px] sm:min-h-[700px] md:min-h-screen flex items-center justify-center">
@@ -26,14 +45,18 @@ export default function Hero() {
           <div
             className="pointer-events-auto self-center sm:self-start text-center sm:text-left"
           >
-            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-black leading-tight ${textColor} select-none transition-colors duration-300`}>
+            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-black leading-tight ${textColor} select-none transition-all duration-1000 ease-out ${
+              showName ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
+            }`}>
               Carol Hsiao
             </h1>
           </div>
 
           {/* Rest of text - Bottom Right on desktop, Bottom Center on mobile */}
           <div
-            className="pointer-events-auto self-center sm:self-end text-center flex flex-col items-center"
+            className={`pointer-events-auto self-center sm:self-end text-center flex flex-col items-center transition-all duration-1000 ease-out ${
+              showTagline ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
+            }`}
           >
             <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif mb-2 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
               Designer and Developer

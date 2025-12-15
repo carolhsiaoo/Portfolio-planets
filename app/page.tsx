@@ -4,16 +4,27 @@ import ProjectsTable from "@/components/ProjectsTable";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
+import FadeInSection from "@/components/FadeInSection";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
       <Header />
-      <Hero />
-      <ProjectsTable />
-      <About />
-      <Contact />
-      <Footer />
+      <FadeInSection>
+        <Hero />
+      </FadeInSection>
+      <FadeInSection delay={100}>
+        <ProjectsTable />
+      </FadeInSection>
+      <FadeInSection delay={100}>
+        <About />
+      </FadeInSection>
+      <FadeInSection delay={100}>
+        <Contact />
+      </FadeInSection>
+      <FadeInSection delay={100}>
+        <Footer />
+      </FadeInSection>
     </div>
   );
 }
