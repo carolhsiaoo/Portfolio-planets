@@ -7,11 +7,10 @@ const About = memo(function About() {
       <div className="max-w-6xl mx-auto">
         <h2 className="text-3xl font-medium mb-10">About</h2>
         <p className="text-base leading-relaxed mb-5">
-          I'm a product designer and creative developer of Aburi Studio based in Calgary.
+          I'm a product builder of Aburi Studio based in Calgary.
         </p>
         <p className="text-base leading-relaxed mb-12">
-          I believe the best digital experiences are those that respect people's time and attention
-          while bringing moments of unexpected delight.
+          I want to build products that create true value for users.
         </p>
 
         <div className="inline-block">
