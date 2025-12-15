@@ -217,7 +217,10 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
         rotation={[0.221, 0.142, 0.563]}
         scale={innerPlanet.scale}
         onPointerOver={(e) => { e.stopPropagation(); onHover(5) }}
-        onPointerOut={() => onHover(null)}
+        onPointerOut={(e) => {
+          // Only clear hover if we're leaving the entire group
+          if (!e.relatedTarget) onHover(null)
+        }}
       >
         <MeshTransmissionMaterial
           backside
@@ -246,7 +249,10 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
         rotation={[0.221, 0.142, 0.563]}
         scale={1.035}
         onPointerOver={() => onHover(0)}
-        onPointerOut={() => onHover(null)}
+        onPointerOut={(e) => {
+          // Only clear hover if we're leaving the entire group
+          if (!e.relatedTarget) onHover(null)
+        }}
       >
         <MeshTransmissionMaterial
           backside
@@ -266,7 +272,10 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
           rotation={[-0.262, 0, -0.579]}
           scale={1.098}
           onPointerOver={(e) => { e.stopPropagation(); onHover(1) }}
-          onPointerOut={() => onHover(null)}
+          onPointerOut={(e) => {
+            // Only clear hover if we're leaving the entire group
+            if (!e.relatedTarget) onHover(null)
+          }}
         >
           <MeshTransmissionMaterial
             backside
@@ -284,7 +293,10 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
           rotation={[1.639, -1.126, 0.77]}
           scale={0.788}
           onPointerOver={(e) => { e.stopPropagation(); onHover(2) }}
-          onPointerOut={() => onHover(null)}
+          onPointerOut={(e) => {
+            // Only clear hover if we're leaving the entire group
+            if (!e.relatedTarget) onHover(null)
+          }}
         >
           <MeshTransmissionMaterial
             backside
@@ -302,7 +314,10 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
           rotation={[1.198, -1.347, 0.09]}
           scale={0.527}
           onPointerOver={(e) => { e.stopPropagation(); onHover(3) }}
-          onPointerOut={() => onHover(null)}
+          onPointerOut={(e) => {
+            // Only clear hover if we're leaving the entire group
+            if (!e.relatedTarget) onHover(null)
+          }}
         >
           <MeshTransmissionMaterial
             backside
@@ -317,7 +332,10 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
           receiveShadow
           geometry={nodes.Sphere001.geometry}
           onPointerOver={(e) => { e.stopPropagation(); onHover(4) }}
-          onPointerOut={() => onHover(null)}
+          onPointerOut={(e) => {
+            // Only clear hover if we're leaving the entire group
+            if (!e.relatedTarget) onHover(null)
+          }}
         >
           <MeshTransmissionMaterial
             backside
@@ -326,6 +344,25 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
             {...ring}
           />
         </mesh>
+      </mesh>
+
+      {/* Invisible bounding sphere to capture hover events in gaps between planets */}
+      {/* Sized to cover all planets: yellow plane at [1.547, 0.546, -0.146], blue at [-0.171, 1.39, -0.372], etc. */}
+      <mesh
+        position={[0, 0, 0]}
+        onPointerOver={(e) => {
+          // Only trigger hover if not already hovering a planet
+          if (e.eventObject === e.object) {
+            onHover(0)
+          }
+        }}
+        onPointerOut={(e) => {
+          // Only clear hover if leaving the entire scene
+          if (!e.relatedTarget) onHover(null)
+        }}
+      >
+        <sphereGeometry args={[3, 32, 32]} />
+        <meshBasicMaterial transparent opacity={0} depthWrite={false} />
       </mesh>
     </group>
   )
