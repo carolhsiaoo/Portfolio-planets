@@ -150,7 +150,7 @@ function StaticHeroFallback() {
             imageRendering: 'crisp-edges',
             WebkitBackfaceVisibility: 'hidden',
             backfaceVisibility: 'hidden',
-            transform: 'translateZ(0) scale(1.02)',
+            transform: 'translateZ(0) scale(1.05)',
             transformOrigin: 'center center',
             border: 'none',
             outline: 'none',
