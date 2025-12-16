@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import HeroMouseInteraction from "./HeroMouseInteraction";
+import AdaptiveHeroMouseInteraction from "./AdaptiveHeroMouseInteraction";
 
 export default function Hero() {
   const [backgroundBrightness, setBackgroundBrightness] = useState(128); // 0-255
@@ -31,10 +31,10 @@ export default function Hero() {
 
   return (
     <section className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32 px-4 sm:px-6 md:px-8 relative min-h-[600px] sm:min-h-[700px] md:min-h-screen flex items-center justify-center">
-      {/* 3D Planets Model - Behind text (z-index 0) */}
+      {/* 3D Planets Model - Behind text (z-index 0) - Adaptive based on device performance */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-0">
         <div className="w-full h-full sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] lg:w-[1000px] lg:h-[1000px]">
-          <HeroMouseInteraction onBrightnessChange={setBackgroundBrightness} />
+          <AdaptiveHeroMouseInteraction />
         </div>
       </div>
 
