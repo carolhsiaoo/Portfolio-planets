@@ -33,30 +33,31 @@ export default function Hero() {
     <section className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32 relative min-h-[600px] sm:min-h-[700px] md:min-h-screen flex items-center justify-center overflow-x-hidden">
       {/* 3D Planets Model - Behind text (z-index 0) - Adaptive based on device performance */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-0">
-        <div className="w-full h-full sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] lg:w-[1000px] lg:h-[1000px]">
+        <div className="w-full h-full sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] lg:w-[1000px] lg:h-[1000px]" style={{ willChange: 'auto' }}>
           <AdaptiveHeroMouseInteraction />
         </div>
       </div>
 
       {/* Hero Content - Split layout with header-matching width */}
-      <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
+      <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden" style={{ transform: 'translateZ(0)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-full flex flex-col justify-center sm:justify-between gap-80 sm:gap-0 py-12 sm:py-20 md:py-24">
           {/* Carol Hsiao - Top Left on desktop, Top Center on mobile */}
           <div
-            className="pointer-events-auto self-center sm:self-start text-center sm:text-left"
+            className="pointer-events-auto self-center sm:self-start text-center sm:text-left will-change-transform"
           >
             <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-black leading-tight ${textColor} select-none transition-all duration-1000 ease-out ${
               showName ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
-            }`}>
+            }`} style={{ willChange: 'transform, opacity' }}>
               Carol Hsiao
             </h1>
           </div>
 
           {/* Rest of text - Bottom Right on desktop, Bottom Center on mobile */}
           <div
-            className={`pointer-events-auto self-center sm:self-end text-center flex flex-col items-center transition-all duration-1000 ease-out ${
+            className={`pointer-events-auto self-center sm:self-end text-center flex flex-col items-center transition-all duration-1000 ease-out will-change-transform ${
               showTagline ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
             }`}
+            style={{ willChange: 'transform, opacity' }}
           >
             <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif mb-2 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
               Designer and Developer
