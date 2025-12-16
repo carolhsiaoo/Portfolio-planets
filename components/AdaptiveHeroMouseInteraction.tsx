@@ -102,58 +102,37 @@ function LoadingPlaceholder() {
 }
 
 /**
- * CSS-only animated fallback for low-end devices
- * Uses pure CSS animations - no JavaScript, no WebGL, no 3D
+ * Video fallback for low-end devices
+ * Uses pre-recorded video of the 3D scene - same visual, better performance
  */
 function StaticHeroFallback() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center z-0 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
-      {/* Animated gradient orbs - floating animation */}
-      <div className="absolute inset-0">
-        {/* Large purple orb - floats up and down */}
-        <div
-          className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/40 rounded-full blur-3xl"
-          style={{
-            animation: 'float 8s ease-in-out infinite',
-          }}
-        />
+    <div className="absolute inset-0 flex items-center justify-center z-0 overflow-hidden bg-black">
+      {/* Video background - shows the actual 3D planets animation */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ opacity: 1 }}
+      >
+        {/* WebM for modern browsers (smaller file size - 2.5MB) */}
+        <source src="/videos/hero-planets.webm" type="video/webm" />
+        {/* MP4 fallback for Safari (7.7MB) */}
+        <source src="/videos/hero-planets.mp4" type="video/mp4" />
 
-        {/* Large blue orb - floats opposite direction */}
-        <div
-          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-300/40 rounded-full blur-3xl"
-          style={{
-            animation: 'float 8s ease-in-out infinite reverse',
-            animationDelay: '2s',
-          }}
-        />
+        {/* Fallback for browsers that don't support video */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-300/40 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-300/40 rounded-full blur-3xl animate-pulse" />
+        </div>
+      </video>
 
-        {/* Small pink accent orb */}
-        <div
-          className="absolute top-1/2 right-1/3 w-64 h-64 bg-pink-200/30 rounded-full blur-2xl"
-          style={{
-            animation: 'float 6s ease-in-out infinite',
-            animationDelay: '1s',
-          }}
-        />
+      {/* Optional: Performance indicator (you can remove this later) */}
+      <div className="absolute bottom-4 right-4 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm">
+        Video Mode (Optimized)
       </div>
-
-      {/* Add keyframes for floating animation */}
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% {
-            transform: translateY(0px) translateX(0px);
-          }
-          25% {
-            transform: translateY(-20px) translateX(10px);
-          }
-          50% {
-            transform: translateY(0px) translateX(20px);
-          }
-          75% {
-            transform: translateY(20px) translateX(10px);
-          }
-        }
-      `}</style>
     </div>
   );
 }
