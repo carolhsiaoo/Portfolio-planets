@@ -107,7 +107,10 @@ function LoadingPlaceholder() {
  */
 function StaticHeroFallback() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center z-0 overflow-hidden bg-white">
+    <div
+      className="absolute inset-0 flex items-center justify-center z-0 overflow-hidden"
+      style={{ backgroundColor: '#faf8f5' }}
+    >
       {/* Video background - shows the actual 3D planets animation */}
       <div className="absolute inset-0 flex items-center justify-center">
         <video
@@ -115,8 +118,15 @@ function StaticHeroFallback() {
           loop
           muted
           playsInline
+          preload="auto"
           className="w-full sm:w-[600px] md:w-[800px] lg:w-[1000px] h-auto object-contain"
-          style={{ maxHeight: '100%' }}
+          style={{
+            maxHeight: '100%',
+            imageRendering: 'crisp-edges',
+            WebkitBackfaceVisibility: 'hidden',
+            backfaceVisibility: 'hidden',
+            transform: 'translateZ(0)',
+          }}
         >
           {/* WebM for modern browsers (smaller file size - 2.5MB) */}
           <source src="/videos/hero-planets.webm" type="video/webm" />

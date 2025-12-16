@@ -227,7 +227,7 @@ export default function RecordPage() {
   }, [])
 
   return (
-    <div className="w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
+    <div className="w-screen h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#faf8f5' }}>
       {!isReady ? (
         <div className="text-black text-center">
           <h1 className="text-6xl font-bold mb-4">Recording Scene Ready</h1>
