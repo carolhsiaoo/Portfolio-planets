@@ -145,12 +145,10 @@ function StaticHeroFallback() {
           className="w-full sm:w-[600px] md:w-[800px] lg:w-[1000px] h-auto object-contain"
           style={{
             maxHeight: '100%',
-            imageRendering: 'auto',
-            filter: 'contrast(1.05) saturate(1.1)',
+            imageRendering: 'crisp-edges',
             WebkitBackfaceVisibility: 'hidden',
             backfaceVisibility: 'hidden',
-            transform: 'translateZ(0) scale(1.001)',
-            willChange: 'transform',
+            transform: 'translateZ(0)',
           }}
         >
           {/* WebM for modern browsers (smaller file size - 2.5MB) */}
