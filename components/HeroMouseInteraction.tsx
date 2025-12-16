@@ -170,16 +170,16 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
   }
 
   const yellowPlanes = {
-    transmission: 0.85,
-    roughness: 0.08,
-    thickness: 0.2,
-    ior: 1,
+    transmission: 0.07,
+    roughness: 0.37,
+    thickness: 0.9,
+    ior: 1.15,
     chromaticAberration: 0.07,
     anisotropy: 0.03,
     distortion: 0.1,
     distortionScale: 0.1,
     temporalDistortion: 0.1,
-    color: '#ffff66',
+    color: '#b9b948',
   }
 
   const ring = {
