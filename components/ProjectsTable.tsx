@@ -10,8 +10,8 @@ const ProjectsTable = memo(function ProjectsTable() {
   ];
 
   return (
-    <section id="work" className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 md:px-8">
-      <div className="max-w-6xl mx-auto">
+    <section id="work" className="py-12 sm:py-16 md:py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <div>
           {/* Table Header - Hidden on mobile, shown on tablet+ */}
           <div className="hidden md:grid grid-cols-4 gap-8 lg:gap-16 py-4 md:py-5 text-xs font-medium text-gray-500 uppercase tracking-widest">

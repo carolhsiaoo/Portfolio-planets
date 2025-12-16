@@ -3,8 +3,8 @@ import Image from 'next/image';
 
 const About = memo(function About() {
   return (
-    <section id="about" className="py-20 px-8">
-      <div className="max-w-6xl mx-auto">
+    <section id="about" className="py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <h2 className="text-3xl font-medium mb-10">About</h2>
         <p className="text-base leading-relaxed mb-5">
           I'm a product builder of Aburi Studio based in Calgary.
