@@ -2,7 +2,6 @@
 
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Environment, MeshTransmissionMaterial, useGLTF } from '@react-three/drei'
-import { useControls } from 'leva'
 import { useRef, useState, useEffect } from 'react'
 import * as THREE from 'three'
 
@@ -23,77 +22,77 @@ function InteractivePlanetsModel() {
   const { nodes } = useGLTF('/models/planets.glb') as any
   const groupRef = useRef<THREE.Group>(null)
 
-  // Leva controls for main planet - ADJUSTABLE IN REAL-TIME
-  const mainPlanet = useControls('Main Planet (Red)', {
-    transmission: { value: 1, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.17, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 0.6, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1.4, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.4, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.13, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.45, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.65, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.35, min: 0, max: 1, step: 0.01 },
+  // Material properties - optimized for video recording
+  const mainPlanet = {
+    transmission: 1,
+    roughness: 0.17,
+    thickness: 0.6,
+    ior: 1.4,
+    chromaticAberration: 0.4,
+    anisotropy: 0.13,
+    distortion: 0.45,
+    distortionScale: 0.65,
+    temporalDistortion: 0.35,
     color: '#ffffff',
-  })
+  }
 
-  const innerPlanet = useControls('Inner Planet', {
-    scale: { value: 0.6, min: 0.1, max: 1.5, step: 0.05 },
-    transmission: { value: 0.65, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.25, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 2.2, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1.85, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.5, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.2, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.5, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
+  const innerPlanet = {
+    scale: 0.6,
+    transmission: 0.65,
+    roughness: 0.25,
+    thickness: 2.2,
+    ior: 1.85,
+    chromaticAberration: 0.5,
+    anisotropy: 0.3,
+    distortion: 0.2,
+    distortionScale: 0.5,
+    temporalDistortion: 0.1,
     color: '#c4d8ee',
-  })
+  }
 
-  const bluePlanet = useControls('Blue Planet', {
-    transmission: { value: 0.53, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.15, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 1, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1.5, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.6, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.23, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.5, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
+  const bluePlanet = {
+    transmission: 0.53,
+    roughness: 0.15,
+    thickness: 1,
+    ior: 1.5,
+    chromaticAberration: 0.6,
+    anisotropy: 0.23,
+    distortion: 0.3,
+    distortionScale: 0.5,
+    temporalDistortion: 0.1,
     color: '#6699ff',
-  })
+  }
 
-  const yellowPlanes = useControls('Yellow Planes', {
-    transmission: { value: 0.85, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.08, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 0.2, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.07, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.03, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0.1, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0.1, min: 0, max: 1, step: 0.01 },
-    color: '#ffff66',
-  })
+  const yellowPlanes = {
+    transmission: 0.07,
+    roughness: 0.37,
+    thickness: 0.9,
+    ior: 1.15,
+    chromaticAberration: 0.07,
+    anisotropy: 0.03,
+    distortion: 0.1,
+    distortionScale: 0.1,
+    temporalDistortion: 0.1,
+    color: '#b9b948',
+  }
 
-  const ring = useControls('Ring', {
-    transmission: { value: 0.22, min: 0, max: 1, step: 0.01 },
-    roughness: { value: 0.05, min: 0, max: 1, step: 0.01 },
-    thickness: { value: 0.9, min: 0, max: 5, step: 0.1 },
-    ior: { value: 1.5, min: 1, max: 2.5, step: 0.05 },
-    chromaticAberration: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    anisotropy: { value: 0.3, min: 0, max: 1, step: 0.01 },
-    distortion: { value: 0, min: 0, max: 1, step: 0.01 },
-    distortionScale: { value: 0, min: 0, max: 1, step: 0.01 },
-    temporalDistortion: { value: 0, min: 0, max: 1, step: 0.01 },
+  const ring = {
+    transmission: 0.22,
+    roughness: 0.05,
+    thickness: 0.9,
+    ior: 1.5,
+    chromaticAberration: 0.3,
+    anisotropy: 0.3,
+    distortion: 0,
+    distortionScale: 0,
+    temporalDistortion: 0,
     color: '#98b9ff',
-  })
+  }
 
-  const global = useControls('Global', {
-    samples: { value: 16, min: 1, max: 32, step: 1, label: 'Samples (Quality)' },
-    resolution: { value: 512, min: 128, max: 2048, step: 128, label: 'Resolution' },
-  })
+  const global = {
+    samples: 16, // Higher quality for recording
+    resolution: 512, // Higher resolution for recording
+  }
 
   // Smooth continuous rotation for video
   useFrame((state, delta) => {
@@ -230,41 +229,15 @@ export default function RecordPage() {
   return (
     <div className="w-screen h-screen flex items-center justify-center overflow-hidden" style={{ backgroundColor: '#faf8f5' }}>
       {!isReady ? (
-        <div className="text-black text-center max-w-3xl mx-auto px-4">
-          <h1 className="text-6xl font-bold mb-4">🎬 High-Quality Recording Setup</h1>
-          <p className="text-3xl mb-8 font-bold text-red-600">Starting in {countdown}...</p>
-
-          <div className="bg-black/5 rounded-2xl p-8 mb-6">
-            <h2 className="text-2xl font-bold mb-4">⚙️ IMPORTANT: Quality Settings</h2>
-            <div className="text-left space-y-4 text-base">
-              <div className="bg-red-50 border-2 border-red-500 rounded-lg p-4">
-                <p className="font-bold text-lg mb-2">🚨 For MAXIMUM Quality:</p>
-                <p>• Use <strong>QuickTime Player</strong> (not Cmd+Shift+5)</p>
-                <p>• File → New Screen Recording</p>
-                <p>• Options → Quality: <strong>High</strong></p>
-                <p>• Record ONLY this browser window (not full screen)</p>
-              </div>
-
-              <div className="border-2 border-blue-500 rounded-lg p-4 bg-blue-50">
-                <p className="font-bold text-lg mb-2">📹 Recording Specs:</p>
-                <p>• <strong>Resolution:</strong> 1920x1080 minimum</p>
-                <p>• <strong>Frame Rate:</strong> 60 FPS (or 30 FPS minimum)</p>
-                <p>• <strong>Duration:</strong> 15-20 seconds (one full rotation)</p>
-                <p>• <strong>Format:</strong> MOV or MP4</p>
-                <p>• <strong>Expected file size:</strong> 15-30MB (that's good!)</p>
-              </div>
-
-              <div className="border-2 border-green-500 rounded-lg p-4 bg-green-50">
-                <p className="font-bold text-lg mb-2">✅ Checklist:</p>
-                <p>✓ QuickTime open and ready</p>
-                <p>✓ Quality set to High</p>
-                <p>✓ Browser window maximized</p>
-                <p>✓ Recording will start in {countdown} seconds</p>
-              </div>
-            </div>
+        <div className="text-black text-center">
+          <h1 className="text-6xl font-bold mb-4">Recording Scene Ready</h1>
+          <p className="text-2xl mb-8">Starting in {countdown}...</p>
+          <div className="text-sm text-gray-600 max-w-md mx-auto space-y-2">
+            <p>• Start your screen recording software now</p>
+            <p>• Record for 15-20 seconds (one full rotation)</p>
+            <p>• Use 1920x1080 resolution</p>
+            <p>• Scene will auto-rotate smoothly</p>
           </div>
-
-          <p className="text-sm text-gray-500">Scene will auto-rotate smoothly • Perfect for looping</p>
         </div>
       ) : (
         <div className="w-full h-full">
