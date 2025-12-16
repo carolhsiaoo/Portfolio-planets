@@ -52,4 +52,11 @@ html {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  /* Safari-specific fixes for video transparency */
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+  /* Force hardware acceleration for better rendering */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  will-change: opacity;
 }
