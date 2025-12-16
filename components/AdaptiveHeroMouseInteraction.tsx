@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { detectPerformanceTier, getPerformanceSettings, FPSMonitor } from '@/utils/detectPerformance';
 import HeroMouseInteraction from './HeroMouseInteraction';
 
@@ -106,6 +106,28 @@ function LoadingPlaceholder() {
  * Uses pre-recorded video of the 3D scene - same visual, better performance
  */
 function StaticHeroFallback() {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Ensure video loops properly
+    const handleEnded = () => {
+      video.currentTime = 0;
+      video.play().catch(err => console.log('Video play error:', err));
+    };
+
+    video.addEventListener('ended', handleEnded);
+
+    // Auto-play on mount
+    video.play().catch(err => console.log('Video autoplay error:', err));
+
+    return () => {
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, []);
+
   return (
     <div
       className="absolute inset-0 flex items-center justify-center z-0 overflow-hidden"
@@ -114,6 +136,7 @@ function StaticHeroFallback() {
       {/* Video background - shows the actual 3D planets animation */}
       <div className="absolute inset-0 flex items-center justify-center">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
@@ -141,10 +164,6 @@ function StaticHeroFallback() {
         </video>
       </div>
 
-      {/* Optional: Performance indicator (you can remove this later) */}
-      <div className="absolute bottom-4 right-4 bg-black/50 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm">
-        Video Mode (Optimized)
-      </div>
     </div>
   );
 }
