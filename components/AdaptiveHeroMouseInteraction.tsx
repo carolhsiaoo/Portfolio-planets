@@ -134,7 +134,7 @@ function StaticHeroFallback() {
       style={{ backgroundColor: '#faf8f5' }}
     >
       {/* Video background - shows the actual 3D planets animation */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
         <video
           ref={videoRef}
           autoPlay
@@ -142,13 +142,15 @@ function StaticHeroFallback() {
           muted
           playsInline
           preload="auto"
-          className="w-full h-full sm:w-[600px] sm:h-auto md:w-[800px] lg:w-[1000px] object-cover sm:object-contain"
+          className="min-w-full min-h-full sm:min-w-0 sm:min-h-0 sm:w-[600px] md:w-[800px] lg:w-[1000px] object-contain"
           style={{
-            maxHeight: '100%',
+            width: '100%',
+            height: '100%',
+            maxHeight: 'none',
             imageRendering: 'crisp-edges',
             WebkitBackfaceVisibility: 'hidden',
             backfaceVisibility: 'hidden',
-            transform: 'translateZ(0)',
+            transform: 'translateZ(0) scale(1.05)',
           }}
         >
           {/* WebM for modern browsers (smaller file size - 2.5MB) */}
