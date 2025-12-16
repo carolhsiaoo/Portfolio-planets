@@ -6,12 +6,15 @@
   --foreground: #1a1a1a;
 }
 
+html,
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  max-width: 100vw;
 }
 
 .font-serif {
