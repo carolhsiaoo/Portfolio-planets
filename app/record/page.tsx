@@ -227,12 +227,12 @@ export default function RecordPage() {
   }, [])
 
   return (
-    <div className="w-screen h-screen bg-black flex items-center justify-center overflow-hidden">
+    <div className="w-screen h-screen bg-white flex items-center justify-center overflow-hidden">
       {!isReady ? (
-        <div className="text-white text-center">
+        <div className="text-black text-center">
           <h1 className="text-6xl font-bold mb-4">Recording Scene Ready</h1>
           <p className="text-2xl mb-8">Starting in {countdown}...</p>
-          <div className="text-sm text-gray-400 max-w-md mx-auto space-y-2">
+          <div className="text-sm text-gray-600 max-w-md mx-auto space-y-2">
             <p>• Start your screen recording software now</p>
             <p>• Record for 15-20 seconds (one full rotation)</p>
             <p>• Use 1920x1080 resolution</p>
@@ -244,7 +244,7 @@ export default function RecordPage() {
           <Canvas
             camera={{ position: [0, 0, 8], fov: 45 }}
             gl={{
-              alpha: false,
+              alpha: true,
               antialias: true,
               powerPreference: 'high-performance',
             }}
