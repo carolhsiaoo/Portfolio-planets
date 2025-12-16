@@ -13,10 +13,20 @@ export default function CursorStars() {
   const [stars, setStars] = useState<StarVideo[]>([])
   const nextIdRef = useRef(0)
   const videoPoolRef = useRef<HTMLVideoElement[]>([])
+  const [isSafari, setIsSafari] = useState(false)
 
+  // Detect Safari and disable effect
+  useEffect(() => {
+    const ua = navigator.userAgent.toLowerCase()
+    const isSafariBrowser = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('chromium')
+    setIsSafari(isSafariBrowser)
+  }, [])
 
   // Preload video into pool
   useEffect(() => {
+    // Skip preloading for Safari
+    if (isSafari) return
+
     // Create a pool of 5 video elements for reuse
     for (let i = 0; i < 5; i++) {
       const video = document.createElement('video')
@@ -35,9 +45,12 @@ export default function CursorStars() {
       })
       videoPoolRef.current = []
     }
-  }, [])
+  }, [isSafari])
 
   useEffect(() => {
+    // Disable effect for Safari
+    if (isSafari) return
+
     let timeout: NodeJS.Timeout | null = null
     let lastX = 0
     let lastY = 0
@@ -119,7 +132,7 @@ export default function CursorStars() {
       clearInterval(cleanupInterval)
       if (timeout) clearTimeout(timeout)
     }
-  }, [])
+  }, [isSafari])
 
   return (
     <div className="fixed inset-0 pointer-events-none z-100">
@@ -132,16 +145,6 @@ export default function CursorStars() {
 
 function StarVideo({ star }: { star: StarVideo }) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const [isSafari, setIsSafari] = useState(false)
-  const animationFrameRef = useRef<number>()
-
-  // Detect Safari
-  useEffect(() => {
-    const ua = navigator.userAgent.toLowerCase()
-    const isSafariBrowser = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('chromium')
-    setIsSafari(isSafariBrowser)
-  }, [])
 
   useEffect(() => {
     if (videoRef.current) {
@@ -151,56 +154,8 @@ function StarVideo({ star }: { star: StarVideo }) {
       videoRef.current.play().catch(() => {
         // Ignore autoplay errors
       })
-
-      // For Safari, use canvas to remove black background
-      if (isSafari && canvasRef.current) {
-        const video = videoRef.current
-        const canvas = canvasRef.current
-        const ctx = canvas.getContext('2d', { willReadFrequently: false })
-
-        if (ctx) {
-          const drawFrame = () => {
-            if (!video.paused && !video.ended) {
-              ctx.clearRect(0, 0, canvas.width, canvas.height)
-              ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
-
-              // Get image data and make black pixels transparent
-              const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-              const data = imageData.data
-
-              for (let i = 0; i < data.length; i += 4) {
-                const r = data[i]
-                const g = data[i + 1]
-                const b = data[i + 2]
-
-                // If pixel is dark (black-ish), make it transparent
-                const brightness = (r + g + b) / 3
-                if (brightness < 30) {
-                  data[i + 3] = 0 // Set alpha to 0
-                } else {
-                  // Keep original alpha but enhance bright pixels
-                  data[i + 3] = Math.min(255, data[i + 3] * 1.1)
-                }
-              }
-
-              ctx.putImageData(imageData, 0, 0)
-              animationFrameRef.current = requestAnimationFrame(drawFrame)
-            }
-          }
-
-          video.addEventListener('play', () => {
-            drawFrame()
-          })
-        }
-      }
     }
-
-    return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current)
-      }
-    }
-  }, [isSafari])
+  }, [])
 
   return (
     <div
@@ -212,42 +167,20 @@ function StarVideo({ star }: { star: StarVideo }) {
         height: '150px'
       }}
     >
-      {isSafari ? (
-        <>
-          <video
-            ref={videoRef}
-            playsInline
-            muted
-            preload="auto"
-            style={{ display: 'none' }}
-          >
-            <source src="/videos/star-pop.webm" type="video/webm" />
-            <source src="/videos/star-pop.mp4" type="video/mp4" />
-          </video>
-          <canvas
-            ref={canvasRef}
-            width={150}
-            height={150}
-            className="star-video"
-            style={{ opacity: 0.95 }}
-          />
-        </>
-      ) : (
-        <video
-          ref={videoRef}
-          className="star-video"
-          playsInline
-          muted
-          preload="auto"
-          style={{
-            mixBlendMode: 'screen',
-            opacity: 0.95
-          }}
-        >
-          <source src="/videos/star-pop.webm" type="video/webm" />
-          <source src="/videos/star-pop.mp4" type="video/mp4" />
-        </video>
-      )}
+      <video
+        ref={videoRef}
+        className="star-video"
+        playsInline
+        muted
+        preload="auto"
+        style={{
+          mixBlendMode: 'screen',
+          opacity: 0.95
+        }}
+      >
+        <source src="/videos/star-pop.webm" type="video/webm" />
+        <source src="/videos/star-pop.mp4" type="video/mp4" />
+      </video>
     </div>
   )
 }
