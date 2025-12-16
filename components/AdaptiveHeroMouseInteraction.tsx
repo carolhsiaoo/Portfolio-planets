@@ -142,13 +142,13 @@ function StaticHeroFallback() {
           muted
           playsInline
           preload="auto"
-          className="w-full sm:w-[600px] md:w-[800px] lg:w-[1000px] h-auto object-contain"
+          className="w-[115%] sm:w-[600px] md:w-[800px] lg:w-[1000px] h-auto object-contain"
           style={{
-            maxHeight: '100%',
+            maxHeight: '115%',
             imageRendering: 'crisp-edges',
             WebkitBackfaceVisibility: 'hidden',
             backfaceVisibility: 'hidden',
-            transform: 'translateZ(0) scale(1.15)',
+            transform: 'translateZ(0)',
           }}
         >
           {/* WebM for modern browsers (smaller file size - 2.5MB) */}
