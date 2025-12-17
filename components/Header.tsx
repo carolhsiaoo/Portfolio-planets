@@ -42,9 +42,7 @@ const Header = memo(function Header() {
       >
         <div className="flex items-center gap-1.5 sm:gap-2">
           <span className="transition-colors duration-500 text-black text-lg sm:text-xl md:text-2xl">✦</span>
-          <span className={`font-bold text-sm sm:text-base md:text-lg lg:text-xl tracking-wide transition-colors duration-500 text-black ${
-            isScrolled ? 'hidden min-[425px]:inline' : 'hidden min-[375px]:inline'
-          }`}>CAROL HSIAO</span>
+          <span className={`font-bold text-sm sm:text-base md:text-lg lg:text-xl tracking-wide transition-colors duration-500 text-black hidden min-[425px]:inline`}>CAROL HSIAO</span>
         </div>
 
         <nav className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-10">
