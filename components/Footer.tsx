@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 const Footer = memo(function Footer() {
   return (
-    <footer className="py-20 mt-20 bg-black text-white rounded-tl-[150px] rounded-tr-[150px]">
+    <footer id="contact" className="py-20 mt-20 bg-black text-white rounded-tl-[150px] rounded-tr-[150px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Let's talk section */}
         <div className="text-center mb-12">
