@@ -19,9 +19,7 @@ export default function Home() {
       <FadeInSection delay={100}>
         <About />
       </FadeInSection>
-      <FadeInSection delay={100}>
-        <Contact />
-      </FadeInSection>
+
       <FadeInSection delay={100}>
         <Footer />
       </FadeInSection>
