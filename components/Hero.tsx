@@ -45,7 +45,7 @@ export default function Hero() {
           <div
             className="pointer-events-auto self-center sm:self-start text-center sm:text-left will-change-transform"
           >
-            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-serif font-black leading-tight ${textColor} select-none transition-all duration-1000 ease-out ${
+            <h1 className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-sans font-black leading-tight ${textColor} select-none transition-all duration-1000 ease-out ${
               showName ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
             }`} style={{ willChange: 'transform, opacity' }}>
               Carol Hsiao
@@ -59,15 +59,15 @@ export default function Hero() {
             }`}
             style={{ willChange: 'transform, opacity' }}
           >
-            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif mb-2 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
+            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-sans font-bold mb-2 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
               Designer and Developer
             </p>
-            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif mb-2 flex items-center justify-center gap-2 sm:gap-3 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
+            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-sans font-bold mb-2 flex items-center justify-center gap-2 sm:gap-3 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
               <span className="text-lg sm:text-xl md:text-2xl">◆</span>
               Product Builder
               <span className="text-lg sm:text-xl md:text-2xl">◆</span>
             </p>
-            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-serif leading-relaxed ${textColor} select-none transition-colors duration-300`}>
+            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-sans font-bold leading-relaxed ${textColor} select-none transition-colors duration-300`}>
               Currently Building @FireFree
             </p>
           </div>
