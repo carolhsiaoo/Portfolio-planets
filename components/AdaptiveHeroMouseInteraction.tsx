@@ -15,24 +15,13 @@ export default function AdaptiveHeroMouseInteraction() {
     const tier = detectPerformanceTier();
     const settings = getPerformanceSettings(tier);
 
-    console.log('===========================================');
-    console.log('[Performance Detection]');
-    console.log('Detected tier:', tier);
-    console.log('Settings:', settings);
-    console.log('CPU Cores:', navigator.hardwareConcurrency);
-    console.log('Device Memory:', (navigator as any).deviceMemory, 'GB');
-    console.log('User Agent:', navigator.userAgent);
-    console.log('===========================================');
-
     // For low-end devices (potato or low tier), show CSS animation only - NO 3D
     if (tier === 'potato' || tier === 'low') {
-      console.log('🎨 [Performance] Low-end device detected - Using CSS animation instead of 3D');
       setShowFallback(true);
       return;
     }
 
     // For medium/high, load 3D scene
-    console.log('🚀 [Performance] Loading 3D scene...');
     setShouldLoad(true);
 
     // Monitor FPS and downgrade to CSS if performance is bad
@@ -40,12 +29,9 @@ export default function AdaptiveHeroMouseInteraction() {
     let lowFPSCount = 0;
 
     monitor.onFPSUpdate((fps) => {
-      console.log('[Performance] Current FPS:', fps);
-
       if (fps < 20) {
         lowFPSCount++;
         if (lowFPSCount >= 3) {
-          console.warn('⚠️ [Performance] FPS too low (<20 for 3+ seconds) - Switching to CSS animation');
           setShowFallback(true);
         }
       } else {
