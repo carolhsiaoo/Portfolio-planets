@@ -32,8 +32,8 @@ export default function Hero() {
   return (
     <section className="pt-24 sm:pt-32 md:pt-40 pb-16 sm:pb-24 md:pb-32 relative min-h-[600px] sm:min-h-[700px] md:min-h-screen flex items-center justify-center overflow-x-hidden">
       {/* 3D Planets Model - Behind text (z-index 0) - Adaptive based on device performance */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-0">
-        <div className="w-full h-full sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] lg:w-[1000px] lg:h-[1000px]" style={{ willChange: 'auto' }}>
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-0 overflow-hidden">
+        <div className="w-full h-full sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] lg:w-[min(1000px,90vw)] lg:h-[1000px]" style={{ willChange: 'auto' }}>
           <AdaptiveHeroMouseInteraction />
         </div>
       </div>

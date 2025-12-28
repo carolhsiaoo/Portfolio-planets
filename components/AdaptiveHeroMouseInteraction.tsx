@@ -131,8 +131,7 @@ function StaticHeroFallback() {
           className="w-full sm:w-[600px] md:w-[800px] lg:w-[1000px] h-auto object-contain"
           style={{
             maxHeight: '100%',
-            minWidth: '100%',
-            minHeight: '100%',
+            maxWidth: '100%',
             imageRendering: 'crisp-edges',
             WebkitBackfaceVisibility: 'hidden',
             backfaceVisibility: 'hidden',

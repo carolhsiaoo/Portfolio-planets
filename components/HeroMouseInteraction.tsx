@@ -432,7 +432,7 @@ export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered
   }
 
   return (
-    <div ref={containerRef} style={{ width: '100%', height: '100%', minHeight: '400px' }}>
+    <div ref={containerRef} style={{ width: '100%', height: '100%', minHeight: '400px', maxWidth: '100%', overflow: 'hidden' }}>
       <Canvas
         camera={{ position: [0, 0, 8], fov: 45 }}
         gl={{ alpha: true, antialias: true }}
