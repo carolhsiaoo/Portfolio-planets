@@ -12,10 +12,10 @@ const Footer = memo(function Footer() {
             <span className="text-3xl sm:text-4xl">✦</span>
           </h2>
           <a
-            href="mailto:hello@carolhsiao.com"
+            href="mailto:carolhsiaostudio@gmail.com"
             className="text-2xl sm:text-3xl md:text-4xl hover:opacity-70 transition-opacity"
           >
-            hello@carolhsiao.com
+            carolhsiaostudio@gmail.com
           </a>
         </div>
 
@@ -65,7 +65,7 @@ const Footer = memo(function Footer() {
 
         {/* Bottom row */}
         <div className="flex justify-between items-center text-xs sm:text-sm lg:text-base border-t border-gray-800 pt-8">
-          <div>Made with nuts 🌰 by Carol Hsiao.</div>
+          <div>Made with nuts 🌰 by Carol.</div>
           <div className="text-right">© 2025 All rights reserved</div>
         </div>
       </div>
