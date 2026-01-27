@@ -6,7 +6,7 @@ const About = memo(function About() {
     <section id="about" className="py-12 sm:py-16 md:py-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 text-center flex flex-col items-center">
         {/* About heading with stars */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-inter font-medium mb-8 sm:mb-10 md:mb-12 flex items-center justify-center gap-4">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-cinzel font-medium mb-8 sm:mb-10 md:mb-12 flex items-center justify-center gap-4">
           <span className="text-3xl sm:text-4xl">✦</span>
           About
           <span className="text-3xl sm:text-4xl">✦</span>

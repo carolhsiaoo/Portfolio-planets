@@ -1,4 +1,6 @@
 import { memo } from 'react';
+import { RiTwitterXFill } from 'react-icons/ri';
+import { FaInstagram, FaLinkedin, FaDribbble, FaGithub } from 'react-icons/fa';
 
 const Footer = memo(function Footer() {
   return (
@@ -6,60 +8,65 @@ const Footer = memo(function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Let's talk section */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-inter font-medium mb-8 flex items-center justify-center gap-4">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-cinzel font-medium mb-8 flex items-center justify-center gap-4">
             <span className="text-3xl sm:text-4xl">✦</span>
             Let's talk!
             <span className="text-3xl sm:text-4xl">✦</span>
           </h2>
           <a
             href="mailto:carolhsiaostudio@gmail.com"
-            className="text-2xl sm:text-3xl md:text-4xl font-inter font-normal hover:opacity-70 transition-opacity"
+            className="text-2xl sm:text-3xl md:text-4xl font-cinzel font-normal hover:opacity-70 transition-opacity"
           >
             carolhsiaostudio@gmail.com
           </a>
         </div>
 
         {/* Social links */}
-        <div className="flex justify-center gap-6 sm:gap-8 md:gap-12 mb-20 flex-wrap text-sm sm:text-base md:text-lg font-inter font-normal">
+        <div className="flex justify-center gap-8 sm:gap-10 md:gap-12 mb-20 flex-wrap">
           <a
             href="https://x.com/CarolXiaoo"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:opacity-70 transition-opacity"
+            className="hover:opacity-70 hover:scale-110 transition-all duration-300"
+            aria-label="X (Twitter)"
           >
-            X
+            <RiTwitterXFill className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
           </a>
           <a
             href="https://www.instagram.com/itscarolstudio"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:opacity-70 transition-opacity"
+            className="hover:opacity-70 hover:scale-110 transition-all duration-300"
+            aria-label="Instagram"
           >
-            INSTAGRAM
+            <FaInstagram className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
           </a>
           <a
             href="https://www.linkedin.com/in/carol-hsiao-5779a1158/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:opacity-70 transition-opacity"
+            className="hover:opacity-70 hover:scale-110 transition-all duration-300"
+            aria-label="LinkedIn"
           >
-            LINKEDIN
+            <FaLinkedin className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
           </a>
           <a
             href="https://dribbble.com/carolhsiao"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:opacity-70 transition-opacity"
+            className="hover:opacity-70 hover:scale-110 transition-all duration-300"
+            aria-label="Dribbble"
           >
-            DRIBBBLE
+            <FaDribbble className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
           </a>
           <a
             href="https://github.com/carolhsiaoo"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:opacity-70 transition-opacity"
+            className="hover:opacity-70 hover:scale-110 transition-all duration-300"
+            aria-label="GitHub"
           >
-            GITHUB
+            <FaGithub className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
           </a>
         </div>
 

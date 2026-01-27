@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cinzel, Inter } from "next/font/google";
+import { Cinzel, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import CursorStars from "@/components/CursorStars";
 
@@ -10,10 +10,10 @@ const cinzel = Cinzel({
   display: "swap",
 });
 
-const inter = Inter({
+const notoSans = Noto_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-noto-sans",
   display: "swap",
 });
 
@@ -29,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="overflow-x-hidden">
-      <body className={`${cinzel.variable} ${inter.variable} antialiased overflow-x-hidden`}>
+      <body className={`${cinzel.variable} ${notoSans.variable} antialiased overflow-x-hidden`}>
         <CursorStars />
         {children}
       </body>

@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
+import Marquee from "@/components/Marquee";
 import ProjectsTable from "@/components/ProjectsTable";
 import About from "@/components/About";
 import Contact from "@/components/Contact";
@@ -15,6 +16,9 @@ export default function Home() {
       </FadeInSection>
       <FadeInSection delay={100}>
         <ProjectsTable />
+      </FadeInSection>
+      <FadeInSection delay={100}>
+        <Marquee />
       </FadeInSection>
       <FadeInSection delay={100}>
         <About />

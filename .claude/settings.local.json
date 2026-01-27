@@ -19,7 +19,17 @@
       "Bash(pnpm install:*)",
       "Bash(timeout:*)",
       "Bash(del:*)",
-      "Bash(taskkill:*)"
+      "Bash(taskkill:*)",
+      "Bash(dir \"c:\\Users\\zhuyu\\Downloads\\Portfolio-planets\\public\" /b)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(cmd //c \"taskkill /PID 18720 /F\")",
+      "Bash(cmd //c \"cd /d c:\\Users\\zhuyu\\Downloads\\Portfolio-planets && rmdir /s /q .next\")",
+      "Bash(npm install:*)",
+      "Bash(cmd //c \"taskkill /PID 23932 /F\")",
+      "Bash(cmd //c \"cd /d c:\\Users\\zhuyu\\Downloads\\Portfolio-planets && rmdir /s /q .next && npm run dev\")",
+      "Bash(cmd //c \"taskkill /PID 24840 /F\")",
+      "Bash(cmd //c \"taskkill /PID 14128 /F\")"
     ],
     "deny": [],
     "ask": []

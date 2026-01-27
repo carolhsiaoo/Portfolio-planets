@@ -17,7 +17,7 @@ const Contact = memo(function Contact() {
 
         <a
           href="mailto:carolhsiaostudio@gmail.com"
-          className="text-base sm:text-lg hover:opacity-60 transition-opacity inline-block mb-6 sm:mb-8 md:mb-10"
+          className="text-base sm:text-lg font-cinzel hover:opacity-60 transition-opacity inline-block mb-6 sm:mb-8 md:mb-10"
         >
           carolhsiaostudio@gmail.com
         </a>
