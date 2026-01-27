@@ -29,7 +29,8 @@
       "Bash(cmd //c \"taskkill /PID 23932 /F\")",
       "Bash(cmd //c \"cd /d c:\\Users\\zhuyu\\Downloads\\Portfolio-planets && rmdir /s /q .next && npm run dev\")",
       "Bash(cmd //c \"taskkill /PID 24840 /F\")",
-      "Bash(cmd //c \"taskkill /PID 14128 /F\")"
+      "Bash(cmd //c \"taskkill /PID 14128 /F\")",
+      "Bash(rm:*)"
     ],
     "deny": [],
     "ask": []
