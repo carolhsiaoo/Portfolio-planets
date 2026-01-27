@@ -15,7 +15,7 @@ const Footer = memo(function Footer() {
           </h2>
           <a
             href="mailto:carolhsiaostudio@gmail.com"
-            className="text-2xl sm:text-3xl md:text-4xl font-cinzel font-normal hover:opacity-70 transition-opacity"
+            className="text-base sm:text-2xl md:text-3xl lg:text-4xl font-cinzel font-normal hover:opacity-70 transition-opacity break-all px-2 sm:px-0"
           >
             carolhsiaostudio@gmail.com
           </a>

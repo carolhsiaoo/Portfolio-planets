@@ -9,7 +9,8 @@ const ProjectsTable = memo(function ProjectsTable() {
       role: "Designer/Developer",
       year: "2025 ~ now",
       image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=400&fit=crop",
-      video: "/firefree-demo.mp4", // Add your video file to the public folder
+      video: "/firefree-demo.mp4",
+      videoMobile: "/firefre-demo-small.mp4",
     },
     {
       name: "DailyPay",
@@ -25,6 +26,7 @@ const ProjectsTable = memo(function ProjectsTable() {
       year: "2025",
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
       video: "/corehour-demo.gif",
+      videoMobile: "/corehour-demo-small.mp4",
     },
     {
       name: "HandyTools",
@@ -39,7 +41,7 @@ const ProjectsTable = memo(function ProjectsTable() {
       type: "Web",
       role: "UI/UX Designer",
       year: "2023",
-      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop",
+      image: "/cleaingserviceplatform-img.jpeg",
     },
   ];
 
@@ -58,11 +60,11 @@ const ProjectsTable = memo(function ProjectsTable() {
           {projects.map((project, index) => {
             // Define exact layout from Frame 13
             const gridLayout = {
-              0: { span: "lg:col-span-12", aspect: "aspect-[5/2]" }, // FireFree - full width, taller
-              1: { span: "lg:col-span-4", aspect: "aspect-[4/5]" }, // Yahoo App - same height as CoreHour
-              2: { span: "lg:col-span-8", aspect: "aspect-[8/5]" }, // CoreHour - taller rectangle
-              3: { span: "lg:col-span-8", aspect: "aspect-[8/5]" }, // HandyTools - same height as Cleaning Service
-              4: { span: "lg:col-span-4", aspect: "aspect-[4/5]" }, // Cleaning Service - vertical
+              0: { span: "lg:col-span-12", aspect: "aspect-[4/5] lg:aspect-[5/2]" }, // FireFree - same as others on mobile/tablet, full width on large
+              1: { span: "lg:col-span-4", aspect: "aspect-[4/5] lg:aspect-[4/5.16]" }, // DailyPay - same height as CoreHour on large screens
+              2: { span: "lg:col-span-8", aspect: "aspect-[4/5] lg:aspect-[8/5]" }, // CoreHour - same as others on mobile/tablet, taller on large
+              3: { span: "lg:col-span-8", aspect: "aspect-[4/5] lg:aspect-[8/5]" }, // HandyTools - same as others on mobile/tablet
+              4: { span: "lg:col-span-4", aspect: "aspect-[4/5] lg:aspect-[4/5.17]" }, // Cleaning Service - consistent 4:5 ratio
             };
 
             const layout = gridLayout[index as keyof typeof gridLayout];
@@ -76,24 +78,54 @@ const ProjectsTable = memo(function ProjectsTable() {
                 <div className={`relative w-full h-full overflow-hidden bg-gray-200`}>
                   {project.video ? (
                     project.video.endsWith('.gif') ? (
-                      <Image
-                        src={project.video}
-                        alt={project.name}
-                        fill
-                        className="object-cover transition-transform duration-700 group-hover:scale-105"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        unoptimized
-                      />
+                      <>
+                        {/* Mobile video (if provided for GIF) */}
+                        {project.videoMobile && (
+                          <video
+                            src={project.videoMobile}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            poster={project.image}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 lg:hidden"
+                          />
+                        )}
+                        {/* GIF for desktop */}
+                        <Image
+                          src={project.video}
+                          alt={project.name}
+                          fill
+                          className={`object-cover transition-transform duration-700 group-hover:scale-105 ${project.videoMobile ? 'hidden lg:block' : ''}`}
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          unoptimized
+                        />
+                      </>
                     ) : (
-                      <video
-                        src={project.video}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        poster={project.image}
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
+                      <>
+                        {/* Mobile video (shown on small screens) */}
+                        {project.videoMobile && (
+                          <video
+                            src={project.videoMobile}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            poster={project.image}
+                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 lg:hidden"
+                          />
+                        )}
+                        {/* Desktop video (shown on large screens, or always if no mobile video) */}
+                        <video
+                          src={project.video}
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          poster={project.image}
+                          className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${project.videoMobile ? 'hidden lg:block' : ''}`}
+                        />
+                      </>
                     )
                   ) : (
                     <Image
