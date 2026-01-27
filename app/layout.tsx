@@ -18,7 +18,7 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio - Planets",
+  title: "Carol Hsiao | Product Builder",
   description: "My personal portfolio website",
 };
 
