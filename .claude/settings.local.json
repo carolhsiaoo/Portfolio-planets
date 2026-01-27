@@ -18,7 +18,8 @@
       "Bash(mkdir:*)",
       "Bash(pnpm install:*)",
       "Bash(timeout:*)",
-      "Bash(del:*)"
+      "Bash(del:*)",
+      "Bash(taskkill:*)"
     ],
     "deny": [],
     "ask": []

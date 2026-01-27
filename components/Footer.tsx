@@ -6,23 +6,23 @@ const Footer = memo(function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Let's talk section */}
         <div className="text-center mb-12">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 flex items-center justify-center gap-4">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-inter font-medium mb-8 flex items-center justify-center gap-4">
             <span className="text-3xl sm:text-4xl">✦</span>
             Let's talk!
             <span className="text-3xl sm:text-4xl">✦</span>
           </h2>
           <a
             href="mailto:carolhsiaostudio@gmail.com"
-            className="text-2xl sm:text-3xl md:text-4xl hover:opacity-70 transition-opacity"
+            className="text-2xl sm:text-3xl md:text-4xl font-inter font-normal hover:opacity-70 transition-opacity"
           >
             carolhsiaostudio@gmail.com
           </a>
         </div>
 
         {/* Social links */}
-        <div className="flex justify-center gap-6 sm:gap-8 md:gap-12 mb-20 flex-wrap text-sm sm:text-base md:text-lg">
+        <div className="flex justify-center gap-6 sm:gap-8 md:gap-12 mb-20 flex-wrap text-sm sm:text-base md:text-lg font-inter font-normal">
           <a
-            href="https://twitter.com/carolhsiao"
+            href="https://x.com/CarolXiaoo"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:opacity-70 transition-opacity"
@@ -30,7 +30,7 @@ const Footer = memo(function Footer() {
             X
           </a>
           <a
-            href="https://instagram.com/carolhsiao"
+            href="https://www.instagram.com/itscarolstudio"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:opacity-70 transition-opacity"
@@ -38,7 +38,7 @@ const Footer = memo(function Footer() {
             INSTAGRAM
           </a>
           <a
-            href="https://linkedin.com/in/carolhsiao"
+            href="https://www.linkedin.com/in/carol-hsiao-5779a1158/"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:opacity-70 transition-opacity"
@@ -54,7 +54,7 @@ const Footer = memo(function Footer() {
             DRIBBBLE
           </a>
           <a
-            href="https://github.com/carolhsiao"
+            href="https://github.com/carolhsiaoo"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:opacity-70 transition-opacity"
@@ -64,7 +64,7 @@ const Footer = memo(function Footer() {
         </div>
 
         {/* Bottom row */}
-        <div className="flex justify-between items-center text-xs sm:text-sm lg:text-base border-t border-gray-800 pt-8">
+        <div className="flex justify-between items-center text-xs sm:text-sm lg:text-base font-inter font-normal border-t border-gray-800 pt-8">
           <div>Made with nuts 🌰 by Carol.</div>
           <div className="text-right">© 2025 All rights reserved</div>
         </div>

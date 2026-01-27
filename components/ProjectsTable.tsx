@@ -13,7 +13,7 @@ const ProjectsTable = memo(function ProjectsTable() {
     <section id="work" className="py-12 sm:py-16 md:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Projects heading with stars */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-12 flex items-center justify-center gap-4">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-inter font-medium mb-12 flex items-center justify-center gap-4">
           <span className="text-3xl sm:text-4xl">✦</span>
           Projects
           <span className="text-3xl sm:text-4xl">✦</span>
@@ -21,7 +21,7 @@ const ProjectsTable = memo(function ProjectsTable() {
 
         <div>
           {/* Table Header - Hidden on mobile, shown on tablet+ */}
-          <div className="hidden md:grid grid-cols-4 gap-8 lg:gap-16 py-4 md:py-5 text-xs font-medium text-gray-500 uppercase tracking-widest text-center">
+          <div className="hidden md:grid grid-cols-4 gap-8 lg:gap-16 py-4 md:py-5 text-xs font-inter font-normal text-gray-500 uppercase tracking-widest text-center">
             <div>Project</div>
             <div>Type</div>
             <div>Role</div>
@@ -36,8 +36,8 @@ const ProjectsTable = memo(function ProjectsTable() {
             >
               {/* Mobile Card Layout */}
               <div className="md:hidden py-5 sm:py-6">
-                <div className="font-medium text-base sm:text-lg mb-3">{project.name}</div>
-                <div className="flex items-center gap-2 text-sm">
+                <div className="font-inter font-normal text-base sm:text-lg mb-3">{project.name}</div>
+                <div className="flex items-center gap-2 text-sm font-inter font-normal">
                   <span>{project.type}</span>
                   <span className="text-gray-300">|</span>
                   <span>{project.role}</span>
@@ -47,8 +47,8 @@ const ProjectsTable = memo(function ProjectsTable() {
               </div>
 
               {/* Tablet+ Table Layout */}
-              <div className="hidden md:grid grid-cols-4 gap-8 lg:gap-16 py-5 md:py-7 text-center">
-                <div className="font-normal text-sm md:text-base">{project.name}</div>
+              <div className="hidden md:grid grid-cols-4 gap-8 lg:gap-16 py-5 md:py-7 text-center font-inter font-normal">
+                <div className="text-sm md:text-base">{project.name}</div>
                 <div className="text-sm md:text-base">{project.type}</div>
                 <div className="text-sm md:text-base">{project.role}</div>
                 <div className="text-sm md:text-base">{project.year}</div>

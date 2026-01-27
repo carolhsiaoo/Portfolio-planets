@@ -6,17 +6,17 @@ const About = memo(function About() {
     <section id="about" className="py-12 sm:py-16 md:py-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 text-center flex flex-col items-center">
         {/* About heading with stars */}
-        <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-8 sm:mb-10 md:mb-12 flex items-center justify-center gap-4">
+        <h2 className="text-4xl sm:text-5xl md:text-6xl font-inter font-medium mb-8 sm:mb-10 md:mb-12 flex items-center justify-center gap-4">
           <span className="text-3xl sm:text-4xl">✦</span>
           About
           <span className="text-3xl sm:text-4xl">✦</span>
         </h2>
 
         {/* Description text */}
-        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl leading-relaxed mb-4 sm:mb-5 md:mb-6 max-w-full sm:max-w-2xl md:max-w-3xl px-2">
+        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-normal leading-relaxed mb-4 sm:mb-5 md:mb-6 max-w-full sm:max-w-2xl md:max-w-3xl px-2">
           I build products that create true value for users.
         </p>
-        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-full sm:max-w-2xl md:max-w-3xl px-2">
+        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-normal leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-full sm:max-w-2xl md:max-w-3xl px-2">
           I'm a designer and developer of Aburi Studio based in Calgary.
         </p>
 
