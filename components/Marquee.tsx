@@ -6,12 +6,12 @@ const Marquee = memo(function Marquee() {
   const items = [
     "UI/UX Design",
     "React",
-    "Next.js",
-    "TypeScript",
+    "Prototype",
+    "Unity",
     "Three.js",
     "Figma",
     "Product Design",
-    "Web Development",
+    "Frontend Development",
     "AR/VR",
     "User Research"
   ];
