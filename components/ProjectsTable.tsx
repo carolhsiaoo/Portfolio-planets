@@ -41,7 +41,7 @@ const ProjectsTable = memo(function ProjectsTable() {
       type: "Web",
       role: "UI/UX Designer",
       year: "2023",
-      image: "/cleaingserviceplatform-img.jpeg",
+      image: "/cleaingserviceplatform-img.png",
     },
   ];
 
@@ -134,6 +134,7 @@ const ProjectsTable = memo(function ProjectsTable() {
                       fill
                       className="object-cover transition-transform duration-700 group-hover:scale-105"
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      quality={95}
                     />
                   )}
 
