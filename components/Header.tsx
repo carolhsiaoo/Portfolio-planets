@@ -40,7 +40,7 @@ const Header = memo(function Header() {
         className={`mx-auto transition-all duration-500 ease-in-out flex items-center justify-between ${
           isScrolled
             ? 'max-w-4xl bg-white/30 backdrop-blur-xl rounded-full px-6 py-3 shadow-2xl'
-            : 'max-w-7xl bg-[#faf8f5]/90 backdrop-blur-sm px-4 sm:px-6 md:px-8 py-4 sm:py-5 md:py-6'
+            : 'max-w-7xl bg-[#faf8f5]/90 backdrop-blur-sm px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4'
         }`}
         style={{
           border: 'none',
