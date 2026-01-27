@@ -40,7 +40,8 @@
       "Bash(tasklist:*)",
       "Bash(cmd //c \"taskkill /PID 24472 /F /T\")",
       "Bash(cmd //c \"cd /d c:\\Users\\zhuyu\\Downloads\\Portfolio-planets && if exist .next rmdir /s /q .next && npm run dev\")",
-      "Bash(cmd //c \"cd /d c:\\Users\\zhuyu\\Downloads\\Portfolio-planets && set TURBO=0 && set TURBOPACK=0 && npm run dev\")"
+      "Bash(cmd //c \"cd /d c:\\Users\\zhuyu\\Downloads\\Portfolio-planets && set TURBO=0 && set TURBOPACK=0 && npm run dev\")",
+      "Bash(cmd /c \"dir /b\")"
     ],
     "deny": [],
     "ask": []
