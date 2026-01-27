@@ -32,7 +32,15 @@
       "Bash(cmd //c \"taskkill /PID 14128 /F\")",
       "Bash(rm:*)",
       "Bash(cmd /c \"dir /b c:\\Users\\zhuyu\\Downloads\\Portfolio-planets\\public\\*.jpeg\")",
-      "Bash(cmd /c \"dir public\\cleaingserviceplatform-img.jpeg\")"
+      "Bash(cmd /c \"dir public\\cleaingserviceplatform-img.jpeg\")",
+      "Bash(cmd /c \"taskkill /F /IM node.exe 2>nul || echo No Node processes found\")",
+      "Bash(cmd /c \"if exist .next rmdir /s /q .next\")",
+      "Bash(cmd /c \"taskkill /PID 24472 /F\")",
+      "Bash(cmd /c \"if exist .next rmdir /s /q .next && npm run dev\")",
+      "Bash(tasklist:*)",
+      "Bash(cmd //c \"taskkill /PID 24472 /F /T\")",
+      "Bash(cmd //c \"cd /d c:\\Users\\zhuyu\\Downloads\\Portfolio-planets && if exist .next rmdir /s /q .next && npm run dev\")",
+      "Bash(cmd //c \"cd /d c:\\Users\\zhuyu\\Downloads\\Portfolio-planets && set TURBO=0 && set TURBOPACK=0 && npm run dev\")"
     ],
     "deny": [],
     "ask": []

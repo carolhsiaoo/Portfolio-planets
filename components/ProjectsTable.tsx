@@ -1,3 +1,5 @@
+'use client'
+
 import { memo } from 'react';
 import Image from 'next/image';
 
@@ -11,6 +13,7 @@ const ProjectsTable = memo(function ProjectsTable() {
       image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=400&fit=crop",
       video: "/firefree-demo.mp4",
       videoMobile: "/firefre-demo-small.mp4",
+      link: "https://firefree.app",
     },
     {
       name: "DailyPay",
@@ -18,6 +21,7 @@ const ProjectsTable = memo(function ProjectsTable() {
       role: "Designer/Developer",
       year: "2026",
       image: "/dailypay-img.png",
+      link: "https://dailypay.aburi.app",
     },
     {
       name: "CoreHour",
@@ -27,6 +31,7 @@ const ProjectsTable = memo(function ProjectsTable() {
       image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
       video: "/corehour-demo.gif",
       videoMobile: "/corehour-demo-small.mp4",
+      link: "https://corehour.app/",
     },
     {
       name: "HandyTools",
@@ -72,7 +77,12 @@ const ProjectsTable = memo(function ProjectsTable() {
             return (
               <div
                 key={index}
-                className={`group relative overflow-hidden rounded-2xl cursor-pointer ${layout.span} ${layout.aspect}`}
+                className={`group relative overflow-hidden rounded-2xl ${project.link ? 'cursor-pointer' : ''} ${layout.span} ${layout.aspect}`}
+                onClick={() => {
+                  if (project.link) {
+                    window.open(project.link, '_blank', 'noopener,noreferrer');
+                  }
+                }}
               >
                 {/* Media Container with text overlay */}
                 <div className={`relative w-full h-full overflow-hidden bg-gray-200`}>
@@ -148,6 +158,26 @@ const ProjectsTable = memo(function ProjectsTable() {
                     <div className="text-sm font-inter opacity-90">{project.type}</div>
                     <div className="text-sm font-inter opacity-90">{project.role}</div>
                   </div>
+
+                  {/* Open icon at bottom-right for projects with links */}
+                  {project.link && (
+                    <div className="absolute bottom-0 right-0 p-6">
+                      <svg
+                        className="w-6 h-6 text-white opacity-90 transition-transform duration-300 group-hover:scale-110 group-hover:opacity-100"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                        />
+                      </svg>
+                    </div>
+                  )}
                 </div>
               </div>
             );
