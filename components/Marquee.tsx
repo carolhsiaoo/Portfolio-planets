@@ -27,10 +27,10 @@ const Marquee = memo(function Marquee() {
             key={index}
             className="inline-flex items-center shrink-0"
           >
-            <span className="text-xl sm:text-2xl md:text-3xl font-inter font-normal text-white mx-4 sm:mx-6 md:mx-8">
+            <span className="text-xl sm:text-2xl md:text-3xl font-cinzel font-normal text-white mx-4 sm:mx-6 md:mx-8">
               {item}
             </span>
-            <span className="text-xl sm:text-2xl md:text-3xl font-inter font-normal text-gray-400 mx-4 sm:mx-6 md:mx-8">
+            <span className="text-xl sm:text-2xl md:text-3xl font-cinzel font-normal text-gray-400 mx-4 sm:mx-6 md:mx-8">
               •
             </span>
           </div>
