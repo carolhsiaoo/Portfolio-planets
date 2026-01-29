@@ -64,7 +64,7 @@ export default function Hero() {
             </p> */}
             <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-medium mb-2 flex items-center justify-center gap-2 sm:gap-3 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
               <span className="text-lg sm:text-xl md:text-2xl">✦</span>
-              Product Builder
+              Product Engineer
               <span className="text-lg sm:text-xl md:text-2xl">✦</span>
             </p>
             <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-medium leading-relaxed ${textColor} select-none transition-colors duration-300`}>
