@@ -51,7 +51,7 @@ const ProjectsTable = memo(function ProjectsTable() {
   ];
 
   return (
-    <section id="work" className="pt-24 sm:pt-32 md:pt-40 pb-12 sm:pb-16 md:pb-20 bg-white">
+    <section id="work" className="pt-[72px] sm:pt-[96px] md:pt-[120px] pb-12 sm:pb-16 md:pb-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Projects heading with stars */}
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-cinzel font-medium mb-16 flex items-center justify-center gap-4">
