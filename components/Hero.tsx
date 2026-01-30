@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from "react";
+import { FiExternalLink } from "react-icons/fi";
 import AdaptiveHeroMouseInteraction from "./AdaptiveHeroMouseInteraction";
 
 export default function Hero() {
@@ -73,12 +74,10 @@ export default function Hero() {
                 href="https://firefree.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group cursor-pointer relative inline-block"
+                className="group cursor-pointer relative inline-flex items-center gap-1.5 px-2 py-1 rounded-xl hover:bg-purple-200/50 transition-colors duration-300"
               >
-                <span className="relative">
-                  @FireFree
-                  <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-current opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in"></span>
-                </span>
+                @FireFree
+                <FiExternalLink className="text-sm sm:text-base md:text-lg lg:text-xl" strokeWidth={2.5} />
               </a>
             </p>
           </div>

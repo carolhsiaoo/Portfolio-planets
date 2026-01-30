@@ -1,5 +1,6 @@
 import { memo } from 'react';
 import Image from 'next/image';
+import { FiExternalLink } from 'react-icons/fi';
 import StickerWall from './StickerWall';
 
 const About = memo(function About() {
@@ -24,12 +25,10 @@ const About = memo(function About() {
             href="https://aburistudio.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-block cursor-pointer relative"
+            className="group inline-flex items-center gap-1.5 cursor-pointer relative px-2 py-1 rounded-xl hover:bg-orange-200/50 transition-colors duration-300"
           >
-            <span className="relative">
-              Aburi Studio
-              <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-current opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in"></span>
-            </span>
+            Aburi Studio
+            <FiExternalLink className="text-sm sm:text-base md:text-lg lg:text-xl" strokeWidth={2.5} />
           </a>
           {' '}based in Calgary.
         </p>
