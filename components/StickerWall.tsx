@@ -19,126 +19,126 @@ const StickerWall = () => {
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  // Responsive sticker configurations
+  // Responsive sticker configurations - scattered all around the About section
   const getStickers = () => {
     if (isMobile) {
-      // Mobile: smaller sizes, closer positions
+      // Mobile: scattered around the section
       return [
         {
           image: "/stickers/taiwan-island.png",
           color: "#42f566",
-          rotate: -15,
-          x: -180,
-          y: -10,
-          width: 100,
-          height: 70
+          rotate: -18,
+          x: -130,
+          y: -80,
+          width: 75,
+          height: 55
         },
         {
           image: "/stickers/maple-leaf.png",
           color: "#ff6b35",
-          rotate: 12,
-          x: 110,
-          y: -40,
-          width: 80,
-          height: 80
+          rotate: 22,
+          x: 120,
+          y: -50,
+          width: 65,
+          height: 65
         },
         {
           image: "/stickers/nuts.png",
           color: "#ffa500",
-          rotate: -8,
-          x: -120,
-          y: 140,
-          width: 85,
-          height: 75
+          rotate: -15,
+          x: -110,
+          y: 180,
+          width: 70,
+          height: 60
         },
         {
           image: "/stickers/aburi-logo.png",
           color: "#ff4757",
-          rotate: 8,
-          x: 40,
-          y: 110,
-          width: 110,
-          height: 80
+          rotate: 16,
+          x: 115,
+          y: 200,
+          width: 75,
+          height: 65
         }
       ];
     } else if (isTablet) {
-      // Tablet: medium sizes
+      // Tablet: scattered around the section
       return [
         {
           image: "/stickers/taiwan-island.png",
           color: "#42f566",
-          rotate: -15,
-          x: -280,
-          y: -20,
-          width: 160,
-          height: 110
+          rotate: -20,
+          x: -250,
+          y: -100,
+          width: 135,
+          height: 95
         },
         {
           image: "/stickers/maple-leaf.png",
           color: "#ff6b35",
-          rotate: 12,
-          x: 180,
-          y: -60,
-          width: 120,
-          height: 120
+          rotate: 25,
+          x: 230,
+          y: -80,
+          width: 105,
+          height: 105
         },
         {
           image: "/stickers/nuts.png",
           color: "#ffa500",
-          rotate: -8,
-          x: -180,
-          y: 180,
-          width: 130,
-          height: 110
+          rotate: -17,
+          x: -220,
+          y: 220,
+          width: 115,
+          height: 100
         },
         {
           image: "/stickers/aburi-logo.png",
           color: "#ff4757",
-          rotate: 8,
-          x: 100,
-          y: 120,
-          width: 130,
-          height: 115
+          rotate: 18,
+          x: 210,
+          y: 240,
+          width: 115,
+          height: 105
         }
       ];
     } else {
-      // Desktop: full sizes
+      // Desktop: scattered all around the section
       return [
         {
           image: "/stickers/taiwan-island.png",
           color: "#42f566",
-          rotate: -15,
+          rotate: -22,
           x: -380,
-          y: 30,
-          width: 240,
-          height: 160
+          y: -120,
+          width: 185,
+          height: 125
         },
         {
           image: "/stickers/maple-leaf.png",
           color: "#ff6b35",
-          rotate: 12,
-          x: 250,
-          y: -50,
-          width: 160,
-          height: 160
+          rotate: 28,
+          x: 330,
+          y: -90,
+          width: 145,
+          height: 145
         },
         {
           image: "/stickers/nuts.png",
           color: "#ffa500",
-          rotate: -8,
-          x: 0,
-          y: 240,
-          width: 170,
-          height: 150
+          rotate: -18,
+          x: -350,
+          y: 280,
+          width: 155,
+          height: 135
         },
         {
           image: "/stickers/aburi-logo.png",
           color: "#ff4757",
-          rotate: 8,
-          x: -30,
-          y: -180,
-          width: 180,
-          height: 160
+          rotate: 20,
+          x: 310,
+          y: 300,
+          width: 155,
+          height: 140
         }
       ];
     }
@@ -151,12 +151,11 @@ const StickerWall = () => {
       ref={constraintsRef}
       style={{
         position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "100%",
-        height: "100%",
-        pointerEvents: "none", // Allow clicks to pass through to content below
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        pointerEvents: "none",
         zIndex: 100
       }}
     >
@@ -164,7 +163,7 @@ const StickerWall = () => {
         <div
           key={index}
           style={{
-            pointerEvents: "auto" // Re-enable pointer events for stickers only
+            pointerEvents: "auto"
           }}
         >
           <GlassSticker {...sticker} constraintsRef={constraintsRef} />

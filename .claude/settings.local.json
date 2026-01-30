@@ -47,7 +47,12 @@
       "Bash(python split-stickers.py:*)",
       "Bash(dir:*)",
       "Bash(cmd /c \"del /f remove-background.py split-stickers.py requirements.txt\")",
-      "Bash(cmd /c \"dir /b public\\stickers\")"
+      "Bash(cmd /c \"dir /b public\\stickers\")",
+      "Bash(cmd /c \"rmdir /s /q c:\\Users\\zhuyu\\Downloads\\Portfolio-planets\\app\\sticker-generator\")",
+      "Bash(cmd /c \"if exist app\\sticker-generator (echo Directory exists) else (echo Directory deleted successfully)\")",
+      "Bash(cmd /c \"if exist .next rmdir /s /q .next && npm run build\")",
+      "Bash(set \"TURBOPACK=0\")",
+      "Bash(npm cache clean:*)"
     ],
     "deny": [],
     "ask": []

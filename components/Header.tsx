@@ -18,6 +18,9 @@ const Header = memo(function Header() {
       setIsScrolled(window.scrollY > 50);
     };
 
+    // Check initial scroll position (for hash links like /#work, /#about, /#contact)
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll);
 
     return () => {

@@ -11,7 +11,7 @@ interface GlassStickerProps {
   y: number;
   width?: number;
   height?: number;
-  constraintsRef?: RefObject<HTMLDivElement>;
+  constraintsRef?: RefObject<HTMLDivElement | null>;
 }
 
 const GlassSticker = ({
@@ -27,25 +27,28 @@ const GlassSticker = ({
   // Dynamic border radius based on size
   const borderRadius = Math.min(width, height) * 0.17;
 
+  // Calculate initial position from center of container
+  const initialX = `calc(50% + ${x}px - ${width / 2}px)`;
+  const initialY = `calc(50% + ${y}px - ${height / 2}px)`;
+
   return (
     <motion.div
       drag
       dragConstraints={constraintsRef}
       dragMomentum={false}
-      dragElastic={0.1}
+      dragElastic={0.2}
       whileHover={{ scale: 1.1, zIndex: 100 }}
       whileDrag={{ scale: 1.2, cursor: "grabbing", zIndex: 100 }}
+      initial={{ rotate }}
       style={{
         position: "absolute",
-        left: "50%",
-        top: "50%",
-        x: x,
-        y: y,
-        rotate: rotate,
+        left: initialX,
+        top: initialY,
         zIndex: 50,
         width: `${width}px`,
         height: `${height}px`,
-        cursor: "grab"
+        cursor: "grab",
+        rotate: rotate
       }}
     >
       {/* Sticker image with colored glow */}
