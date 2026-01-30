@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import GlassSticker from "./GlassSticker";
 
 const StickerWall = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
+  const constraintsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -147,6 +148,7 @@ const StickerWall = () => {
 
   return (
     <div
+      ref={constraintsRef}
       style={{
         position: "absolute",
         top: "50%",
@@ -165,7 +167,7 @@ const StickerWall = () => {
             pointerEvents: "auto" // Re-enable pointer events for stickers only
           }}
         >
-          <GlassSticker {...sticker} />
+          <GlassSticker {...sticker} constraintsRef={constraintsRef} />
         </div>
       ))}
     </div>

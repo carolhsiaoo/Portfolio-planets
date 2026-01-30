@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import React, { useRef } from "react";
+import React, { RefObject } from "react";
 
 interface GlassStickerProps {
   image: string;
@@ -11,6 +11,7 @@ interface GlassStickerProps {
   y: number;
   width?: number;
   height?: number;
+  constraintsRef?: RefObject<HTMLDivElement>;
 }
 
 const GlassSticker = ({
@@ -20,7 +21,8 @@ const GlassSticker = ({
   x,
   y,
   width = 180,
-  height = 180
+  height = 180,
+  constraintsRef
 }: GlassStickerProps) => {
   // Dynamic border radius based on size
   const borderRadius = Math.min(width, height) * 0.17;
@@ -28,6 +30,7 @@ const GlassSticker = ({
   return (
     <motion.div
       drag
+      dragConstraints={constraintsRef}
       dragMomentum={false}
       dragElastic={0.1}
       whileHover={{ scale: 1.1, zIndex: 100 }}
