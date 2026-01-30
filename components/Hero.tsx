@@ -68,7 +68,18 @@ export default function Hero() {
               <span className="text-lg sm:text-xl md:text-2xl">✦</span>
             </p>
             <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-medium leading-relaxed ${textColor} select-none transition-colors duration-300`}>
-              Currently Building @FireFree
+              Currently Building{' '}
+              <a
+                href="https://firefree.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group cursor-pointer relative inline-block"
+              >
+                <span className="relative">
+                  @FireFree
+                  <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-current opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in"></span>
+                </span>
+              </a>
             </p>
           </div>
         </div>

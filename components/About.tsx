@@ -18,8 +18,20 @@ const About = memo(function About() {
         <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-normal leading-relaxed mb-4 sm:mb-5 md:mb-6 max-w-full sm:max-w-2xl md:max-w-3xl px-2">
           I build products that create true value for users.
         </p>
-        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-normal leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-full sm:max-w-2xl md:max-w-3xl px-2">
-          I'm a product engineer at Aburi Studio based in Calgary.
+        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-normal leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-4xl px-2">
+          I'm a product engineer at{' '}
+          <a
+            href="https://aburistudio.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-block cursor-pointer relative"
+          >
+            <span className="relative">
+              Aburi Studio
+              <span className="absolute bottom-0 left-0 w-full h-[1.5px] bg-current opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in"></span>
+            </span>
+          </a>
+          {' '}based in Calgary.
         </p>
 
         {/* Profile image - centered */}
