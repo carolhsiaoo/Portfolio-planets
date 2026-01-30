@@ -1,10 +1,12 @@
 import { memo } from 'react';
 import Image from 'next/image';
+import StickerWall from './StickerWall';
 
 const About = memo(function About() {
   return (
-    <section id="about" className="py-12 sm:py-16 md:py-20">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 text-center flex flex-col items-center">
+    <section id="about" className="py-12 sm:py-16 md:py-20 relative">
+      <StickerWall />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 text-center flex flex-col items-center relative">
         {/* About heading with stars */}
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-cinzel font-medium mb-8 sm:mb-10 md:mb-12 flex items-center justify-center gap-4">
           <span className="text-3xl sm:text-4xl">✦</span>

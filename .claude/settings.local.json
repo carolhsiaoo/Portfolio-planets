@@ -41,7 +41,13 @@
       "Bash(cmd //c \"taskkill /PID 24472 /F /T\")",
       "Bash(cmd //c \"cd /d c:\\Users\\zhuyu\\Downloads\\Portfolio-planets && if exist .next rmdir /s /q .next && npm run dev\")",
       "Bash(cmd //c \"cd /d c:\\Users\\zhuyu\\Downloads\\Portfolio-planets && set TURBO=0 && set TURBOPACK=0 && npm run dev\")",
-      "Bash(cmd /c \"dir /b\")"
+      "Bash(cmd /c \"dir /b\")",
+      "Bash(pip install:*)",
+      "Bash(python -m pip install:*)",
+      "Bash(python split-stickers.py:*)",
+      "Bash(dir:*)",
+      "Bash(cmd /c \"del /f remove-background.py split-stickers.py requirements.txt\")",
+      "Bash(cmd /c \"dir /b public\\stickers\")"
     ],
     "deny": [],
     "ask": []
