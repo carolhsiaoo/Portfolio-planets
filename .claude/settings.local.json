@@ -52,7 +52,8 @@
       "Bash(cmd /c \"if exist app\\sticker-generator (echo Directory exists) else (echo Directory deleted successfully)\")",
       "Bash(cmd /c \"if exist .next rmdir /s /q .next && npm run build\")",
       "Bash(set \"TURBOPACK=0\")",
-      "Bash(npm cache clean:*)"
+      "Bash(npm cache clean:*)",
+      "Bash(git push)"
     ],
     "deny": [],
     "ask": []
