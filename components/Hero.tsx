@@ -31,7 +31,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="pt-32 sm:pt-40 md:pt-40 lg:pt-56 pb-16 sm:pb-24 md:pb-24 lg:pb-32 relative min-h-[600px] sm:min-h-[700px] md:min-h-[650px] lg:min-h-screen flex items-center justify-center overflow-x-hidden">
+    <section className="pt-32 sm:pt-40 md:pt-40 lg:pt-56 pb-12 sm:pb-16 md:pb-20 relative min-h-[600px] sm:min-h-[700px] md:min-h-[650px] lg:min-h-screen flex items-center justify-center overflow-x-hidden">
       {/* 3D Planets Model - Behind text (z-index 0) - Adaptive based on device performance */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-0 overflow-hidden">
         <div className="w-full h-full sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] lg:w-[min(1000px,90vw)] lg:h-[1000px]" style={{ willChange: 'auto' }}>
