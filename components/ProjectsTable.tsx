@@ -52,7 +52,7 @@ const ProjectsTable = memo(function ProjectsTable() {
 
   return (
     <section id="work" className="pt-[72px] sm:pt-[96px] md:pt-[120px] pb-12 sm:pb-16 md:pb-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 md:px-8">
         {/* Projects heading with stars */}
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-cinzel font-medium mb-16 flex items-center justify-center gap-4">
           <span className="text-3xl sm:text-4xl">✦</span>
@@ -61,15 +61,15 @@ const ProjectsTable = memo(function ProjectsTable() {
         </h2>
 
         {/* Asymmetrical Exhibition Grid - matching Frame 13 layout */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-6 lg:grid-flow-dense">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-6 gap-y-6 lg:gap-x-16 lg:gap-y-16 lg:grid-flow-dense">
           {projects.map((project, index) => {
             // Define exact layout from Frame 13
             const gridLayout = {
               0: { span: "lg:col-span-12", aspect: "aspect-[4/5] lg:aspect-[5/2]" }, // FireFree - same as others on mobile/tablet, full width on large
-              1: { span: "lg:col-span-4", aspect: "aspect-[4/5] lg:aspect-[4/5.16]" }, // DailyPay - same height as CoreHour on large screens
-              2: { span: "lg:col-span-8", aspect: "aspect-[4/5] lg:aspect-[8/5]" }, // CoreHour - same as others on mobile/tablet, taller on large
-              3: { span: "lg:col-span-8", aspect: "aspect-[4/5] lg:aspect-[8/5]" }, // HandyTools - same as others on mobile/tablet
-              4: { span: "lg:col-span-4", aspect: "aspect-[4/5] lg:aspect-[4/5.17]" }, // Cleaning Service - consistent 4:5 ratio
+              1: { span: "lg:col-span-4", aspect: "aspect-[4/5] lg:aspect-auto" }, // DailyPay - stretches to match CoreHour row height
+              2: { span: "lg:col-span-8", aspect: "aspect-[4/5] lg:aspect-[8/5]" }, // CoreHour - defines row height
+              3: { span: "lg:col-span-8", aspect: "aspect-[4/5] lg:aspect-[8/5]" }, // HandyTools - defines row height
+              4: { span: "lg:col-span-4", aspect: "aspect-[4/5] lg:aspect-auto" }, // Cleaning Service - stretches to match HandyTools row height
             };
 
             const layout = gridLayout[index as keyof typeof gridLayout];
