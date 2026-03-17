@@ -32,14 +32,7 @@ const GlassSticker = ({
   const initialY = `calc(50% + ${y}px - ${height / 2}px)`;
 
   return (
-    <motion.div
-      drag
-      dragConstraints={constraintsRef}
-      dragMomentum={false}
-      dragElastic={0.2}
-      whileHover={{ scale: 1.1, zIndex: 100 }}
-      whileDrag={{ scale: 1.2, cursor: "grabbing", zIndex: 100 }}
-      initial={{ rotate }}
+    <div
       style={{
         position: "absolute",
         left: initialX,
@@ -47,25 +40,37 @@ const GlassSticker = ({
         zIndex: 50,
         width: `${width}px`,
         height: `${height}px`,
-        cursor: "grab",
-        rotate: rotate
+        transform: `rotate(${rotate}deg)`,
       }}
     >
-      {/* Sticker image with colored glow */}
-      <img
-        src={image}
-        alt="sticker"
+      <motion.div
+        drag
+        dragConstraints={constraintsRef}
+        dragMomentum={false}
+        dragElastic={0.2}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 1.15 }}
         style={{
           width: "100%",
           height: "100%",
-          objectFit: "contain",
-          filter: `drop-shadow(0 2px 4px rgba(0,0,0,0.08))`,
-          pointerEvents: "none",
-          userSelect: "none"
+          cursor: "grab",
         }}
-        draggable={false}
-      />
-    </motion.div>
+      >
+        <img
+          src={image}
+          alt="sticker"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "contain",
+            filter: `drop-shadow(0 2px 4px rgba(0,0,0,0.08))`,
+            pointerEvents: "none",
+            userSelect: "none",
+          }}
+          draggable={false}
+        />
+      </motion.div>
+    </div>
   );
 };
 

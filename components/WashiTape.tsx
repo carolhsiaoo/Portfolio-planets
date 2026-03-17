@@ -51,11 +51,11 @@ const WashiTape = () => {
         className="absolute"
         style={{
           top: "90%",
-          left: "40%",
+          left: "50%",
           width: "120%",
           height: "44px",
           background: "rgba(59, 100, 246, 0.82)",
-          transform: "rotate(-30deg)",
+          transform: "rotate(-40deg)",
           transformOrigin: "left center",
           display: "flex",
           alignItems: "center",
