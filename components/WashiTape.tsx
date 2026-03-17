@@ -36,7 +36,7 @@ const WashiTape = () => {
           style={{
             fontSize: "12px",
             fontWeight: 700,
-            color: "rgba(255, 255, 255, 0.6)",
+            color: "rgba(255, 255, 255, 0.9)",
             letterSpacing: "3px",
             fontFamily: "Inter, sans-serif",
             textTransform: "uppercase",
@@ -67,7 +67,7 @@ const WashiTape = () => {
           style={{
             fontSize: "12px",
             fontWeight: 700,
-            color: "rgba(255, 255, 255, 0.6)",
+            color: "rgba(255, 255, 255, 0.9)",
             letterSpacing: "3px",
             fontFamily: "Inter, sans-serif",
             textTransform: "uppercase",
