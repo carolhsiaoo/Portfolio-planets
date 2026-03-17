@@ -96,3 +96,21 @@ html {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* Washi tape scroll animation */
+@keyframes washiTapeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-25%);
+  }
+}
+
+.animate-washi-tape {
+  animation: washiTapeScroll 30s linear infinite;
+}
+
+.animate-washi-tape-reverse {
+  animation: washiTapeScroll 30s linear infinite reverse;
+}

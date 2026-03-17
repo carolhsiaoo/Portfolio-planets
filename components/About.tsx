@@ -2,10 +2,12 @@ import { memo } from 'react';
 import Image from 'next/image';
 import { FiExternalLink } from 'react-icons/fi';
 import StickerWall from './StickerWall';
+import WashiTape from './WashiTape';
 
 const About = memo(function About() {
   return (
-    <section id="about" className="py-12 sm:py-16 md:py-20 relative">
+    <section id="about" className="py-24 sm:py-32 md:py-40 relative overflow-hidden">
+      <WashiTape />
       <StickerWall />
       <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 text-center flex flex-col items-center relative">
         {/* About heading with stars */}

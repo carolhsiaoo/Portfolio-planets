@@ -59,7 +59,7 @@ const GlassSticker = ({
           width: "100%",
           height: "100%",
           objectFit: "contain",
-          filter: `drop-shadow(0 8px 16px rgba(0,0,0,0.15)) drop-shadow(0 0 30px ${color}80)`,
+          filter: `drop-shadow(0 2px 4px rgba(0,0,0,0.08))`,
           pointerEvents: "none",
           userSelect: "none"
         }}

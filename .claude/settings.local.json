@@ -53,7 +53,10 @@
       "Bash(cmd /c \"if exist .next rmdir /s /q .next && npm run build\")",
       "Bash(set \"TURBOPACK=0\")",
       "Bash(npm cache clean:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(xargs wc -l)",
+      "Bash(file /c/Users/zhuyu/Downloads/Portfolio-planets/public/stickers/*.png)",
+      "Bash(file /c/Users/zhuyu/Downloads/Portfolio-planets/public/carol-image.png /c/Users/zhuyu/Downloads/Portfolio-planets/public/about-img*.png)"
     ],
     "deny": [],
     "ask": []
