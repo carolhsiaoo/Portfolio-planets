@@ -32,7 +32,7 @@ const WashiTape = () => {
         }}
       >
         <div
-          className="whitespace-nowrap animate-washi-tape"
+          className="whitespace-nowrap"
           style={{
             fontSize: "12px",
             fontWeight: 700,
@@ -63,7 +63,7 @@ const WashiTape = () => {
         }}
       >
         <div
-          className="whitespace-nowrap animate-washi-tape-reverse"
+          className="whitespace-nowrap"
           style={{
             fontSize: "12px",
             fontWeight: 700,
