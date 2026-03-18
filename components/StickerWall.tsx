@@ -1,13 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import GlassSticker from "./GlassSticker";
 
 const StickerWall = () => {
   const [isMobile, setIsMobile] = useState(false);
   const [isTablet, setIsTablet] = useState(false);
-  const constraintsRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const checkScreenSize = () => {
       setIsMobile(window.innerWidth < 640);
@@ -172,7 +170,6 @@ const StickerWall = () => {
 
   return (
     <div
-      ref={constraintsRef}
       style={{
         position: "absolute",
         top: 0,
@@ -185,7 +182,7 @@ const StickerWall = () => {
     >
       {stickers.map((sticker, index) => (
         <div key={index} style={{ pointerEvents: "auto" }}>
-          <GlassSticker {...sticker} constraintsRef={constraintsRef} />
+          <GlassSticker {...sticker} />
         </div>
       ))}
     </div>
