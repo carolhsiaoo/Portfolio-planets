@@ -2,53 +2,10 @@
 
 import { memo } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { projects } from '@/data/projects';
 
 const ProjectsTable = memo(function ProjectsTable() {
-  const projects = [
-    {
-      name: "FireFree",
-      type: "Web & Mobile App",
-      role: "Designer/Developer",
-      year: "2025 ~ now",
-      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=400&fit=crop",
-      video: "/firefree-demo.mp4",
-      videoMobile: "/firefre-demo-small.mp4",
-      link: "https://firefree.app",
-    },
-    {
-      name: "DailyPay",
-      type: "Mobile App",
-      role: "Designer/Developer",
-      year: "2026",
-      image: "/dailypay-img.png",
-      link: "https://dailypay.aburi.app",
-    },
-    {
-      name: "CoreHour",
-      type: "Web",
-      role: "Designer/Developer",
-      year: "2025",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop",
-      video: "/corehour-demo.gif",
-      videoMobile: "/corehour-demo-small.mp4",
-      link: "https://corehour.app/",
-    },
-    {
-      name: "HandyTools",
-      type: "ARVR",
-      role: "Designer/Developer",
-      year: "2024",
-      image: "https://images.unsplash.com/photo-1592478411213-6153e4ebc07d?w=600&h=700&fit=crop",
-      video: "/handytools-demo.mp4",
-    },
-    {
-      name: "Cleaning Service Platform",
-      type: "Web",
-      role: "UI/UX Designer",
-      year: "2023",
-      image: "/cleaingserviceplatform-img.png",
-    },
-  ];
 
   return (
     <section id="work" className="pt-[72px] sm:pt-[96px] md:pt-[120px] pb-12 sm:pb-16 md:pb-20 bg-white">
@@ -75,14 +32,10 @@ const ProjectsTable = memo(function ProjectsTable() {
             const layout = gridLayout[index as keyof typeof gridLayout];
 
             return (
-              <div
+              <Link
                 key={index}
-                className={`group relative overflow-hidden rounded-2xl ${project.link ? 'cursor-pointer' : ''} ${layout.span} ${layout.aspect}`}
-                onClick={() => {
-                  if (project.link) {
-                    window.open(project.link, '_blank', 'noopener,noreferrer');
-                  }
-                }}
+                href={`/projects/${project.slug}`}
+                className={`group relative overflow-hidden rounded-2xl cursor-pointer block ${layout.span} ${layout.aspect}`}
               >
                 {/* Media Container with text overlay */}
                 <div className={`relative w-full h-full overflow-hidden bg-gray-200`}>
@@ -159,27 +112,25 @@ const ProjectsTable = memo(function ProjectsTable() {
                     <div className="text-sm font-inter opacity-90">{project.role}</div>
                   </div>
 
-                  {/* Open icon at bottom-right for projects with links */}
-                  {project.link && (
-                    <div className="absolute bottom-0 right-0 p-6">
-                      <svg
-                        className="w-6 h-6 text-white opacity-90 transition-transform duration-300 group-hover:scale-110 group-hover:opacity-100"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                        />
-                      </svg>
-                    </div>
-                  )}
+                  {/* Arrow icon at bottom-right */}
+                  <div className="absolute bottom-0 right-0 p-6">
+                    <svg
+                      className="w-6 h-6 text-white opacity-90 transition-transform duration-300 group-hover:scale-110 group-hover:opacity-100"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

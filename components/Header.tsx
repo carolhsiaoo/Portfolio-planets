@@ -2,6 +2,7 @@
 
 import { memo, useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Header = memo(function Header() {
   const [isVisible, setIsVisible] = useState(false);
@@ -50,7 +51,7 @@ const Header = memo(function Header() {
           transition: 'all 0.5s ease-in-out'
         }}
       >
-        <div className="flex items-center">
+        <Link href="/" className="flex items-center">
           <Image
             src="/logo.png"
             alt="Carol Hsiao Logo"
@@ -58,18 +59,18 @@ const Header = memo(function Header() {
             height={40}
             className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transition-all duration-500"
           />
-        </div>
+        </Link>
 
         <nav className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-10">
-          <a href="#work" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wide tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+          <Link href="/#work" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wide tracking-wider hover:opacity-60 transition-all duration-500 text-black">
             PROJECTS
-          </a>
-          <a href="#about" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wide tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+          </Link>
+          <Link href="/#about" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wide tracking-wider hover:opacity-60 transition-all duration-500 text-black">
             ABOUT
-          </a>
-          <a href="#contact" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wide tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+          </Link>
+          <Link href="/#contact" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wide tracking-wider hover:opacity-60 transition-all duration-500 text-black">
             CONTACT
-          </a>
+          </Link>
         </nav>
       </div>
     </header>
