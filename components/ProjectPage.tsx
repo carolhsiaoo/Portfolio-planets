@@ -70,12 +70,12 @@ function Sidebar({ sections, activeId }: { sections: { id: string; label: string
 export default function ProjectPage({ project }: { project: ProjectData }) {
   const sections = useMemo(() => {
     const list: { id: string; label: string }[] = [
-      { id: 'overview', label: 'Overview' },
+      { id: 'hero', label: 'Overview' },
     ];
-    if (project.problem) list.push({ id: 'problem', label: 'Problem' });
-    if (project.solution) list.push({ id: 'solution', label: 'Solution & Design' });
-    if (project.implementation) list.push({ id: 'implementation', label: 'Implementation' });
-    if (project.result) list.push({ id: 'result', label: 'Final Result' });
+    if (project.discovery) list.push({ id: 'discovery', label: 'Discovery' });
+    if (project.system) list.push({ id: 'system', label: 'System' });
+    if (project.build) list.push({ id: 'build', label: 'Build' });
+    if (project.validation) list.push({ id: 'validation', label: 'Validation' });
     if (project.reflection) list.push({ id: 'reflection', label: 'Reflection' });
     return list;
   }, [project]);
@@ -135,8 +135,8 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
 
       <Sidebar sections={sections} activeId={activeId} />
 
-      {/* Section 1: Overview / Hero */}
-      <section id="overview" className="pt-12 sm:pt-20 pb-12 sm:pb-16">
+      {/* Module 0: Hero Section */}
+      <section id="hero" className="pt-12 sm:pt-20 pb-12 sm:pb-16">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
           <FadeInSection>
             <div className="mb-8">
@@ -147,6 +147,19 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
                 <p className="text-lg sm:text-xl md:text-2xl font-inter text-gray-600 max-w-3xl">
                   {project.tagline}
                 </p>
+              )}
+              {/* Highlight tags */}
+              {project.tags && project.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {project.tags.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="px-3 py-1 text-xs font-inter font-medium tracking-wider uppercase bg-white rounded-full text-gray-600 border border-gray-200"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
               )}
             </div>
 
@@ -185,81 +198,127 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
               )}
             </div>
           </FadeInSection>
+
+          {/* 3-Card Summary: Problem / Solution / Outcome */}
+          {project.heroSummary && (
+            <FadeInSection delay={200}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12 sm:mt-16">
+                <div className="bg-white rounded-2xl p-6 sm:p-8">
+                  <p className="text-[10px] font-inter font-medium tracking-[0.15em] uppercase text-gray-400 mb-3">Problem</p>
+                  <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{project.heroSummary.problem}</p>
+                </div>
+                <div className="bg-white rounded-2xl p-6 sm:p-8">
+                  <p className="text-[10px] font-inter font-medium tracking-[0.15em] uppercase text-gray-400 mb-3">Solution</p>
+                  <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{project.heroSummary.solution}</p>
+                </div>
+                <div className="bg-white rounded-2xl p-6 sm:p-8">
+                  <p className="text-[10px] font-inter font-medium tracking-[0.15em] uppercase text-gray-400 mb-3">Outcome</p>
+                  <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{project.heroSummary.outcome}</p>
+                </div>
+              </div>
+            </FadeInSection>
+          )}
         </div>
       </section>
 
-      {/* Section 2: The Problem */}
-      {project.problem && (
-        <section id="problem" className="py-16 sm:py-24">
+      {/* Module 1: Discovery & Strategy */}
+      {project.discovery && (
+        <section id="discovery" className="py-16 sm:py-24 bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
             <FadeInSection>
-              <SectionHeading>The Problem</SectionHeading>
-              <div className="grid md:grid-cols-2 gap-10 sm:gap-16">
-                <div>
-                  <h3 className="text-lg sm:text-xl font-inter font-semibold mb-4">Pain Points</h3>
-                  <ul className="space-y-4">
-                    {project.problem.painPoints.map((point, i) => (
-                      <li key={i} className="flex gap-3">
-                        <span className="text-gray-300 mt-1 shrink-0">—</span>
-                        <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{point}</p>
-                      </li>
-                    ))}
-                  </ul>
+              <SectionHeading>Discovery & Strategy</SectionHeading>
+
+              {/* Insight cards */}
+              {project.discovery.insights.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 sm:mb-16">
+                  {project.discovery.insights.map((insight, i) => (
+                    <FadeInSection key={i} delay={i * 100}>
+                      <div className="bg-[#faf8f5] rounded-2xl p-6 sm:p-8 h-full">
+                        <p className="text-xs font-inter font-medium tracking-wider uppercase text-gray-400 mb-3">Insight {i + 1}</p>
+                        <h4 className="text-base sm:text-lg font-inter font-semibold mb-2">{insight.title}</h4>
+                        <p className="text-sm font-inter text-gray-600 leading-relaxed">{insight.description}</p>
+                      </div>
+                    </FadeInSection>
+                  ))}
                 </div>
-                <div>
-                  <h3 className="text-lg sm:text-xl font-inter font-semibold mb-4">Goals</h3>
-                  <ul className="space-y-4">
-                    {project.problem.goals.map((goal, i) => (
-                      <li key={i} className="flex gap-3">
-                        <span className="text-gray-300 mt-1 shrink-0">—</span>
-                        <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{goal}</p>
-                      </li>
-                    ))}
-                  </ul>
+              )}
+
+              {/* HMW Statement */}
+              {project.discovery.hmwStatement && (
+                <div className="mb-12 sm:mb-16 bg-[#faf8f5] rounded-2xl p-8 sm:p-10">
+                  <p className="text-xs font-inter font-medium tracking-wider uppercase text-gray-400 mb-4">How Might We</p>
+                  <p className="text-lg sm:text-xl md:text-2xl font-cinzel font-medium text-gray-800 leading-relaxed italic">
+                    &ldquo;{project.discovery.hmwStatement}&rdquo;
+                  </p>
                 </div>
-              </div>
+              )}
+
+              {/* Description + Image */}
+              {(project.discovery.description || project.discovery.image) && (
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+                  {project.discovery.description && (
+                    <div>
+                      <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">
+                        {project.discovery.description}
+                      </p>
+                    </div>
+                  )}
+                  {project.discovery.image && (
+                    <div className="rounded-2xl overflow-hidden">
+                      <MediaDisplay src={project.discovery.image} alt={`${project.name} discovery`} />
+                    </div>
+                  )}
+                </div>
+              )}
             </FadeInSection>
           </div>
         </section>
       )}
 
-      {/* Section 3: Solution & Design */}
-      {project.solution && (
-        <section id="solution" className="py-16 sm:py-24 bg-white">
+      {/* Module 2: The Brain & System */}
+      {project.system && (
+        <section id="system" className="py-16 sm:py-24">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
             <FadeInSection>
-              <SectionHeading>Solution & Design</SectionHeading>
+              <SectionHeading>The Brain & System</SectionHeading>
 
-              {project.solution.userFlow && (
+              {/* User Flow */}
+              {project.system.userFlow && (
                 <div className="mb-12 sm:mb-16">
                   <h3 className="text-lg sm:text-xl font-inter font-semibold mb-3">User Flow</h3>
                   <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">
-                    {project.solution.userFlow}
+                    {project.system.userFlow}
                   </p>
+                  {project.system.userFlowImage && (
+                    <div className="mt-6 rounded-2xl overflow-hidden">
+                      <MediaDisplay src={project.system.userFlowImage} alt={`${project.name} user flow`} />
+                    </div>
+                  )}
                 </div>
               )}
 
-              {project.solution.designSystem && (
+              {/* Design System */}
+              {project.system.designSystem && (
                 <div className="mb-12 sm:mb-16">
                   <h3 className="text-lg sm:text-xl font-inter font-semibold mb-3">Design System</h3>
                   <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">
-                    {project.solution.designSystem}
+                    {project.system.designSystem}
                   </p>
                 </div>
               )}
 
-              {project.solution.keyScreens && project.solution.keyScreens.length > 0 && (
-                <div>
-                  <h3 className="text-lg sm:text-xl font-inter font-semibold mb-6">Key Screens</h3>
+              {/* Design system images */}
+              {project.system.designSystemImages && project.system.designSystemImages.length > 0 && (
+                <div className="mb-12 sm:mb-16">
                   <div className="space-y-8">
-                    {project.solution.keyScreens.map((screen, i) => (
+                    {project.system.designSystemImages.map((img, i) => (
                       <FadeInSection key={i} delay={i * 100}>
                         <figure>
                           <div className="rounded-2xl overflow-hidden bg-gray-100">
-                            <MediaDisplay src={screen.src} alt={screen.caption} />
+                            <MediaDisplay src={img.src} alt={img.caption} />
                           </div>
                           <figcaption className="mt-3 text-sm font-inter text-gray-500 text-center">
-                            {screen.caption}
+                            {img.caption}
                           </figcaption>
                         </figure>
                       </FadeInSection>
@@ -267,23 +326,67 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
                   </div>
                 </div>
               )}
+
+              {/* Accessibility Notes */}
+              {project.system.accessibilityNotes && project.system.accessibilityNotes.length > 0 && (
+                <div className="bg-white rounded-2xl p-6 sm:p-8">
+                  <h3 className="text-lg sm:text-xl font-inter font-semibold mb-4">Accessibility</h3>
+                  <ul className="space-y-3">
+                    {project.system.accessibilityNotes.map((note, i) => (
+                      <li key={i} className="flex gap-3">
+                        <span className="text-gray-300 mt-1 shrink-0">—</span>
+                        <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{note}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </FadeInSection>
           </div>
         </section>
       )}
 
-      {/* Section 4: Implementation */}
-      {project.implementation && (
-        <section id="implementation" className="py-16 sm:py-24">
+      {/* Module 3: The Build — Design-to-Code */}
+      {project.build && (
+        <section id="build" className="py-16 sm:py-24 bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
             <FadeInSection>
-              <SectionHeading>Implementation</SectionHeading>
+              <SectionHeading>The Build</SectionHeading>
 
-              {project.implementation.features && (
+              {/* Design-to-Code Comparisons */}
+              {project.build.comparisons && project.build.comparisons.length > 0 && (
+                <div className="mb-12 sm:mb-16">
+                  <h3 className="text-lg sm:text-xl font-inter font-semibold mb-6">Design → Code</h3>
+                  <div className="space-y-8">
+                    {project.build.comparisons.map((comp, i) => (
+                      <FadeInSection key={i} delay={i * 100}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div>
+                            <p className="text-xs font-inter font-medium tracking-wider uppercase text-gray-400 mb-3">Figma</p>
+                            <div className="rounded-2xl overflow-hidden bg-gray-100">
+                              <MediaDisplay src={comp.figma} alt={`${comp.caption} — Figma`} />
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-xs font-inter font-medium tracking-wider uppercase text-gray-400 mb-3">Code</p>
+                            <div className="rounded-2xl overflow-hidden bg-gray-100">
+                              <MediaDisplay src={comp.code} alt={`${comp.caption} — Code`} />
+                            </div>
+                          </div>
+                        </div>
+                        <p className="mt-3 text-sm font-inter text-gray-500 text-center">{comp.caption}</p>
+                      </FadeInSection>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Core Features */}
+              {project.build.features && project.build.features.length > 0 && (
                 <div className="mb-12 sm:mb-16">
                   <h3 className="text-lg sm:text-xl font-inter font-semibold mb-4">Core Features</h3>
                   <ul className="space-y-4">
-                    {project.implementation.features.map((feature, i) => (
+                    {project.build.features.map((feature, i) => (
                       <li key={i} className="flex gap-3">
                         <span className="text-gray-300 mt-1 shrink-0">—</span>
                         <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{feature}</p>
@@ -293,12 +396,13 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
                 </div>
               )}
 
-              {project.implementation.challenges && project.implementation.challenges.length > 0 && (
+              {/* Challenges & Solutions */}
+              {project.build.challenges && project.build.challenges.length > 0 && (
                 <div className="mb-12 sm:mb-16">
                   <h3 className="text-lg sm:text-xl font-inter font-semibold mb-6">Challenges & Solutions</h3>
                   <div className="space-y-8">
-                    {project.implementation.challenges.map((challenge, i) => (
-                      <div key={i} className="grid md:grid-cols-2 gap-6 p-6 sm:p-8 bg-white rounded-2xl border border-gray-100">
+                    {project.build.challenges.map((challenge, i) => (
+                      <div key={i} className="grid md:grid-cols-2 gap-6 p-6 sm:p-8 bg-[#faf8f5] rounded-2xl">
                         <div>
                           <p className="text-xs font-inter font-medium tracking-wider uppercase text-gray-400 mb-2">Challenge</p>
                           <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{challenge.problem}</p>
@@ -313,17 +417,30 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
                 </div>
               )}
 
-              {project.implementation.codeSnippet && (
-                <div>
-                  <h3 className="text-lg sm:text-xl font-inter font-semibold mb-4">Code Highlight</h3>
-                  <div className="rounded-2xl overflow-hidden bg-gray-900 p-6">
-                    <pre className="text-sm text-gray-200 overflow-x-auto">
-                      <code>{project.implementation.codeSnippet.code}</code>
-                    </pre>
+              {/* Code Snippets */}
+              {project.build.codeSnippets && project.build.codeSnippets.length > 0 && (
+                <div className="mb-12 sm:mb-16">
+                  <h3 className="text-lg sm:text-xl font-inter font-semibold mb-4">Code Highlights</h3>
+                  <div className="space-y-6">
+                    {project.build.codeSnippets.map((snippet, i) => (
+                      <div key={i}>
+                        <div className="rounded-2xl overflow-hidden bg-gray-900 p-6">
+                          <pre className="text-sm text-gray-200 overflow-x-auto">
+                            <code>{snippet.code}</code>
+                          </pre>
+                        </div>
+                        <p className="mt-3 text-sm font-inter text-gray-500 text-center">{snippet.caption}</p>
+                      </div>
+                    ))}
                   </div>
-                  <p className="mt-3 text-sm font-inter text-gray-500 text-center">
-                    {project.implementation.codeSnippet.caption}
-                  </p>
+                </div>
+              )}
+
+              {/* AI Workflow */}
+              {project.build.aiWorkflow && (
+                <div className="bg-[#faf8f5] rounded-2xl p-6 sm:p-8">
+                  <h3 className="text-lg sm:text-xl font-inter font-semibold mb-3">AI-Assisted Workflow</h3>
+                  <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{project.build.aiWorkflow}</p>
                 </div>
               )}
             </FadeInSection>
@@ -331,23 +448,94 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
         </section>
       )}
 
-      {/* Section 5: Final Result & Demo */}
-      {project.result && (
-        <section id="result" className="py-16 sm:py-24 bg-white">
+      {/* Module 4: Validation & Growth */}
+      {project.validation && (
+        <section id="validation" className="py-16 sm:py-24">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
             <FadeInSection>
-              <SectionHeading>Final Result</SectionHeading>
+              <SectionHeading>Validation & Growth</SectionHeading>
 
-              {project.result.demoVideo && (
-                <div className="mb-10 sm:mb-14 rounded-2xl overflow-hidden bg-gray-100">
-                  <MediaDisplay src={project.result.demoVideo} alt={`${project.name} demo`} />
+              {/* Metrics Dashboard */}
+              {project.validation.metrics && project.validation.metrics.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 sm:mb-16">
+                  {project.validation.metrics.map((metric, i) => (
+                    <FadeInSection key={i} delay={i * 100}>
+                      <div className="bg-white rounded-2xl p-6 sm:p-8 text-center">
+                        <p className="text-3xl sm:text-4xl font-cinzel font-medium mb-2">{metric.value}</p>
+                        <p className="text-sm font-inter font-semibold uppercase tracking-wider text-gray-800 mb-1">{metric.label}</p>
+                        {metric.description && (
+                          <p className="text-xs font-inter text-gray-500">{metric.description}</p>
+                        )}
+                      </div>
+                    </FadeInSection>
+                  ))}
+                </div>
+              )}
+
+              {/* Affinity Diagram */}
+              {project.validation.affinityDiagram && (
+                <div className="mb-12 sm:mb-16">
+                  <h3 className="text-lg sm:text-xl font-inter font-semibold mb-6">Affinity Diagram</h3>
+                  <div className="rounded-2xl overflow-hidden">
+                    <MediaDisplay src={project.validation.affinityDiagram} alt={`${project.name} affinity diagram`} />
+                  </div>
+                </div>
+              )}
+
+              {/* Iterative Design: Before & After */}
+              {project.validation.iterations && project.validation.iterations.length > 0 && (
+                <div className="mb-12 sm:mb-16">
+                  <h3 className="text-lg sm:text-xl font-inter font-semibold mb-6">Iterative Design</h3>
+                  <div className="space-y-8">
+                    {project.validation.iterations.map((iter, i) => (
+                      <FadeInSection key={i} delay={i * 100}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div>
+                            <p className="text-xs font-inter font-medium tracking-wider uppercase text-gray-400 mb-3">Before</p>
+                            <div className="rounded-2xl overflow-hidden bg-white">
+                              <MediaDisplay src={iter.before} alt={`${iter.caption} — Before`} />
+                            </div>
+                          </div>
+                          <div>
+                            <p className="text-xs font-inter font-medium tracking-wider uppercase text-gray-400 mb-3">After</p>
+                            <div className="rounded-2xl overflow-hidden bg-white">
+                              <MediaDisplay src={iter.after} alt={`${iter.caption} — After`} />
+                            </div>
+                          </div>
+                        </div>
+                        <p className="mt-3 text-sm font-inter text-gray-500 text-center">{iter.caption}</p>
+                      </FadeInSection>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Marketing Results */}
+              {project.validation.marketingResults && project.validation.marketingResults.length > 0 && (
+                <div className="mb-12 sm:mb-16">
+                  <h3 className="text-lg sm:text-xl font-inter font-semibold mb-4">Marketing Results</h3>
+                  <ul className="space-y-3">
+                    {project.validation.marketingResults.map((result, i) => (
+                      <li key={i} className="flex gap-3">
+                        <span className="text-gray-300 mt-1 shrink-0">—</span>
+                        <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{result}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Demo + Links */}
+              {project.validation.demoVideo && (
+                <div className="mb-10 sm:mb-14 rounded-2xl overflow-hidden bg-white">
+                  <MediaDisplay src={project.validation.demoVideo} alt={`${project.name} demo`} />
                 </div>
               )}
 
               <div className="flex flex-wrap gap-4">
-                {project.result.liveUrl && (
+                {project.validation.liveUrl && (
                   <a
-                    href={project.result.liveUrl}
+                    href={project.validation.liveUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white rounded-full text-sm font-inter font-medium hover:bg-gray-800 transition-colors duration-300"
@@ -358,9 +546,9 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
                     </svg>
                   </a>
                 )}
-                {project.result.githubUrl && (
+                {project.validation.githubUrl && (
                   <a
-                    href={project.result.githubUrl}
+                    href={project.validation.githubUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 rounded-full text-sm font-inter font-medium hover:border-gray-500 transition-colors duration-300"
@@ -377,12 +565,12 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
         </section>
       )}
 
-      {/* Section 6: Reflection */}
+      {/* Module 5: Reflection & Next Steps */}
       {project.reflection && (
-        <section id="reflection" className="py-16 sm:py-24">
+        <section id="reflection" className="py-16 sm:py-24 bg-white">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8">
             <FadeInSection>
-              <SectionHeading>Reflection</SectionHeading>
+              <SectionHeading>Reflection & Next Steps</SectionHeading>
               <div className="grid md:grid-cols-2 gap-10 sm:gap-16">
                 {project.reflection.learnings && (
                   <div>
@@ -397,14 +585,14 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
                     </ul>
                   </div>
                 )}
-                {project.reflection.improvements && (
+                {project.reflection.nextSteps && (
                   <div>
-                    <h3 className="text-lg sm:text-xl font-inter font-semibold mb-4">What I'd Do Differently</h3>
+                    <h3 className="text-lg sm:text-xl font-inter font-semibold mb-4">Next Steps</h3>
                     <ul className="space-y-4">
-                      {project.reflection.improvements.map((improvement, i) => (
+                      {project.reflection.nextSteps.map((step, i) => (
                         <li key={i} className="flex gap-3">
                           <span className="text-gray-300 mt-1 shrink-0">—</span>
-                          <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{improvement}</p>
+                          <p className="text-sm sm:text-base font-inter text-gray-700 leading-relaxed">{step}</p>
                         </li>
                       ))}
                     </ul>
