@@ -2,6 +2,7 @@ export interface ProjectData {
   // Card fields (used by ProjectsTable)
   name: string;
   slug: string;
+  category: 'creative' | 'functional';
   type: string;
   role: string;
   year: string;
@@ -91,6 +92,7 @@ export const projects: ProjectData[] = [
   {
     name: "FireFree",
     slug: "firefree",
+    category: "functional",
     type: "Web & Mobile App",
     role: "Product Designer & Frontend Developer",
     year: "2025 ~ now",
@@ -200,6 +202,7 @@ export const projects: ProjectData[] = [
   {
     name: "DailyPay",
     slug: "dailypay",
+    category: "functional",
     type: "Mobile App",
     role: "Product Designer & Frontend Developer",
     year: "2026",
@@ -289,6 +292,7 @@ export const projects: ProjectData[] = [
   {
     name: "CoreHour",
     slug: "corehour",
+    category: "functional",
     type: "Web App",
     role: "Product Designer & Frontend Developer",
     year: "2025",
@@ -380,6 +384,7 @@ export const projects: ProjectData[] = [
   {
     name: "HandyTools",
     slug: "handytools",
+    category: "creative",
     type: "AR/VR",
     role: "Product Designer & Developer",
     year: "2024",
@@ -468,6 +473,7 @@ export const projects: ProjectData[] = [
   {
     name: "Cleaning Service Platform",
     slug: "cleaning-service-platform",
+    category: "creative",
     type: "Web Platform",
     role: "UI/UX Designer",
     year: "2023",
@@ -551,6 +557,30 @@ export const projects: ProjectData[] = [
         "Add quantitative metrics (task completion rates, error rates) alongside qualitative feedback for stronger validation.",
       ],
     },
+  },
+  // --- Creative placeholder ---
+  {
+    name: "Creative Project 3",
+    slug: "creative-project-3",
+    category: "creative",
+    type: "Immersive Experience",
+    role: "Creative Developer",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=800&h=600&fit=crop",
+    tagline: "Placeholder — replace with your project details.",
+    tags: ["Creative", "Placeholder"],
+  },
+  // --- Functional placeholder ---
+  {
+    name: "Functional Product 4",
+    slug: "functional-product-4",
+    category: "functional",
+    type: "Web App",
+    role: "Product Designer & Developer",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop",
+    tagline: "Placeholder — replace with your project details.",
+    tags: ["SaaS", "Placeholder"],
   },
 ];
 

@@ -21,7 +21,7 @@ const Marquee = memo(function Marquee() {
 
   return (
     <div className="w-full">
-      <div className="w-full bg-white pt-12 sm:pt-16 md:pt-20" />
+      <div className="w-full bg-[#faf8f5] pt-12 sm:pt-16 md:pt-20" />
       <div className="w-full overflow-hidden py-4 sm:py-6 md:py-8 border-y border-gray-800 bg-black">
         <div className="inline-flex animate-marquee whitespace-nowrap hover:pause-marquee">
         {allItems.map((item, index) => (
