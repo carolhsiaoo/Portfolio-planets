@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { projects } from '@/data/projects';
@@ -11,8 +11,9 @@ type Row =
   | { kind: 'project'; project: (typeof projects)[number]; globalIndex: number };
 
 function buildRows(): Row[] {
-  const creative = projects.filter((p) => p.category === 'creative');
-  const functional = projects.filter((p) => p.category === 'functional');
+  const hidden = new Set(['Timez']);
+  const creative = projects.filter((p) => p.category === 'creative' && !hidden.has(p.name));
+  const functional = projects.filter((p) => p.category === 'functional' && !hidden.has(p.name));
   const rows: Row[] = [];
 
   rows.push({ kind: 'label', label: 'Functional Products' });
@@ -32,6 +33,17 @@ const allProjects = rows.filter((r): r is Extract<Row, { kind: 'project' }> => r
 export default function ProjectsTable() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLElement>(null);
+
+  // Preload hover images so they appear instantly
+  useEffect(() => {
+    allProjects.forEach(({ project }) => {
+      const src = project.video?.endsWith('.gif') ? project.video : !project.video ? project.image : null;
+      if (src) {
+        const img = new window.Image();
+        img.src = src;
+      }
+    });
+  }, []);
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -78,7 +90,7 @@ export default function ProjectsTable() {
                 rel="noopener noreferrer"
                 onMouseEnter={() => setHoveredIndex(globalIndex)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className={`group border-t border-neutral-200 last:border-b py-6 sm:py-8 flex flex-col gap-4 lg:transition-opacity lg:duration-300 ${
+                className={`group border-t border-neutral-200 lg:last:border-b py-6 sm:py-8 flex flex-col gap-4 lg:transition-opacity lg:duration-300 ${
                   hoveredIndex !== null && hoveredIndex !== globalIndex ? 'lg:opacity-25' : ''
                 }`}
               >
@@ -186,7 +198,8 @@ export default function ProjectsTable() {
                       alt={project.name}
                       fill
                       className="object-cover"
-                      sizes="300px"
+                      sizes="450px"
+                      quality={90}
                     />
                   );
                 })()}
