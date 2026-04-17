@@ -85,10 +85,10 @@ export default function ProjectsTable() {
                       transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
                       className="flex items-baseline gap-3 overflow-hidden"
                     >
-                      <span className="font-cinzel font-medium text-sm text-neutral-700">
+                      <span className="font-cinzel font-medium text-sm text-neutral-900">
                         {p.name}
                       </span>
-                      <span className="font-inter text-xs text-neutral-500 tabular-nums">
+                      <span className="font-inter text-xs text-neutral-900 tabular-nums">
                         {p.year} &middot; {p.type.toLowerCase()}
                       </span>
                     </motion.div>
@@ -105,17 +105,13 @@ export default function ProjectsTable() {
                     className="overflow-hidden"
                   >
                     <div className="pb-5">
-                      <span className="text-sm font-inter tracking-widest uppercase text-neutral-400 mb-3 block">
+                      <span className="text-sm font-inter tracking-widest uppercase text-neutral-500 mb-3 block">
                         {p.year} &mdash; {p.type}
                       </span>
-                      <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-cinzel font-medium text-neutral-900 mb-4 leading-[1.1]">
+                      <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-cinzel font-medium text-neutral-900 mb-2 leading-[1.1]">
                         {p.name}
                       </h3>
-                      {p.tagline && (
-                        <p className="text-sm sm:text-base font-inter text-neutral-500 leading-relaxed max-w-md mb-5">
-                          {p.tagline}
-                        </p>
-                      )}
+                      <span className="text-sm font-inter text-neutral-500 mb-4 block">{p.role}</span>
                       <div className="flex flex-wrap gap-2 mb-4">
                         {p.tags?.slice(0, 4).map((tag) => (
                           <span
@@ -126,7 +122,6 @@ export default function ProjectsTable() {
                           </span>
                         ))}
                       </div>
-                      <span className="text-sm font-inter text-neutral-400">{p.role}</span>
                     </div>
                   </motion.div>
                 </div>
