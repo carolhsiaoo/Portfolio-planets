@@ -2,7 +2,6 @@
 
 import { useRef, useState, useCallback } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { projects } from '@/data/projects';
 
@@ -16,12 +15,12 @@ function buildRows(): Row[] {
   const functional = projects.filter((p) => p.category === 'functional');
   const rows: Row[] = [];
 
-  rows.push({ kind: 'label', label: 'Immersive Experiences' });
-  creative.forEach((p, i) => rows.push({ kind: 'project', project: p, globalIndex: i }));
-
   rows.push({ kind: 'label', label: 'Functional Products' });
-  functional.forEach((p, i) =>
-    rows.push({ kind: 'project', project: p, globalIndex: creative.length + i })
+  functional.forEach((p, i) => rows.push({ kind: 'project', project: p, globalIndex: i }));
+
+  rows.push({ kind: 'label', label: 'Immersive Experiences' });
+  creative.forEach((p, i) =>
+    rows.push({ kind: 'project', project: p, globalIndex: functional.length + i })
   );
 
   return rows;
@@ -72,9 +71,11 @@ export default function ProjectsTable() {
 
             const { project, globalIndex } = row;
             return (
-              <Link
+              <a
                 key={project.slug}
-                href={`/projects/${project.slug}`}
+                href={project.link || `/projects/${project.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 onMouseEnter={() => setHoveredIndex(globalIndex)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 className="group border-t border-neutral-200 last:border-b py-6 sm:py-8 flex flex-col gap-4 transition-opacity duration-300"
@@ -126,7 +127,7 @@ export default function ProjectsTable() {
                     />
                   )}
                 </div>
-              </Link>
+              </a>
             );
           })}
         </div>
