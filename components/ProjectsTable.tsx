@@ -78,22 +78,21 @@ export default function ProjectsTable() {
                 rel="noopener noreferrer"
                 onMouseEnter={() => setHoveredIndex(globalIndex)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className="group border-t border-neutral-200 last:border-b py-6 sm:py-8 flex flex-col gap-4 transition-opacity duration-300"
-                style={{
-                  opacity: hoveredIndex === null || hoveredIndex === globalIndex ? 1 : 0.25,
-                }}
+                className={`group border-t border-neutral-200 last:border-b py-6 sm:py-8 flex flex-col gap-4 lg:transition-opacity lg:duration-300 ${
+                  hoveredIndex !== null && hoveredIndex !== globalIndex ? 'lg:opacity-25' : ''
+                }`}
               >
                 <div className="flex items-center justify-between gap-4 w-full">
-                  <h3 className="font-cinzel font-medium text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-neutral-900 leading-[1.1]">
+                  <h3 className="font-cinzel font-medium text-2xl sm:text-5xl md:text-6xl lg:text-7xl text-neutral-900 leading-[1.1]">
                     {project.name}
                   </h3>
 
                   <div className="shrink-0 text-right">
-                    <span className="block font-inter text-sm sm:text-base lg:text-lg text-neutral-500">
+                    <span className="block font-inter text-xs sm:text-sm lg:text-base text-neutral-500">
                       {project.type}
                     </span>
-                    <span className="block font-inter text-sm sm:text-base lg:text-lg text-neutral-500 tabular-nums">
-                      {project.year}
+                    <span className="block font-inter text-xs sm:text-sm lg:text-base text-neutral-500">
+                      {project.role}
                     </span>
                   </div>
                 </div>
@@ -144,7 +143,7 @@ export default function ProjectsTable() {
               x: springX,
               y: springY,
             }}
-            className="fixed top-0 left-0 z-50 pointer-events-none w-[300px] h-[200px] rounded-xl overflow-hidden shadow-2xl hidden lg:block"
+            className="fixed top-0 left-0 z-50 pointer-events-none w-[450px] h-[300px] rounded-xl overflow-hidden shadow-2xl hidden lg:block"
           >
             <AnimatePresence mode="wait">
               <motion.div

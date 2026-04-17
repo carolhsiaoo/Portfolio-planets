@@ -18,8 +18,8 @@ const notoSans = Noto_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Carol Hsiao | Product Engineer",
-  description: "My personal portfolio website showcasing my work as a product engineer",
+  title: "Carol Hsiao | Product Designer",
+  description: "My personal portfolio website showcasing my work as a product designer",
 };
 
 export default function RootLayout({

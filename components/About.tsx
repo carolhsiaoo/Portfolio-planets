@@ -25,7 +25,7 @@ const About = memo(function About() {
           I build products that create true value for users.
         </p>
         <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-normal leading-relaxed mb-8 sm:mb-10 md:mb-12 px-2 md:whitespace-nowrap">
-          I'm a product engineer at{' '}
+          I'm a product designer at{' '}
           <a
             href="https://aburistudio.com"
             target="_blank"
