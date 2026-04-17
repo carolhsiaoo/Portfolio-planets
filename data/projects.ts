@@ -206,7 +206,7 @@ export const projects: ProjectData[] = [
     type: "Mobile App",
     role: "Design",
     year: "2026",
-    image: "/dailypay-img.png",
+    image: "/dailywage-img.png",
     link: "https://dailypay.aburi.app",
     tagline: "A mobile expense tracker designed so that logging a purchase takes fewer taps than unlocking your phone.",
     tags: ["Mobile", "Product Design", "React Native", "Local-First"],
@@ -221,12 +221,12 @@ export const projects: ProjectData[] = [
 
     challenge: {
       description: "Expense tracking apps have a paradox: the more features they offer (charts, categories, budgets, settings), the less likely users are to do the one thing that matters — actually logging their expenses. Research showed every extra tap or screen transition is a drop-off point. The challenge was designing an app where the primary action (logging an expense) has near-zero friction, while still providing daily awareness of spending patterns.",
-      image: "/dailypay-img.png",
+      image: "/dailywage-img.png",
     },
 
     solutionSection: {
       description: "I stripped the experience down to a single screen. The app opens directly to a number pad — no onboarding, no dashboard, no settings wall. Type the amount, tap a smart-suggested category chip, done. One swipe reveals a daily summary showing whether you're on track. Everything runs locally on SQLite, so there's zero network latency and full offline support. The result is an app that feels more like a calculator than a traditional finance tool.",
-      image: "/dailypay-img.png",
+      image: "/dailywage-img.png",
     },
 
     process: {
@@ -247,13 +247,13 @@ export const projects: ProjectData[] = [
       ],
       hmwStatement: "How might we make expense logging so effortless it becomes automatic?",
       description: "The biggest barrier to consistent expense tracking isn't motivation — it's friction. Users want to track spending, but every extra tap gives them a reason not to.",
-      image: "/dailypay-img.png",
+      image: "/dailywage-img.png",
     },
     system: {
       userFlow: "App opens directly to a number pad. User types amount, taps a smart-suggested category chip, and the expense is logged. One swipe reveals the daily summary. No navigation menus, no settings to configure first.",
       designSystem: "Bold, high-contrast mobile palette with minimum 48px touch targets. Single-weight type scale for clarity on small screens. Haptic feedback on every interaction.",
       designSystemImages: [
-        { src: "/dailypay-img.png", caption: "Main expense input — number pad with smart category chips." },
+        { src: "/dailywage-img.png", caption: "Main expense input — number pad with smart category chips." },
       ],
     },
     build: {
@@ -275,7 +275,7 @@ export const projects: ProjectData[] = [
         { label: "Animations", value: "60fps", description: "Native-thread rendering, no frame drops" },
         { label: "Offline", value: "100%", description: "Fully functional without network" },
       ],
-      demoVideo: "/dailypay-img.png",
+      demoVideo: "/dailywage-img.png",
       liveUrl: "https://dailypay.aburi.app",
     },
 
