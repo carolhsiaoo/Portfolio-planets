@@ -275,7 +275,7 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
 
               {/* Desktop: horizontal timeline */}
               <div className="hidden md:flex items-start mb-12 sm:mb-16">
-                {project.process.steps.map((step, i) => (
+                {project.process!.steps.map((step, i) => (
                   <div key={i} className="flex items-start flex-1">
                     <div className="flex flex-col items-center flex-1">
                       <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center shrink-0 mb-3">
@@ -286,7 +286,7 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
                         <p className="text-xs font-inter text-gray-500 text-center mt-2 px-2 leading-relaxed">{step.description}</p>
                       )}
                     </div>
-                    {i < project.process.steps.length - 1 && (
+                    {i < project.process!.steps.length - 1 && (
                       <div className="flex items-center pt-4 shrink-0">
                         <div className="w-8 h-px bg-gray-300" />
                         <svg className="w-3 h-3 text-gray-300 -ml-1" fill="currentColor" viewBox="0 0 20 20">
@@ -300,13 +300,13 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
 
               {/* Mobile: vertical timeline */}
               <div className="md:hidden space-y-0 mb-12">
-                {project.process.steps.map((step, i) => (
+                {project.process!.steps.map((step, i) => (
                   <div key={i} className="flex gap-4">
                     <div className="flex flex-col items-center">
                       <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center shrink-0">
                         <span className="text-white text-xs font-inter font-medium">{i + 1}</span>
                       </div>
-                      {i < project.process.steps.length - 1 && (
+                      {i < project.process!.steps.length - 1 && (
                         <div className="w-px flex-1 bg-gray-200 my-2" />
                       )}
                     </div>
@@ -320,9 +320,9 @@ export default function ProjectPage({ project }: { project: ProjectData }) {
                 ))}
               </div>
 
-              {project.process.image && (
+              {project.process!.image && (
                 <div className="rounded-2xl overflow-hidden">
-                  <MediaDisplay src={project.process.image} alt={`${project.name} process`} />
+                  <MediaDisplay src={project.process!.image} alt={`${project.name} process`} />
                 </div>
               )}
             </FadeInSection>
