@@ -7,13 +7,11 @@ const Marquee = memo(function Marquee() {
     "UI/UX Design",
     "React",
     "Prototype",
-    "Unity",
+    "Creative Development",
     "Three.js",
-    "Figma",
     "Product Design",
     "Frontend Development",
-    "AR/VR",
-    "User Research"
+    "User Experience"
   ];
 
   // Create multiple copies to ensure seamless loop
