@@ -113,42 +113,53 @@ export default function ProjectsTable() {
             }}
             className="fixed top-0 left-0 z-50 pointer-events-none w-[300px] h-[200px] rounded-xl overflow-hidden shadow-2xl hidden lg:block"
           >
-            {(() => {
-              const project = allProjects[hoveredIndex]?.project;
-              if (!project) return null;
-              if (project.video && !project.video.endsWith('.gif')) {
-                return (
-                  <video
-                    src={project.video}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    className="w-full h-full object-cover"
-                  />
-                );
-              }
-              if (project.video?.endsWith('.gif')) {
-                return (
-                  <Image
-                    src={project.video}
-                    alt={project.name}
-                    fill
-                    className="object-cover"
-                    unoptimized
-                  />
-                );
-              }
-              return (
-                <Image
-                  src={project.image}
-                  alt={project.name}
-                  fill
-                  className="object-cover"
-                  sizes="300px"
-                />
-              );
-            })()}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={hoveredIndex}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15, ease: 'easeInOut' }}
+                className="absolute inset-0"
+              >
+                {(() => {
+                  const project = allProjects[hoveredIndex]?.project;
+                  if (!project) return null;
+                  if (project.video && !project.video.endsWith('.gif')) {
+                    return (
+                      <video
+                        src={project.video}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="w-full h-full object-cover"
+                      />
+                    );
+                  }
+                  if (project.video?.endsWith('.gif')) {
+                    return (
+                      <Image
+                        src={project.video}
+                        alt={project.name}
+                        fill
+                        className="object-cover"
+                        unoptimized
+                      />
+                    );
+                  }
+                  return (
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      className="object-cover"
+                      sizes="300px"
+                    />
+                  );
+                })()}
+              </motion.div>
+            </AnimatePresence>
           </motion.div>
         )}
       </AnimatePresence>
