@@ -70,12 +70,12 @@ export default function Hero() {
               <span className="text-lg sm:text-xl md:text-2xl">✦</span>
             </p>
             <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-medium leading-relaxed ${textColor} select-none transition-colors duration-300`}>
-              Currently Building
+              Currently Building{' '}
               <a
                 href="https://firefree.app"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group cursor-pointer relative inline-flex items-center gap-1.5 px-2 py-1 rounded-xl hover:bg-purple-200/50 transition-colors duration-300"
+                className="group cursor-pointer relative inline-flex items-center gap-1.5"
               >
                 <TextRoll>FireFree</TextRoll>
                 <FiExternalLink className="text-sm sm:text-base md:text-lg lg:text-xl" strokeWidth={2.5} />
