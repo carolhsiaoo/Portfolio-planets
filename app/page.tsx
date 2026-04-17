@@ -14,9 +14,7 @@ export default function Home() {
       <FadeInSection>
         <Hero />
       </FadeInSection>
-      <FadeInSection delay={100}>
-        <ProjectsTable />
-      </FadeInSection>
+      <ProjectsTable />
       <FadeInSection delay={100}>
         <Marquee />
       </FadeInSection>

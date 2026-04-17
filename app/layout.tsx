@@ -28,8 +28,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="overflow-x-hidden">
-      <body className={`${cinzel.variable} ${notoSans.variable} antialiased overflow-x-hidden`}>
+    <html lang="en" className="overscroll-none">
+      <body className={`${cinzel.variable} ${notoSans.variable} antialiased overflow-x-clip`}>
         <CursorStars />
         {children}
       </body>
