@@ -82,7 +82,7 @@ export default function ProjectsTable() {
                   opacity: hoveredIndex === null || hoveredIndex === globalIndex ? 1 : 0.25,
                 }}
               >
-                <h3 className="font-cinzel font-medium text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-neutral-900 leading-[1.1] transition-transform duration-300 group-hover:translate-x-3">
+                <h3 className="font-cinzel font-medium text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-neutral-900 leading-[1.1]">
                   {project.name}
                 </h3>
 
