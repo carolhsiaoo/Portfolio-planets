@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { FiExternalLink } from "react-icons/fi";
 import AdaptiveHeroMouseInteraction from "./AdaptiveHeroMouseInteraction";
+import TextRoll from "./TextRoll";
 
 export default function Hero() {
   const [backgroundBrightness, setBackgroundBrightness] = useState(128); // 0-255
@@ -76,7 +77,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="group cursor-pointer relative inline-flex items-center gap-1.5 px-2 py-1 rounded-xl hover:bg-purple-200/50 transition-colors duration-300"
               >
-                FireFree
+                <TextRoll>FireFree</TextRoll>
                 <FiExternalLink className="text-sm sm:text-base md:text-lg lg:text-xl" strokeWidth={2.5} />
               </a>
             </p>

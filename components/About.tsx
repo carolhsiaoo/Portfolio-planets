@@ -1,8 +1,11 @@
+'use client'
+
 import { memo } from 'react';
 import Image from 'next/image';
 import { FiExternalLink } from 'react-icons/fi';
 import StickerWall from './StickerWall';
 import WashiTape from './WashiTape';
+import TextRoll from './TextRoll';
 
 const About = memo(function About() {
   return (
@@ -29,7 +32,7 @@ const About = memo(function About() {
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-1.5 cursor-pointer relative px-2 py-1 rounded-xl hover:bg-orange-200/50 transition-colors duration-300"
           >
-            Aburi Studio
+            <TextRoll>Aburi Studio</TextRoll>
             <FiExternalLink className="text-sm sm:text-base md:text-lg lg:text-xl" strokeWidth={2.5} />
           </a>
           {' '}based in Calgary.
