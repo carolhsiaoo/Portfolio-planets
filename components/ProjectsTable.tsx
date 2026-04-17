@@ -77,22 +77,54 @@ export default function ProjectsTable() {
                 href={`/projects/${project.slug}`}
                 onMouseEnter={() => setHoveredIndex(globalIndex)}
                 onMouseLeave={() => setHoveredIndex(null)}
-                className="group border-t border-neutral-200 last:border-b py-6 sm:py-8 flex items-center justify-between gap-4 transition-opacity duration-300"
+                className="group border-t border-neutral-200 last:border-b py-6 sm:py-8 flex flex-col gap-4 transition-opacity duration-300"
                 style={{
                   opacity: hoveredIndex === null || hoveredIndex === globalIndex ? 1 : 0.25,
                 }}
               >
-                <h3 className="font-cinzel font-medium text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-neutral-900 leading-[1.1]">
-                  {project.name}
-                </h3>
+                <div className="flex items-center justify-between gap-4 w-full">
+                  <h3 className="font-cinzel font-medium text-3xl sm:text-5xl md:text-6xl lg:text-7xl text-neutral-900 leading-[1.1]">
+                    {project.name}
+                  </h3>
 
-                <div className="shrink-0 text-right">
-                  <span className="block font-inter text-sm sm:text-base lg:text-lg text-neutral-500">
-                    {project.type}
-                  </span>
-                  <span className="block font-inter text-sm sm:text-base lg:text-lg text-neutral-500 tabular-nums">
-                    {project.year}
-                  </span>
+                  <div className="shrink-0 text-right">
+                    <span className="block font-inter text-sm sm:text-base lg:text-lg text-neutral-500">
+                      {project.type}
+                    </span>
+                    <span className="block font-inter text-sm sm:text-base lg:text-lg text-neutral-500 tabular-nums">
+                      {project.year}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Mobile inline thumbnail */}
+                <div className="relative w-full h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden lg:hidden">
+                  {project.video && !project.video.endsWith('.gif') ? (
+                    <video
+                      src={project.videoMobile || project.video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  ) : project.video?.endsWith('.gif') ? (
+                    <Image
+                      src={project.video}
+                      alt={project.name}
+                      fill
+                      className="object-cover"
+                      unoptimized
+                    />
+                  ) : (
+                    <Image
+                      src={project.image}
+                      alt={project.name}
+                      fill
+                      className="object-cover"
+                      sizes="100vw"
+                    />
+                  )}
                 </div>
               </Link>
             );
