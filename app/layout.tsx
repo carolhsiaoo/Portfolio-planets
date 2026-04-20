@@ -3,6 +3,7 @@ import { Cinzel, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import CursorStars from "@/components/CursorStars";
 
+
 const cinzel = Cinzel({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],

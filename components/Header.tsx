@@ -62,14 +62,14 @@ const Header = memo(function Header() {
         </Link>
 
         <nav className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-10">
-          <Link href="/#work" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wide tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+          <Link href="/#work" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
             PROJECTS
           </Link>
-          <Link href="/#about" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wide tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+          <Link href="/#about" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
             ABOUT
           </Link>
-          <Link href="/#contact" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wide tracking-wider hover:opacity-60 transition-all duration-500 text-black">
-            CONTACT
+          <Link href="/blog" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+            BLOG
           </Link>
         </nav>
       </div>
