@@ -18,7 +18,7 @@ export default async function PostPage({
 
   return (
     <div className="min-h-screen bg-(--background) text-(--foreground)">
-      <Header />
+      <Header hideOnScroll />
       <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-8 pt-28 pb-20 font-noto-sans">
         <Link
           href="/blog"
@@ -33,7 +33,7 @@ export default async function PostPage({
           </span>
         )}
 
-        <h1 className="text-4xl md:text-5xl font-cinzel mb-4 leading-tight">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cinzel font-medium mb-4 leading-[1.05] text-neutral-900">
           {post.title}
         </h1>
 

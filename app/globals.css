@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --font-family-cinzel: var(--font-cinzel), serif;
@@ -45,6 +46,11 @@ body {
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Give empty paragraphs from Sanity a visible height for spacing */
+.prose p:empty {
+  min-height: 1em;
 }
 
 /* Star cursor effect animations */

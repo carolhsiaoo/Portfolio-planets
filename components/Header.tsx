@@ -1,34 +1,69 @@
 'use client';
 
-import { memo, useState, useEffect } from 'react';
+import { memo, useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const Header = memo(function Header() {
+const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: boolean }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    // Trigger fade-in on component mount
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 100);
 
-    // Handle scroll event
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      setIsScrolled(currentScrollY > 50);
+
+      if (hideOnScroll) {
+        const scrollingDown = currentScrollY > lastScrollY.current;
+        if (scrollingDown && currentScrollY > 80) {
+          setIsHidden(true);
+        } else {
+          setIsHidden(false);
+        }
+        lastScrollY.current = currentScrollY;
+      }
     };
 
-    // Check initial scroll position (for hash links like /#work, /#about, /#contact)
     handleScroll();
-
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [hideOnScroll]);
+
+  const navContent = (
+    <>
+      <Link href="/" className="flex items-center">
+        <Image
+          src="/logo.png"
+          alt="Carol Hsiao Logo"
+          width={40}
+          height={40}
+          className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transition-all duration-500"
+        />
+      </Link>
+
+      <nav className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+        <Link href="/#work" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+          PROJECTS
+        </Link>
+        <Link href="/#about" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+          ABOUT
+        </Link>
+        <Link href="/blog" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+          BLOG
+        </Link>
+      </nav>
+    </>
+  );
 
   return (
     <header
@@ -38,6 +73,13 @@ const Header = memo(function Header() {
       style={{
         borderBottom: isScrolled ? 'none' : '1px solid #F1F1F1',
         transition: 'opacity 1s ease-out, transform 1s ease-out, padding 0.5s ease-in-out',
+        ...(hideOnScroll && isHidden ? {
+          transform: 'translateY(-100%)',
+          transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease-in-out',
+        } : {}),
+        ...(hideOnScroll && !isHidden && isScrolled ? {
+          transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease-in-out',
+        } : {}),
       }}
     >
       <div
@@ -51,27 +93,7 @@ const Header = memo(function Header() {
           transition: 'all 0.5s ease-in-out'
         }}
       >
-        <Link href="/" className="flex items-center">
-          <Image
-            src="/logo.png"
-            alt="Carol Hsiao Logo"
-            width={40}
-            height={40}
-            className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 transition-all duration-500"
-          />
-        </Link>
-
-        <nav className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-10">
-          <Link href="/#work" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
-            PROJECTS
-          </Link>
-          <Link href="/#about" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
-            ABOUT
-          </Link>
-          <Link href="/blog" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
-            BLOG
-          </Link>
-        </nav>
+        {navContent}
       </div>
     </header>
   );
