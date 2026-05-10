@@ -24,7 +24,13 @@ export async function getPost(slug: string) {
       publishedAt,
       excerpt,
       coverImage,
-      body,
+      body[] {
+        ...,
+        _type == "video" => {
+          ...,
+          "videoUrl": asset->url
+        }
+      },
       category->{title, slug}
     }
   `,

@@ -48,7 +48,7 @@ export default async function PostPage({
         )}
 
         {post.coverImage && (
-          <div className="relative w-full h-64 md:h-96 mb-12 rounded-lg overflow-hidden">
+          <div className="relative w-full h-64 md:h-96 mb-12 rounded-lg overflow-hidden border border-gray-200">
             <Image
               src={urlFor(post.coverImage).width(1200).height(600).url()}
               alt={post.title}
@@ -59,20 +59,75 @@ export default async function PostPage({
           </div>
         )}
 
-        <div className="prose prose-lg max-w-none font-noto-sans text-(--foreground) prose-headings:font-cinzel prose-a:text-(--foreground) prose-a:underline prose-strong:text-(--foreground)">
+        <div className="prose prose-lg max-w-none font-noto-sans text-(--foreground) prose-headings:font-cinzel prose-a:text-(--foreground) prose-a:underline prose-strong:text-(--foreground) prose-img:rounded-lg prose-img:m-0 prose-video:m-0">
           <PortableText
             value={post.body}
             components={{
               types: {
+                video: ({ value }) => (
+                  <figure className="my-8">
+                    <div className="rounded-lg overflow-hidden border border-gray-200">
+                      <video
+                        src={value.videoUrl}
+                        controls
+                        className="w-full"
+                      />
+                    </div>
+                    {value.caption && (
+                      <figcaption className="mt-3 text-sm font-inter text-gray-500 text-center">
+                        <PortableText
+                          value={value.caption}
+                          components={{
+                            marks: {
+                              link: ({ children, value: mark }) => (
+                                <a
+                                  href={mark?.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-gray-500! underline hover:text-gray-700! transition-colors"
+                                >
+                                  {children}
+                                </a>
+                              ),
+                            },
+                          }}
+                        />
+                      </figcaption>
+                    )}
+                  </figure>
+                ),
                 image: ({ value }) => (
-                  <div className="relative w-full h-64 md:h-96 my-8 rounded-lg overflow-hidden">
-                    <Image
-                      src={urlFor(value).width(1200).height(600).url()}
-                      alt={value.alt || ""}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
+                  <figure className="my-8">
+                    <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden border border-gray-200">
+                      <Image
+                        src={urlFor(value).width(1200).height(600).url()}
+                        alt={value.alt || ""}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                    {value.caption && (
+                      <figcaption className="mt-3 text-sm font-inter text-gray-500 text-center">
+                        <PortableText
+                          value={value.caption}
+                          components={{
+                            marks: {
+                              link: ({ children, value: mark }) => (
+                                <a
+                                  href={mark?.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-gray-500! underline hover:text-gray-700! transition-colors"
+                                >
+                                  {children}
+                                </a>
+                              ),
+                            },
+                          }}
+                        />
+                      </figcaption>
+                    )}
+                  </figure>
                 ),
               },
             }}

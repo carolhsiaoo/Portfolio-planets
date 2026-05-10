@@ -48,6 +48,43 @@ export const post = defineType({
       of: [
         { type: "block" },
         {
+          type: "file",
+          name: "video",
+          title: "Video",
+          options: { accept: "video/*" },
+          fields: [
+            {
+              name: "caption",
+              title: "Caption",
+              type: "array",
+              of: [
+                {
+                  type: "block",
+                  styles: [{ title: "Normal", value: "normal" }],
+                  lists: [],
+                  marks: {
+                    decorators: [],
+                    annotations: [
+                      {
+                        name: "link",
+                        type: "object",
+                        title: "Link",
+                        fields: [
+                          {
+                            name: "href",
+                            type: "url",
+                            title: "URL",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
           type: "image",
           options: { hotspot: true },
           fields: [
@@ -55,6 +92,35 @@ export const post = defineType({
               name: "alt",
               title: "Alt text",
               type: "string",
+            },
+            {
+              name: "caption",
+              title: "Caption",
+              type: "array",
+              of: [
+                {
+                  type: "block",
+                  styles: [{ title: "Normal", value: "normal" }],
+                  lists: [],
+                  marks: {
+                    decorators: [],
+                    annotations: [
+                      {
+                        name: "link",
+                        type: "object",
+                        title: "Link",
+                        fields: [
+                          {
+                            name: "href",
+                            type: "url",
+                            title: "URL",
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                },
+              ],
             },
           ],
         },
