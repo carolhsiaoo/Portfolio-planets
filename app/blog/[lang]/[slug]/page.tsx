@@ -10,10 +10,10 @@ import SanityTable from "@/components/SanityTable";
 export default async function PostPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ lang: string; slug: string }>;
 }) {
-  const { slug } = await params;
-  const post = await getPost(slug);
+  const { lang, slug } = await params;
+  const post = await getPost(slug, lang);
 
   if (!post) notFound();
 
@@ -22,7 +22,7 @@ export default async function PostPage({
       <Header hideOnScroll />
       <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-8 pt-28 pb-20 font-noto-sans">
         <Link
-          href="/blog"
+          href={`/blog/${lang}`}
           className="text-(--foreground)/40 hover:text-(--foreground)/70 transition-opacity duration-500 mb-8 inline-block font-inter text-sm tracking-wider"
         >
           &larr; BACK TO BLOG
@@ -40,11 +40,14 @@ export default async function PostPage({
 
         {post.publishedAt && (
           <time className="text-sm text-(--foreground)/40 block mb-10 font-inter">
-            {new Date(post.publishedAt).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
+            {new Date(post.publishedAt).toLocaleDateString(
+              lang === "zh-tw" ? "zh-TW" : "en-US",
+              {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              }
+            )}
           </time>
         )}
 
