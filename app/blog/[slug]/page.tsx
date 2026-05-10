@@ -5,6 +5,7 @@ import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
+import SanityTable from "@/components/SanityTable";
 
 export default async function PostPage({
   params,
@@ -64,6 +65,7 @@ export default async function PostPage({
             value={post.body}
             components={{
               types: {
+                table: SanityTable,
                 video: ({ value }) => (
                   <figure className="my-8">
                     <div className="rounded-lg overflow-hidden border border-gray-200">
