@@ -140,11 +140,6 @@ export default async function BlogLangPage({
                         {post.title}
                       </h2>
 
-                      {post.excerpt && (
-                        <p className="font-inter text-neutral-500 mt-5 leading-relaxed line-clamp-3 text-sm sm:text-base max-w-lg">
-                          {post.excerpt}
-                        </p>
-                      )}
 
                       <div className="mt-8 flex items-center gap-4">
                         {post.publishedAt && (
