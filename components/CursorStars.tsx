@@ -15,17 +15,26 @@ export default function CursorStars() {
   const videoPoolRef = useRef<HTMLVideoElement[]>([])
   const [isSafari, setIsSafari] = useState(false)
 
-  // Detect Safari and disable effect
+  const [isSmallDevice, setIsSmallDevice] = useState(false)
+
+  // Detect Safari and small devices, disable effect for both
   useEffect(() => {
     const ua = navigator.userAgent.toLowerCase()
     const isSafariBrowser = ua.includes('safari') && !ua.includes('chrome') && !ua.includes('chromium')
     setIsSafari(isSafariBrowser)
+
+    const mql = window.matchMedia('(max-width: 768px)')
+    setIsSmallDevice(mql.matches)
+    const handler = (e: MediaQueryListEvent) => setIsSmallDevice(e.matches)
+    mql.addEventListener('change', handler)
+    return () => mql.removeEventListener('change', handler)
   }, [])
+
+  const isDisabled = isSafari || isSmallDevice
 
   // Preload video into pool
   useEffect(() => {
-    // Skip preloading for Safari
-    if (isSafari) return
+    if (isDisabled) return
 
     // Create a pool of 5 video elements for reuse
     for (let i = 0; i < 5; i++) {
@@ -45,11 +54,10 @@ export default function CursorStars() {
       })
       videoPoolRef.current = []
     }
-  }, [isSafari])
+  }, [isDisabled])
 
   useEffect(() => {
-    // Disable effect for Safari
-    if (isSafari) return
+    if (isDisabled) return
 
     let timeout: NodeJS.Timeout | null = null
     let lastX = 0
@@ -132,7 +140,7 @@ export default function CursorStars() {
       clearInterval(cleanupInterval)
       if (timeout) clearTimeout(timeout)
     }
-  }, [isSafari])
+  }, [isDisabled])
 
   return (
     <div className="fixed inset-0 pointer-events-none z-100">
