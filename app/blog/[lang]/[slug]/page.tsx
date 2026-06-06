@@ -69,6 +69,18 @@ export default async function PostPage({
             components={{
               types: {
                 table: SanityTable,
+                divider: () => (
+                  <div className="flex items-center justify-center gap-4 my-12 select-none">
+                    <div className="h-px flex-1 bg-linear-to-r from-transparent via-neutral-300 to-transparent" />
+                    <span className="text-neutral-300 text-xs tracking-[0.5em]">&#x2726;&#x2726;&#x2726;</span>
+                    <div className="h-px flex-1 bg-linear-to-r from-transparent via-neutral-300 to-transparent" />
+                  </div>
+                ),
+                codeBlock: ({ value }) => (
+                  <pre className="bg-neutral-900 text-neutral-100 rounded-xl p-5 my-6 overflow-x-auto text-sm leading-relaxed font-mono border border-neutral-800">
+                    <code>{value.code}</code>
+                  </pre>
+                ),
                 video: ({ value }) => (
                   <figure className="my-8">
                     <div className="rounded-lg overflow-hidden border border-gray-200">

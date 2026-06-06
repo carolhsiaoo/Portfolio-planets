@@ -4,6 +4,61 @@ const richTextMembers = [
   defineArrayMember({ type: "block" }),
   defineArrayMember({
     type: "object",
+    name: "divider",
+    title: "Divider",
+    fields: [
+      defineField({
+        name: "style",
+        title: "Style",
+        type: "string",
+        initialValue: "default",
+        options: {
+          list: [{ title: "Default", value: "default" }],
+        },
+      }),
+    ],
+    preview: {
+      prepare() {
+        return { title: "── Divider ──" };
+      },
+    },
+  }),
+  defineArrayMember({
+    type: "object",
+    name: "codeBlock",
+    title: "Code Block",
+    fields: [
+      defineField({
+        name: "code",
+        title: "Code",
+        type: "text",
+        rows: 10,
+      }),
+      defineField({
+        name: "language",
+        title: "Language",
+        type: "string",
+        initialValue: "javascript",
+        options: {
+          list: [
+            { title: "JavaScript", value: "javascript" },
+            { title: "TypeScript", value: "typescript" },
+            { title: "CSS", value: "css" },
+            { title: "HTML", value: "html" },
+            { title: "Bash", value: "bash" },
+          ],
+        },
+      }),
+    ],
+    preview: {
+      select: { code: "code" },
+      prepare({ code }) {
+        return { title: code?.slice(0, 50) || "Code block" };
+      },
+    },
+  }),
+  defineArrayMember({
+    type: "object",
     name: "table",
     title: "Table",
     fields: [
