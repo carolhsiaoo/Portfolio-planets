@@ -2,7 +2,7 @@
 
 import { memo, useState, useEffect, useRef, useCallback } from 'react';
 import { RiTwitterXFill } from 'react-icons/ri';
-import { FaInstagram, FaLinkedin, FaDribbble, FaGithub } from 'react-icons/fa';
+import { FaInstagram, FaLinkedin, FaDribbble, FaGithub, FaThreads } from 'react-icons/fa6';
 
 interface FooterStar {
   id: number;
@@ -101,6 +101,15 @@ const Footer = memo(function Footer() {
 
         {/* Social links */}
         <div className="flex justify-center gap-8 sm:gap-10 md:gap-12 mb-20 flex-wrap">
+          <a
+            href="https://www.threads.com/@itscarolstudio"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:opacity-70 hover:scale-110 transition-all duration-300"
+            aria-label="Threads"
+          >
+            <FaThreads className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+          </a>
           <a
             href="https://x.com/CarolXiaoo"
             target="_blank"

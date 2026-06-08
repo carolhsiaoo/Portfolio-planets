@@ -5,6 +5,7 @@ import { urlFor } from "@/lib/sanity";
 import Image from "next/image";
 import Header from "@/components/Header";
 import FadeInSection from "@/components/FadeInSection";
+import Footer from "@/components/Footer";
 import SyncLanguage from "@/components/SyncLanguage";
 
 const VALID_LANGS = ["en", "zh-tw"] as const;
@@ -139,6 +140,8 @@ export default async function BlogLangPage({
         )}
         </FadeInSection>
       </main>
+      <div className="pb-16 sm:pb-24 md:pb-32" />
+      <Footer />
     </div>
   );
 }

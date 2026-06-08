@@ -311,7 +311,7 @@ export default function ServicesPage() {
                   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                   setTimeout(() => window.dispatchEvent(new Event('footer-star-burst')), 350);
                 }}
-                className="inline-block bg-[#1a1a1a] text-white px-10 py-4 rounded-full font-inter font-medium tracking-wider text-sm hover:bg-[#333] transition-all duration-300"
+                className="inline-block bg-[#1a1a1a] text-white px-12 py-5 rounded-full font-inter font-medium tracking-wider text-base sm:text-lg hover:bg-[#333] transition-all duration-300"
               >
                 {t.cta}
               </a>
