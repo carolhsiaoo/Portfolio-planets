@@ -98,7 +98,7 @@ export default function PageTransitionProvider({ children }: { children: React.R
             <span className="loading-intro-symbol text-[80px] select-none">
               ✦
             </span>
-            <p className="loading-intro-name font-cinzel text-5xl sm:text-6xl lg:text-7xl font-medium text-neutral-800 tracking-[0.3em] leading-none select-none">
+            <p className="loading-intro-name font-cinzel text-5xl sm:text-6xl lg:text-7xl font-medium text-neutral-800 tracking-[0.3em] leading-none select-none" style={{ paddingLeft: '0.3em' }}>
               {label}
             </p>
             <p className="font-cinzel text-5xl sm:text-6xl font-medium text-neutral-800 leading-none select-none tabular-nums">

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPost } from "@/lib/queries";
+import { getPost, getAdjacentPosts } from "@/lib/queries";
 import { urlFor } from "@/lib/sanity";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
@@ -17,6 +17,8 @@ export default async function PostPage({
 
   if (!post) notFound();
 
+  const { prev, next } = await getAdjacentPosts(slug, lang);
+
   return (
     <div className="min-h-screen bg-(--background) text-(--foreground)">
       <Header hideOnScroll />
@@ -28,13 +30,7 @@ export default async function PostPage({
           &larr; BACK TO BLOG
         </Link>
 
-        {post.category && (
-          <span className="block text-xs font-inter font-medium tracking-widest uppercase text-(--foreground)/40 mb-2">
-            {post.category.title}
-          </span>
-        )}
-
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-cinzel font-medium mb-4 leading-[1.05] text-neutral-900">
+        <h1 className="text-4xl sm:text-5xl lg:text-5xl font-cinzel font-semibold mb-4 leading-[1.05] text-neutral-900">
           {post.title}
         </h1>
 
@@ -63,7 +59,7 @@ export default async function PostPage({
           </div>
         )}
 
-        <div className="prose prose-lg max-w-none font-noto-sans text-(--foreground) prose-headings:font-cinzel prose-a:text-(--foreground) prose-a:underline prose-strong:text-(--foreground) prose-img:rounded-lg prose-img:m-0 prose-video:m-0">
+        <div className="prose prose-lg max-w-none font-noto-sans text-(--foreground) prose-headings:font-cinzel prose-h2:font-medium prose-h3:font-medium prose-a:text-(--foreground) prose-a:underline prose-strong:text-(--foreground) prose-img:rounded-lg prose-img:m-0 prose-video:m-0">
           <PortableText
             value={post.body}
             components={{
@@ -150,6 +146,27 @@ export default async function PostPage({
             }}
           />
         </div>
+
+        <nav className="flex justify-between items-center mt-16 pt-8 border-t border-(--foreground)/10 font-inter text-base">
+          {prev && (
+            <Link
+              href={`/blog/${lang}/${prev.slug}`}
+              className="group flex flex-col gap-1 max-w-[45%]"
+            >
+              <span className="text-(--foreground)/70 group-hover:text-(--foreground) tracking-wider text-sm transition-colors duration-300">&larr; {lang === "zh-tw" ? "上一篇" : "PREVIOUS"}</span>
+              <span className="text-(--foreground)/70 group-hover:text-(--foreground) transition-colors duration-300 line-clamp-2">{prev.title}</span>
+            </Link>
+          )}
+          {next && (
+            <Link
+              href={`/blog/${lang}/${next.slug}`}
+              className="group flex flex-col items-end gap-1 max-w-[45%] ml-auto"
+            >
+              <span className="text-(--foreground)/70 group-hover:text-(--foreground) tracking-wider text-sm transition-colors duration-300">{lang === "zh-tw" ? "下一篇" : "NEXT"} &rarr;</span>
+              <span className="text-(--foreground)/70 group-hover:text-(--foreground) transition-colors duration-300 line-clamp-2 text-right">{next.title}</span>
+            </Link>
+          )}
+        </nav>
       </main>
     </div>
   );

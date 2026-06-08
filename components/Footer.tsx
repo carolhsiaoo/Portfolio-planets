@@ -3,47 +3,12 @@
 import { memo, useState, useEffect, useRef, useCallback } from 'react';
 import { RiTwitterXFill } from 'react-icons/ri';
 import { FaInstagram, FaLinkedin, FaDribbble, FaGithub, FaThreads } from 'react-icons/fa6';
+import StarPopEffect from './StarPopEffect';
 
 interface FooterStar {
   id: number;
   x: number;
   y: number;
-}
-
-function StarPopVideo({ star }: { star: FooterStar }) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 5.0;
-      videoRef.current.currentTime = 0;
-      videoRef.current.play().catch(() => {});
-    }
-  }, []);
-
-  return (
-    <div
-      className="absolute pointer-events-none"
-      style={{
-        left: star.x - 75,
-        top: star.y - 75,
-        width: '150px',
-        height: '150px',
-      }}
-    >
-      <video
-        ref={videoRef}
-        playsInline
-        muted
-        preload="auto"
-        style={{ mixBlendMode: 'screen', opacity: 0.95 }}
-        className="w-full h-full"
-      >
-        <source src="/videos/star-pop.webm" type="video/webm" />
-        <source src="/videos/star-pop.mp4" type="video/mp4" />
-      </video>
-    </div>
-  );
 }
 
 const Footer = memo(function Footer() {
@@ -95,7 +60,7 @@ const Footer = memo(function Footer() {
         {/* Star pop videos */}
         <div className="fixed inset-0 pointer-events-none z-100">
           {stars.map((star) => (
-            <StarPopVideo key={star.id} star={star} />
+            <StarPopEffect key={star.id} star={star} />
           ))}
         </div>
 
