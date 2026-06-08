@@ -1,14 +1,21 @@
 'use client';
 
-import { memo, useState, useEffect, useRef } from 'react';
+import { memo, useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePageTransition } from './PageTransition';
 
 const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: boolean }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const lastScrollY = useRef(0);
+  const { navigateTo } = usePageTransition();
+
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    navigateTo(href);
+  }, [navigateTo]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -41,7 +48,7 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
 
   const navContent = (
     <>
-      <Link href="/" className="flex items-center">
+      <Link href="/" onClick={(e) => handleNavClick(e, '/')} className="flex items-center">
         <Image
           src="/logo.png"
           alt="Carol Hsiao Logo"
@@ -52,13 +59,13 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
       </Link>
 
       <nav className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-10">
-        <Link href="/#work" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
-          PROJECTS
+        <Link href="/" onClick={(e) => handleNavClick(e, '/')} className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+          HOME
         </Link>
-        <Link href="/#about" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
-          ABOUT
+        <Link href="/services" onClick={(e) => handleNavClick(e, '/services')} className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+          SERVICE
         </Link>
-        <Link href="/blog" className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
+        <Link href="/blog" onClick={(e) => handleNavClick(e, '/blog')} className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
           BLOG
         </Link>
       </nav>

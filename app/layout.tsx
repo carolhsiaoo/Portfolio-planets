@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cinzel, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import CursorStars from "@/components/CursorStars";
+import PageTransitionProvider from "@/components/PageTransition";
 
 
 const cinzel = Cinzel({
@@ -35,7 +36,9 @@ export default function RootLayout({
       </head>
       <body className={`${cinzel.variable} ${notoSans.variable} antialiased overflow-x-clip`}>
         <CursorStars />
-        {children}
+        <PageTransitionProvider>
+          {children}
+        </PageTransitionProvider>
       </body>
     </html>
   );

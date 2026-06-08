@@ -9,13 +9,15 @@ import About from "@/components/About";
 import Footer from "@/components/Footer";
 import FadeInSection from "@/components/FadeInSection";
 import LoadingIntro from "@/components/LoadingIntro";
+import { usePageTransition } from "@/components/PageTransition";
 
 export default function Home() {
-  const [pageReady, setPageReady] = useState(false);
+  const { hasNavigated } = usePageTransition();
+  const [pageReady, setPageReady] = useState(hasNavigated);
 
   return (
     <div className="min-h-screen overflow-hidden">
-      <LoadingIntro onComplete={() => setPageReady(true)} />
+      {!hasNavigated && <LoadingIntro onComplete={() => setPageReady(true)} />}
 
       <div
         style={{
@@ -26,7 +28,7 @@ export default function Home() {
       >
         <Header />
         <FadeInSection>
-          <Hero pageReady={pageReady} />
+          <Hero pageReady={pageReady} skipDelay={hasNavigated} />
         </FadeInSection>
         <ProjectsTable />
         <FadeInSection delay={100}>

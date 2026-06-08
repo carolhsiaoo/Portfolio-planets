@@ -4,6 +4,7 @@ import { getPosts } from "@/lib/queries";
 import { urlFor } from "@/lib/sanity";
 import Image from "next/image";
 import Header from "@/components/Header";
+import FadeInSection from "@/components/FadeInSection";
 
 const VALID_LANGS = ["en", "zh-tw"] as const;
 
@@ -44,6 +45,7 @@ export default async function BlogLangPage({
       <Header />
       <main className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-32 sm:pt-44 pb-24">
         {/* Editorial hero header */}
+        <FadeInSection>
         <div className="mb-24 sm:mb-32">
           <h1 className="font-cinzel font-medium text-5xl sm:text-6xl md:text-7xl text-neutral-900 leading-[0.95] tracking-tight">
             Journal
@@ -55,8 +57,10 @@ export default async function BlogLangPage({
             </p>
           </div>
         </div>
+        </FadeInSection>
 
         {/* Language switcher */}
+        <FadeInSection delay={100}>
         <div className="inline-flex items-center rounded-full bg-neutral-100 p-1 mb-16">
           {([
             { code: "en", label: "EN" },
@@ -75,7 +79,9 @@ export default async function BlogLangPage({
             </Link>
           ))}
         </div>
+        </FadeInSection>
 
+        <FadeInSection delay={200}>
         {posts.length === 0 ? (
           <p className="font-inter text-neutral-400">
             {lang === "zh-tw" ? "目前還沒有文章，請稍後再來！" : "No posts yet. Check back soon!"}
@@ -165,6 +171,7 @@ export default async function BlogLangPage({
             )}
           </div>
         )}
+        </FadeInSection>
       </main>
     </div>
   );

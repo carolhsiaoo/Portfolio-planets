@@ -5,18 +5,28 @@ import { FiExternalLink } from "react-icons/fi";
 import AdaptiveHeroMouseInteraction from "./AdaptiveHeroMouseInteraction";
 import TextRoll from "./TextRoll";
 
-export default function Hero({ pageReady = false }: { pageReady?: boolean }) {
+export default function Hero({ pageReady = false, skipDelay = false }: { pageReady?: boolean, skipDelay?: boolean }) {
   const [backgroundBrightness, setBackgroundBrightness] = useState(128); // 0-255
   const [showName, setShowName] = useState(false);
   const [showTagline, setShowTagline] = useState(false);
-  const [mountScene, setMountScene] = useState(false);
+  const [mountScene, setMountScene] = useState(skipDelay);
+  const [showScene, setShowScene] = useState(false);
 
-  // Mount the 3D scene after intro CSS animations have painted (~800ms)
-  // so shader compilation doesn't jank the intro, but starts before intro ends
+  // On first load: delay 800ms to let intro animations paint first
+  // On return visits: mount immediately (scene loads behind page transition overlay)
   useEffect(() => {
-    const timer = setTimeout(() => setMountScene(true), 800);
-    return () => clearTimeout(timer);
-  }, []);
+    if (skipDelay) {
+      // Already mounted, just fade in after first frame renders
+      const showTimer = setTimeout(() => setShowScene(true), 100);
+      return () => clearTimeout(showTimer);
+    }
+    const mountTimer = setTimeout(() => setMountScene(true), 800);
+    const showTimer = setTimeout(() => setShowScene(true), 1000);
+    return () => {
+      clearTimeout(mountTimer);
+      clearTimeout(showTimer);
+    };
+  }, [skipDelay]);
 
   // Determine text color based on background brightness
   // If background is bright (>127), use black text; if dark, use white text
@@ -43,7 +53,14 @@ export default function Hero({ pageReady = false }: { pageReady?: boolean }) {
     <section className="pt-32 sm:pt-40 md:pt-40 lg:pt-56 pb-12 sm:pb-16 md:pb-20 relative min-h-[600px] sm:min-h-[700px] md:min-h-[650px] lg:min-h-screen flex items-center justify-center overflow-x-hidden">
       {/* 3D Planets Model - Behind text (z-index 0) - Adaptive based on device performance */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-0 overflow-hidden">
-        <div className="w-full h-full sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] lg:w-[min(1000px,90vw)] lg:h-[1000px]" style={{ willChange: 'auto' }}>
+        <div
+          className="w-full h-full sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] lg:w-[min(1000px,90vw)] lg:h-[1000px]"
+          style={{
+            willChange: 'auto',
+            opacity: showScene ? 1 : 0,
+            transition: 'opacity 1s ease',
+          }}
+        >
           {mountScene && <AdaptiveHeroMouseInteraction spinBurst={pageReady} />}
         </div>
       </div>
