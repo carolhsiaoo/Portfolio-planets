@@ -1,19 +1,41 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 const INTRO_DURATION = 1800;
 const FADE_OUT_DURATION = 600;
 
 export default function LoadingIntro({ onComplete }: { onComplete: () => void }) {
   const [phase, setPhase] = useState<'playing' | 'fading' | 'done'>('playing');
+  const [count, setCount] = useState(0);
+  const rafRef = useRef<number>(0);
+  const startRef = useRef(0);
 
   // Preload 3D assets into browser cache during the intro (network only, no GPU)
   useEffect(() => {
     const preload = (url: string) => fetch(url, { priority: 'low' as RequestPriority }).catch(() => {});
     preload('/models/planets.glb');
-    // drei environment presets are hosted on this CDN
     preload('https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/studio_small_09_1k.hdr');
+  }, []);
+
+  // Count from 0 to 100 over INTRO_DURATION using rAF for smoothness
+  useEffect(() => {
+    startRef.current = performance.now();
+
+    const tick = (now: number) => {
+      const elapsed = now - startRef.current;
+      const progress = Math.min(elapsed / INTRO_DURATION, 1);
+      // Ease-out: fast start, slow finish
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * 100));
+
+      if (progress < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafRef.current);
   }, []);
 
   useEffect(() => {
@@ -43,13 +65,15 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
       }}
     >
       <div className="flex flex-col items-center gap-5">
-        <span className="loading-intro-symbol text-[28px] text-neutral-400 select-none">
+        <span className="loading-intro-symbol text-[28px] select-none">
           ✦
         </span>
         <p className="loading-intro-name font-cinzel text-2xl sm:text-3xl font-medium text-neutral-800 tracking-[0.3em] leading-none select-none">
           CAROL
         </p>
-        <div className="loading-intro-line" />
+        <p className="font-cinzel text-sm sm:text-base font-medium text-neutral-800 leading-none select-none tabular-nums">
+          {count}%
+        </p>
       </div>
     </div>
   );

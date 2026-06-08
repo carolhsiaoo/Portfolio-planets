@@ -14,7 +14,7 @@ export default function Home() {
   const [pageReady, setPageReady] = useState(false);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-hidden">
       <LoadingIntro onComplete={() => setPageReady(true)} />
 
       <div
@@ -26,7 +26,7 @@ export default function Home() {
       >
         <Header />
         <FadeInSection>
-          <Hero />
+          <Hero pageReady={pageReady} />
         </FadeInSection>
         <ProjectsTable />
         <FadeInSection delay={100}>

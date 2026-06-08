@@ -124,9 +124,11 @@ html {
 /* Loading intro animations — only transform + opacity for GPU compositing */
 .loading-intro-symbol {
   opacity: 0;
+  color: #a3a3a3;
   transform: scale(0.6) translateZ(0);
-  animation: introFadeScale 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-  will-change: transform, opacity;
+  animation: introFadeScale 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+             introStarColor 1.2s cubic-bezier(0.4, 0, 0.2, 1) 0.55s forwards;
+  will-change: transform, opacity, color;
   backface-visibility: hidden;
 }
 
@@ -139,8 +141,7 @@ html {
 }
 
 .loading-intro-line {
-  width: 48px;
-  height: 1px;
+  height: 2px;
   background: #d4d4d4;
   opacity: 0;
   transform: scaleX(0) translateZ(0);
@@ -168,5 +169,11 @@ html {
   to {
     opacity: 1;
     transform: scaleX(1);
+  }
+}
+
+@keyframes introStarColor {
+  to {
+    color: #F1CD5B;
   }
 }

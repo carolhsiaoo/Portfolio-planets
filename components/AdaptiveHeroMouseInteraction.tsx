@@ -7,7 +7,7 @@ import HeroMouseInteraction from './HeroMouseInteraction';
 /**
  * Adaptive wrapper that detects device performance and shows appropriate fallback.
  */
-export default function AdaptiveHeroMouseInteraction() {
+export default function AdaptiveHeroMouseInteraction({ spinBurst = false }: { spinBurst?: boolean } = {}) {
   const [shouldLoad, setShouldLoad] = useState(true);
   const [showFallback, setShowFallback] = useState(false);
 
@@ -47,7 +47,7 @@ export default function AdaptiveHeroMouseInteraction() {
     return null;
   }
 
-  return <HeroMouseInteraction />;
+  return <HeroMouseInteraction spinBurst={spinBurst} />;
 }
 
 /**

@@ -64,10 +64,22 @@ function ResponsiveCamera() {
 }
 
 // Interactive Model Component with mouse following and magnetic effects
-function InteractiveModel({ mousePosition, scale = 1.5, isTextHovered = false }: { mousePosition: { x: number, y: number }, scale?: number, isTextHovered?: boolean }) {
+function InteractiveModel({ mousePosition, scale = 1.5, isTextHovered = false, spinBurst = false }: { mousePosition: { x: number, y: number }, scale?: number, isTextHovered?: boolean, spinBurst?: boolean }) {
   const groupRef = useRef<THREE.Group>(null)
   const planetRefs = useRef<THREE.Mesh[]>([])
   const [hoveredPlanet, setHoveredPlanet] = useState<number | null>(null)
+  const burstElapsedRef = useRef(0)
+  const burstActiveRef = useRef(false)
+
+  // Start burst timer only when spinBurst flips to true, delayed to match page fade-in
+  useEffect(() => {
+    if (!spinBurst) return
+    const timer = setTimeout(() => {
+      burstActiveRef.current = true
+      burstElapsedRef.current = 0
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [spinBurst])
 
   // Main planet should glow when any planet is hovered OR when text is hovered
   const isMainPlanetActive = hoveredPlanet !== null || isTextHovered
@@ -75,8 +87,20 @@ function InteractiveModel({ mousePosition, scale = 1.5, isTextHovered = false }:
   useFrame((state, delta) => {
     if (!groupRef.current) return
 
-    // Auto-rotate continuously
-    groupRef.current.rotation.y += delta * 0.3 // Rotate at 0.3 radians per second
+    // Intro spin burst: 2 full rotations (4π) that decays over ~2.5s
+    let burstSpeed = 0
+    if (burstActiveRef.current) {
+      burstElapsedRef.current += delta
+      const burstDuration = 3
+      if (burstElapsedRef.current < burstDuration) {
+        burstSpeed = (8 * Math.PI / burstDuration) * Math.pow(1 - burstElapsedRef.current / burstDuration, 2)
+      } else {
+        burstActiveRef.current = false
+      }
+    }
+
+    // Auto-rotate continuously + burst
+    groupRef.current.rotation.y += delta * (0.3 + burstSpeed)
 
     // Planets follow cursor - subtle rotation toward mouse (additive)
     const targetRotationY = mousePosition.x * 0.3
@@ -369,7 +393,7 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
 }
 
 // Main Scene Component
-export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered = false, onReady }: { onBrightnessChange?: (brightness: number) => void, isTextHovered?: boolean, onReady?: () => void }) {
+export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered = false, onReady, spinBurst = false }: { onBrightnessChange?: (brightness: number) => void, isTextHovered?: boolean, onReady?: () => void, spinBurst?: boolean }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -473,7 +497,7 @@ export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered
         <ResponsiveCamera />
 
         {/* Interactive Model with mouse tracking - responsive scale */}
-        <InteractiveModel mousePosition={mousePosition} scale={responsiveScale} isTextHovered={isTextHovered} />
+        <InteractiveModel mousePosition={mousePosition} scale={responsiveScale} isTextHovered={isTextHovered} spinBurst={spinBurst} />
 
         <OrbitControls
           enableZoom={false}

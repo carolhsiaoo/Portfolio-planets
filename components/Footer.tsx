@@ -71,7 +71,7 @@ const Footer = memo(function Footer() {
         </div>
 
         {/* Bottom row */}
-        <div className="flex justify-between items-center text-xs sm:text-sm lg:text-base font-inter font-normal border-t border-gray-800 pt-8">
+        <div className="flex justify-between items-center text-xs sm:text-sm lg:text-base font-inter font-normal border-t border-[#252423] pt-8">
           <div>Made with nuts 🌰 by Carol.</div>
           <div className="text-right">© 2026 All rights reserved</div>
         </div>

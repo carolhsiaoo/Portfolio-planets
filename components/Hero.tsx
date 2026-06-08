@@ -5,7 +5,7 @@ import { FiExternalLink } from "react-icons/fi";
 import AdaptiveHeroMouseInteraction from "./AdaptiveHeroMouseInteraction";
 import TextRoll from "./TextRoll";
 
-export default function Hero() {
+export default function Hero({ pageReady = false }: { pageReady?: boolean }) {
   const [backgroundBrightness, setBackgroundBrightness] = useState(128); // 0-255
   const [showName, setShowName] = useState(false);
   const [showTagline, setShowTagline] = useState(false);
@@ -44,7 +44,7 @@ export default function Hero() {
       {/* 3D Planets Model - Behind text (z-index 0) - Adaptive based on device performance */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-0 overflow-hidden">
         <div className="w-full h-full sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] lg:w-[min(1000px,90vw)] lg:h-[1000px]" style={{ willChange: 'auto' }}>
-          {mountScene && <AdaptiveHeroMouseInteraction />}
+          {mountScene && <AdaptiveHeroMouseInteraction spinBurst={pageReady} />}
         </div>
       </div>
 
