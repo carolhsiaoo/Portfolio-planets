@@ -64,14 +64,14 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
         willChange: 'opacity',
       }}
     >
-      <div className="flex flex-col items-center gap-5">
-        <span className="loading-intro-symbol text-[28px] select-none">
+      <div className="flex flex-col items-center gap-8">
+        <span className="loading-intro-symbol text-[60px] select-none">
           ✦
         </span>
-        <p className="loading-intro-name font-cinzel text-2xl sm:text-3xl font-medium text-neutral-800 tracking-[0.3em] leading-none select-none">
+        <p className="loading-intro-name font-cinzel text-6xl sm:text-7xl font-medium text-neutral-800 tracking-[0.3em] leading-none select-none">
           CAROL
         </p>
-        <p className="font-cinzel text-sm sm:text-base font-medium text-neutral-800 leading-none select-none tabular-nums">
+        <p className="font-cinzel text-2xl sm:text-3xl font-medium text-neutral-800 leading-none select-none tabular-nums">
           {count}%
         </p>
       </div>
