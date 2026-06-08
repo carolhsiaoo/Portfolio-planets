@@ -1,29 +1,44 @@
+'use client'
+
+import { useState } from 'react';
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Marquee from "@/components/Marquee";
 import ProjectsTable from "@/components/ProjectsTable";
 import About from "@/components/About";
-import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import FadeInSection from "@/components/FadeInSection";
+import LoadingIntro from "@/components/LoadingIntro";
+
 export default function Home() {
+  const [pageReady, setPageReady] = useState(false);
+
   return (
     <div className="min-h-screen">
-      <Header />
-      <FadeInSection>
-        <Hero />
-      </FadeInSection>
-      <ProjectsTable />
-      <FadeInSection delay={100}>
-        <Marquee />
-      </FadeInSection>
-      <FadeInSection delay={100}>
-        <About />
-      </FadeInSection>
+      <LoadingIntro onComplete={() => setPageReady(true)} />
 
-      <FadeInSection delay={100}>
-        <Footer />
-      </FadeInSection>
+      <div
+        style={{
+          visibility: pageReady ? 'visible' : 'hidden',
+          opacity: pageReady ? 1 : 0,
+          transition: 'opacity 0.5s ease',
+        }}
+      >
+        <Header />
+        <FadeInSection>
+          <Hero />
+        </FadeInSection>
+        <ProjectsTable />
+        <FadeInSection delay={100}>
+          <Marquee />
+        </FadeInSection>
+        <FadeInSection delay={100} direction="bottom">
+          <About />
+        </FadeInSection>
+        <FadeInSection delay={100} direction="bottom">
+          <Footer />
+        </FadeInSection>
+      </div>
     </div>
   );
 }

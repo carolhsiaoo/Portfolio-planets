@@ -6,12 +6,14 @@ interface FadeInSectionProps {
   children: ReactNode;
   delay?: number;
   className?: string;
+  direction?: 'right' | 'bottom';
 }
 
 export default function FadeInSection({
   children,
   delay = 0,
-  className = ''
+  className = '',
+  direction = 'right'
 }: FadeInSectionProps) {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -51,8 +53,8 @@ export default function FadeInSection({
       ref={sectionRef}
       className={`transition-all duration-1000 ease-out ${
         isVisible
-          ? 'opacity-100 translate-x-0'
-          : 'opacity-0 translate-x-12'
+          ? 'opacity-100 translate-x-0 translate-y-0'
+          : `opacity-0 ${direction === 'bottom' ? 'translate-y-12' : 'translate-x-12'}`
       } ${className}`}
     >
       {children}

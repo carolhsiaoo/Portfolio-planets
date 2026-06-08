@@ -97,13 +97,17 @@ export default function ProjectsTable() {
 
             const { project, globalIndex } = row;
             return (
-              <a
+              <motion.a
                 key={project.slug}
                 href={project.link || `/projects/${project.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 onMouseEnter={() => setHoveredIndex(globalIndex)}
                 onMouseLeave={() => setHoveredIndex(null)}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.6, ease: 'easeOut', delay: globalIndex * 0.1 }}
                 className={`group border-t border-neutral-200 lg:last:border-b py-6 sm:py-8 flex flex-col gap-4 lg:transition-opacity lg:duration-300 ${
                   hoveredIndex !== null && hoveredIndex !== globalIndex ? 'lg:opacity-25' : ''
                 }`}
@@ -152,7 +156,7 @@ export default function ProjectsTable() {
                     />
                   )}
                 </div>
-              </a>
+              </motion.a>
             );
           })}
         </div>

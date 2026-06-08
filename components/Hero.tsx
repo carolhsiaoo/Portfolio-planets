@@ -9,6 +9,14 @@ export default function Hero() {
   const [backgroundBrightness, setBackgroundBrightness] = useState(128); // 0-255
   const [showName, setShowName] = useState(false);
   const [showTagline, setShowTagline] = useState(false);
+  const [mountScene, setMountScene] = useState(false);
+
+  // Mount the 3D scene after intro CSS animations have painted (~800ms)
+  // so shader compilation doesn't jank the intro, but starts before intro ends
+  useEffect(() => {
+    const timer = setTimeout(() => setMountScene(true), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Determine text color based on background brightness
   // If background is bright (>127), use black text; if dark, use white text
@@ -36,7 +44,7 @@ export default function Hero() {
       {/* 3D Planets Model - Behind text (z-index 0) - Adaptive based on device performance */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-0 overflow-hidden">
         <div className="w-full h-full sm:w-[600px] sm:h-[600px] md:w-[800px] md:h-[800px] lg:w-[min(1000px,90vw)] lg:h-[1000px]" style={{ willChange: 'auto' }}>
-          <AdaptiveHeroMouseInteraction />
+          {mountScene && <AdaptiveHeroMouseInteraction />}
         </div>
       </div>
 

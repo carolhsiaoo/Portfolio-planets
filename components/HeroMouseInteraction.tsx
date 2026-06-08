@@ -369,7 +369,7 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
 }
 
 // Main Scene Component
-export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered = false }: { onBrightnessChange?: (brightness: number) => void, isTextHovered?: boolean }) {
+export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered = false, onReady }: { onBrightnessChange?: (brightness: number) => void, isTextHovered?: boolean, onReady?: () => void }) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -437,6 +437,10 @@ export default function HeroMouseInteraction({ onBrightnessChange, isTextHovered
         camera={{ position: [0, 0, 8], fov: 45 }}
         gl={{ alpha: true, antialias: true }}
         style={{ background: 'transparent' }}
+        onCreated={() => {
+          // Delay slightly to let shaders compile and first frame render
+          setTimeout(() => onReady?.(), 200)
+        }}
       >
         {/* Bright ambient light for glass materials */}
         <ambientLight intensity={lighting.ambientIntensity} />
