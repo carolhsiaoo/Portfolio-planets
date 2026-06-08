@@ -1,11 +1,14 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { FiExternalLink } from "react-icons/fi";
 import AdaptiveHeroMouseInteraction from "./AdaptiveHeroMouseInteraction";
 import TextRoll from "./TextRoll";
+import { usePageTransition } from "./PageTransition";
+import { useLanguage } from "./LanguageContext";
 
 export default function Hero({ pageReady = false, skipDelay = false }: { pageReady?: boolean, skipDelay?: boolean }) {
+  const { navigateTo } = usePageTransition();
+  const { lang } = useLanguage();
   const [backgroundBrightness, setBackgroundBrightness] = useState(128); // 0-255
   const [showName, setShowName] = useState(false);
   const [showTagline, setShowTagline] = useState(false);
@@ -90,20 +93,17 @@ export default function Hero({ pageReady = false, skipDelay = false }: { pageRea
               Designer and Developer
             </p> */}
             <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-medium mb-2 flex items-center justify-center gap-2 sm:gap-3 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
-              <span className="text-lg sm:text-xl md:text-2xl">✦</span>
               Product Designer
-              <span className="text-lg sm:text-xl md:text-2xl">✦</span>
             </p>
-            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-medium leading-relaxed ${textColor} select-none transition-colors duration-300`}>
-              Currently Building{' '}
+            <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-medium leading-relaxed ${textColor} select-none transition-colors duration-300  flex items-center gap-2 sm:gap-3`}>
+              <span className="text-sm sm:text-base md:text-lg lg:text-xl">✦</span>{lang === 'zh' ? '開放' : "Let's"}{' '}
               <a
-                href="https://firefree.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group cursor-pointer relative inline-flex items-center gap-1.5"
+                href="/services"
+                onClick={(e) => { e.preventDefault(); navigateTo('/services'); }}
+                className="group cursor-pointer relative inline-flex items-center gap-1.5 pointer-events-auto"
               >
-                <TextRoll>FireFree</TextRoll>
-                <FiExternalLink className="text-sm sm:text-base md:text-lg lg:text-xl" strokeWidth={2.5} />
+                <TextRoll key={lang} lineHeight={1.3}>{lang === 'zh' ? '接案合作' : 'Create Together'}</TextRoll>
+                <span className="text-sm sm:text-base md:text-lg lg:text-xl">✦</span>
               </a>
             </p>
           </div>

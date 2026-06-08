@@ -80,7 +80,7 @@ const Footer = memo(function Footer() {
         <div className="text-center mb-12">
           <h2 className="text-4xl sm:text-5xl md:text-6xl font-cinzel font-medium mb-8 flex items-center justify-center gap-4">
             <span className="text-3xl sm:text-4xl">✦</span>
-            Let's talk!
+            Let&apos;s talk!
             <span className="text-3xl sm:text-4xl">✦</span>
           </h2>
           <a

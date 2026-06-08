@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { Cinzel, Noto_Sans } from "next/font/google";
+import { Cinzel, Noto_Sans, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
 import CursorStars from "@/components/CursorStars";
 import PageTransitionProvider from "@/components/PageTransition";
+import { LanguageProvider } from "@/components/LanguageContext";
 
 
 const cinzel = Cinzel({
@@ -16,6 +17,13 @@ const notoSans = Noto_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
   variable: "--font-noto-sans",
+  display: "swap",
+});
+
+const notoSansTC = Noto_Sans_TC({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  variable: "--font-noto-sans-tc",
   display: "swap",
 });
 
@@ -34,11 +42,13 @@ export default function RootLayout({
       <head>
         <link rel="preload" href="/models/planets.glb" as="fetch" crossOrigin="anonymous" />
       </head>
-      <body className={`${cinzel.variable} ${notoSans.variable} antialiased overflow-x-clip`}>
-        <CursorStars />
-        <PageTransitionProvider>
-          {children}
-        </PageTransitionProvider>
+      <body className={`${cinzel.variable} ${notoSans.variable} ${notoSansTC.variable} antialiased overflow-x-clip`}>
+        <LanguageProvider>
+          <CursorStars />
+          <PageTransitionProvider>
+            {children}
+          </PageTransitionProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

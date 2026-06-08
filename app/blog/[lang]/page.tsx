@@ -5,6 +5,7 @@ import { urlFor } from "@/lib/sanity";
 import Image from "next/image";
 import Header from "@/components/Header";
 import FadeInSection from "@/components/FadeInSection";
+import SyncLanguage from "@/components/SyncLanguage";
 
 const VALID_LANGS = ["en", "zh-tw"] as const;
 
@@ -42,44 +43,21 @@ export default async function BlogLangPage({
 
   return (
     <div className="min-h-screen bg-[#faf8f5]">
+      <SyncLanguage lang={lang} />
       <Header />
-      <main className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 pt-32 sm:pt-44 pb-24">
-        {/* Editorial hero header */}
-        <FadeInSection>
-        <div className="mb-24 sm:mb-32">
-          <h1 className="font-cinzel font-medium text-5xl sm:text-6xl md:text-7xl text-neutral-900 leading-[0.95] tracking-tight">
-            Journal
+      {/* Hero */}
+      <section className="pt-32 sm:pt-40 md:pt-48 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6 md:px-8">
+        <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
+          <h1 className="font-cinzel text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold tracking-tight text-[#1a1a1a]">
+            {lang === "zh-tw" ? "部落格" : "Blog"}
           </h1>
-          <div className="mt-6 flex items-center gap-4">
-            <div className="h-px bg-neutral-300 w-16" />
-            <p className="font-inter text-sm sm:text-base text-neutral-400 tracking-wide">
-              Design, code & creative process
-            </p>
-          </div>
+          <p className="mt-6 text-lg sm:text-xl md:text-2xl font-noto-sans text-[#1a1a1a]/60 max-w-2xl">
+            {lang === "zh-tw" ? "關於設計、開發與創作過程的想法。" : "Design, code & creative process"}
+          </p>
         </div>
-        </FadeInSection>
+      </section>
 
-        {/* Language switcher */}
-        <FadeInSection delay={100}>
-        <div className="inline-flex items-center rounded-full bg-neutral-100 p-1 mb-16">
-          {([
-            { code: "en", label: "EN" },
-            { code: "zh-tw", label: "中文" },
-          ] as const).map(({ code, label }) => (
-            <Link
-              key={code}
-              href={`/blog/${code}`}
-              className={`font-inter text-xs tracking-[0.15em] px-4 py-1.5 rounded-full transition-all duration-300 ${
-                lang === code
-                  ? "bg-white text-neutral-900 shadow-sm"
-                  : "text-neutral-400 hover:text-neutral-600"
-              }`}
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
-        </FadeInSection>
+      <main className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 py-24 sm:py-32 md:py-40">
 
         <FadeInSection delay={200}>
         {posts.length === 0 ? (
@@ -87,7 +65,7 @@ export default async function BlogLangPage({
             {lang === "zh-tw" ? "目前還沒有文章，請稍後再來！" : "No posts yet. Check back soon!"}
           </p>
         ) : (
-          <div className="flex flex-col gap-20 sm:gap-28">
+          <div className="flex flex-col gap-10 sm:gap-14">
             {posts.map(
               (
                 post: {
@@ -101,8 +79,11 @@ export default async function BlogLangPage({
                 },
                 index: number
               ) => (
+                <div key={post._id}>
+                {index > 0 && (
+                  <hr className="border-t border-neutral-200 mb-10 sm:mb-14" />
+                )}
                 <Link
-                  key={post._id}
                   href={`/blog/${lang}/${post.slug.current}`}
                   className="group block"
                 >
@@ -128,19 +109,6 @@ export default async function BlogLangPage({
                     <div
                       className={`flex-1 flex flex-col justify-center ${post.coverImage ? "" : "lg:w-full"}`}
                     >
-                      <div className="flex items-center gap-3 mb-5">
-                        <span className="font-inter text-[11px] tracking-[0.2em] uppercase text-neutral-400">
-                          {String(index + 1).padStart(2, "0")}
-                        </span>
-                        {post.category && (
-                          <>
-                            <span className="text-neutral-300">/</span>
-                            <span className="font-inter text-[11px] tracking-[0.2em] uppercase text-neutral-400">
-                              {post.category.title}
-                            </span>
-                          </>
-                        )}
-                      </div>
 
                       <h2 className="font-cinzel font-medium text-3xl sm:text-4xl lg:text-5xl text-neutral-900 leading-[1.05] group-hover:text-black group-hover:scale-[1.02] origin-left transition-all duration-500">
                         {post.title}
@@ -149,7 +117,7 @@ export default async function BlogLangPage({
 
                       <div className="mt-8 flex items-center gap-4">
                         {post.publishedAt && (
-                          <time className="font-inter text-[11px] text-neutral-400 tracking-[0.2em] uppercase">
+                          <time className="font-inter text-sm text-neutral-400 tracking-[0.2em] uppercase">
                             {new Date(post.publishedAt).toLocaleDateString(
                               lang === "zh-tw" ? "zh-TW" : "en-US",
                               {
@@ -160,13 +128,11 @@ export default async function BlogLangPage({
                             )}
                           </time>
                         )}
-                        <span className="font-inter text-[11px] tracking-[0.2em] uppercase text-neutral-400 group-hover:tracking-[0.3em] transition-all duration-500">
-                          {lang === "zh-tw" ? "閱讀 →" : "Read →"}
-                        </span>
                       </div>
                     </div>
                   </article>
                 </Link>
+                </div>
               )
             )}
           </div>

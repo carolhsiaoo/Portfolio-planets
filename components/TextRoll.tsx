@@ -10,7 +10,8 @@ const TextRoll: React.FC<{
   children: string
   className?: string
   center?: boolean
-}> = ({ children, className, center = false }) => {
+  lineHeight?: number
+}> = ({ children, className, center = false, lineHeight = 0.75 }) => {
   const [variant, setVariant] = useState<'initial' | 'hovered'>('initial')
   const isHovering = useRef(false)
   const rollInDone = useRef(false)
@@ -50,9 +51,10 @@ const TextRoll: React.FC<{
   return (
     <motion.span
       className={cn('relative block overflow-hidden', className)}
-      style={{ lineHeight: 0.75 }}
+      style={{ lineHeight }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      initial={false}
       animate={variant}
     >
       <span className="block">

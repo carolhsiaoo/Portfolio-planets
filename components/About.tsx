@@ -6,8 +6,10 @@ import { FiExternalLink } from 'react-icons/fi';
 import StickerWall from './StickerWall';
 import WashiTape from './WashiTape';
 import TextRoll from './TextRoll';
+import { useLanguage } from './LanguageContext';
 
 const About = memo(function About() {
+  const { lang } = useLanguage();
   return (
     <section id="about" className="py-24 sm:py-32 md:py-40 relative overflow-hidden">
       <WashiTape />
@@ -16,16 +18,16 @@ const About = memo(function About() {
         {/* About heading with stars */}
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-cinzel font-medium mb-8 sm:mb-10 md:mb-12 flex items-center justify-center gap-4">
           <span className="text-3xl sm:text-4xl">✦</span>
-          About
+          {lang === 'zh' ? '關於我' : 'About'}
           <span className="text-3xl sm:text-4xl">✦</span>
         </h2>
 
         {/* Description text */}
         <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-normal leading-relaxed mb-4 sm:mb-5 md:mb-6 max-w-full sm:max-w-2xl md:max-w-3xl px-2">
-          I build products that create true value for users.
+          {lang === 'zh' ? '我打造為使用者創造真正價值的產品。' : 'I build products that create true value for users.'}
         </p>
         <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-normal leading-relaxed mb-8 sm:mb-10 md:mb-12 px-2 md:whitespace-nowrap">
-          I'm a product designer at{' '}
+          {lang === 'zh' ? '我是' : "I'm a product designer at"}{' '}
           <a
             href="https://aburistudio.com"
             target="_blank"
@@ -35,7 +37,7 @@ const About = memo(function About() {
             <TextRoll>Aburi Studio</TextRoll>
             <FiExternalLink className="text-sm sm:text-base md:text-lg lg:text-xl" strokeWidth={2.5} />
           </a>
-          {' '}based in Calgary.
+          {lang === 'zh' ? ' 的產品設計師，目前居住在卡加利。' : ' based in Calgary.'}
         </p>
 
         {/* Profile image - centered */}

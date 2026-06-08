@@ -1,18 +1,16 @@
 'use client'
 
 import { memo } from 'react';
+import { useLanguage } from './LanguageContext';
+
+const itemsByLang = {
+  en: ["UI/UX Design", "React", "Prototype", "Creative Development", "Three.js", "Product Design", "Frontend Development", "User Experience"],
+  zh: ["UI/UX 設計", "React", "原型設計", "創意開發", "Three.js", "產品設計", "前端開發", "使用者體驗"],
+};
 
 const Marquee = memo(function Marquee() {
-  const items = [
-    "UI/UX Design",
-    "React",
-    "Prototype",
-    "Creative Development",
-    "Three.js",
-    "Product Design",
-    "Frontend Development",
-    "User Experience"
-  ];
+  const { lang } = useLanguage();
+  const items = itemsByLang[lang];
 
   // Create multiple copies to ensure seamless loop
   const allItems = [...items, ...items, ...items, ...items];

@@ -4,6 +4,7 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { projects } from '@/data/projects';
+import { useLanguage } from './LanguageContext';
 
 // Build a flat list with inline category headers
 type Row =
@@ -30,7 +31,13 @@ function buildRows(): Row[] {
 const rows = buildRows();
 const allProjects = rows.filter((r): r is Extract<Row, { kind: 'project' }> => r.kind === 'project');
 
+const categoryLabels: Record<string, Record<string, string>> = {
+  'Functional Products': { en: 'Functional Products', zh: '功能性產品' },
+  'Immersive Experiences': { en: 'Immersive Experiences', zh: '沉浸式體驗' },
+};
+
 export default function ProjectsTable() {
+  const { lang } = useLanguage();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLElement>(null);
 
@@ -90,7 +97,7 @@ export default function ProjectsTable() {
                     i === 0 ? 'mb-4' : 'mt-16 mb-4'
                   }`}
                 >
-                  {row.label}
+                  {categoryLabels[row.label]?.[lang] ?? row.label}
                 </span>
               );
             }

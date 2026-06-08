@@ -2,8 +2,8 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --font-family-cinzel: var(--font-cinzel), serif;
-  --font-family-noto-sans: var(--font-noto-sans), sans-serif;
+  --font-family-cinzel: var(--font-cinzel), var(--font-noto-sans-tc), serif;
+  --font-family-noto-sans: var(--font-noto-sans), var(--font-noto-sans-tc), sans-serif;
 }
 
 :root {
@@ -22,20 +22,20 @@ body {
 }
 
 .font-cinzel {
-  font-family: var(--font-cinzel), serif !important;
+  font-family: var(--font-cinzel), var(--font-noto-sans-tc), serif !important;
 }
 
 .font-noto-sans {
-  font-family: var(--font-noto-sans), sans-serif !important;
+  font-family: var(--font-noto-sans), var(--font-noto-sans-tc), sans-serif !important;
 }
 
 /* Alias for backward compatibility */
 .font-inter {
-  font-family: var(--font-noto-sans), sans-serif !important;
+  font-family: var(--font-noto-sans), var(--font-noto-sans-tc), sans-serif !important;
 }
 
 .font-serif {
-  font-family: var(--font-cinzel), Georgia, serif;
+  font-family: var(--font-cinzel), var(--font-noto-sans-tc), Georgia, serif;
   font-weight: 400;
   letter-spacing: -0.02em;
 }

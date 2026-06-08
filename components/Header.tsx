@@ -3,14 +3,31 @@
 import { memo, useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { usePageTransition } from './PageTransition';
+import { useLanguage } from './LanguageContext';
 
 const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: boolean }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const lastScrollY = useRef(0);
+  const langRef = useRef<HTMLDivElement>(null);
   const { navigateTo } = usePageTransition();
+  const { lang, setLang } = useLanguage();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const handleLangSwitch = useCallback((newLang: 'en' | 'zh') => {
+    setLang(newLang);
+    // If on a blog page, navigate to the correct language route
+    if (pathname.startsWith('/blog/')) {
+      const blogLang = newLang === 'zh' ? 'zh-tw' : 'en';
+      const rest = pathname.replace(/^\/blog\/(en|zh-tw)/, '');
+      router.push(`/blog/${blogLang}${rest}`);
+    }
+  }, [setLang, pathname, router]);
 
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -40,9 +57,17 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
 
+    const handleClickOutside = (e: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+
     return () => {
       clearTimeout(timer);
       window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [hideOnScroll]);
 
@@ -58,16 +83,51 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
         />
       </Link>
 
-      <nav className="flex gap-4 sm:gap-6 md:gap-8 lg:gap-10">
+      <nav className="flex items-center gap-4 sm:gap-6 md:gap-8 lg:gap-10">
         <Link href="/" onClick={(e) => handleNavClick(e, '/')} className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
-          HOME
+          {lang === 'zh' ? '首頁' : 'HOME'}
         </Link>
         <Link href="/services" onClick={(e) => handleNavClick(e, '/services')} className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
-          SERVICE
+          {lang === 'zh' ? '服務' : 'SERVICE'}
         </Link>
         <Link href="/blog" onClick={(e) => handleNavClick(e, '/blog')} className="text-sm sm:text-base md:text-lg font-inter font-medium tracking-wider hover:opacity-60 transition-all duration-500 text-black">
-          BLOG
+          {lang === 'zh' ? '部落格' : 'BLOG'}
         </Link>
+        <div ref={langRef} className="relative ml-1">
+          <button
+            onClick={() => setLangOpen((o) => !o)}
+            className="flex items-center gap-2 bg-black/5 rounded-full px-5 py-1.5 text-xs font-inter transition-all duration-300 hover:bg-black/10"
+          >
+            <span className="text-[#1a1a1a]">
+              {lang === 'en' ? 'EN' : '中'}
+            </span>
+            <svg className={`w-3 h-3 text-[#1a1a1a]/50 transition-transform duration-300 ${langOpen ? 'rotate-180' : ''}`} viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M3 4.5L6 7.5L9 4.5" />
+            </svg>
+          </button>
+          <div
+            className={`absolute top-full right-0 mt-2 w-full bg-[#ededed] rounded-2xl overflow-hidden transition-all duration-300 ${
+              langOpen ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'
+            }`}
+          >
+            <button
+              onClick={() => { handleLangSwitch('en'); setLangOpen(false); }}
+              className={`flex items-center gap-2 w-full px-4 py-2 text-xs font-inter transition-all duration-200 ${
+                lang === 'en' ? 'bg-[#1a1a1a] text-white' : 'text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:bg-black/5'
+              }`}
+            >
+              EN
+            </button>
+            <button
+              onClick={() => { handleLangSwitch('zh'); setLangOpen(false); }}
+              className={`flex items-center gap-2 w-full px-4 py-2 text-xs font-inter transition-all duration-200 ${
+                lang === 'zh' ? 'bg-[#1a1a1a] text-white' : 'text-[#1a1a1a]/60 hover:text-[#1a1a1a] hover:bg-black/5'
+              }`}
+            >
+              中文
+            </button>
+          </div>
+        </div>
       </nav>
     </>
   );

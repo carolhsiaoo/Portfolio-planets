@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FadeInSection from '@/components/FadeInSection';
+import { useLanguage } from '@/components/LanguageContext';
 
 const content = {
   en: {
@@ -258,10 +258,8 @@ const content = {
   },
 };
 
-type Lang = 'en' | 'zh';
-
 export default function ServicesPage() {
-  const [lang, setLang] = useState<Lang>('en');
+  const { lang } = useLanguage();
   const t = content[lang];
 
   return (
@@ -271,30 +269,6 @@ export default function ServicesPage() {
       {/* Hero */}
       <section className="pt-32 sm:pt-40 md:pt-48 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6 md:px-8">
         <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
-          {/* Language Toggle */}
-          <div className="flex items-center gap-1 mb-12 bg-black/5 rounded-full p-1 text-sm font-inter">
-            <button
-              onClick={() => setLang('en')}
-              className={`px-4 py-1.5 rounded-full transition-all duration-300 ${
-                lang === 'en'
-                  ? 'bg-[#1a1a1a] text-white'
-                  : 'text-[#1a1a1a]/60 hover:text-[#1a1a1a]'
-              }`}
-            >
-              EN
-            </button>
-            <button
-              onClick={() => setLang('zh')}
-              className={`px-4 py-1.5 rounded-full transition-all duration-300 ${
-                lang === 'zh'
-                  ? 'bg-[#1a1a1a] text-white'
-                  : 'text-[#1a1a1a]/60 hover:text-[#1a1a1a]'
-              }`}
-            >
-              中
-            </button>
-          </div>
-
           <h1 className="font-cinzel text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold tracking-tight text-[#1a1a1a]">
             {t.hero.title}
           </h1>
