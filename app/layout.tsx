@@ -30,6 +30,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="overscroll-none">
+      <head>
+        <link rel="preload" href="/models/planets.glb" as="fetch" crossOrigin="anonymous" />
+      </head>
       <body className={`${cinzel.variable} ${notoSans.variable} antialiased overflow-x-clip`}>
         <CursorStars />
         {children}

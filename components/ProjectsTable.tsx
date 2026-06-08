@@ -34,13 +34,27 @@ export default function ProjectsTable() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLElement>(null);
 
-  // Preload hover images so they appear instantly
+  // Preload hover media so they appear instantly
   useEffect(() => {
     allProjects.forEach(({ project }) => {
-      const src = project.video?.endsWith('.gif') ? project.video : !project.video ? project.image : null;
-      if (src) {
-        const img = new window.Image();
-        img.src = src;
+      if (project.video && !project.video.endsWith('.gif')) {
+        // Preload videos by creating a hidden video element that buffers the file
+        const video = document.createElement('video');
+        video.preload = 'auto';
+        video.muted = true;
+        video.src = project.video;
+        video.load();
+      } else {
+        const src = project.video?.endsWith('.gif') ? project.video : project.image;
+        if (src) {
+          const img = new window.Image();
+          // Match the Next.js Image optimization URL so the cache hit is exact
+          if (!project.video && !src.startsWith('http')) {
+            img.src = `/_next/image?url=${encodeURIComponent(src)}&w=640&q=90`;
+          } else {
+            img.src = src;
+          }
+        }
       }
     });
   }, []);

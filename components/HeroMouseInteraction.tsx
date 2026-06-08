@@ -196,8 +196,8 @@ function InteractivePlanetsModel({ scale, position, onHover, isMainPlanetActive 
   }
 
   const global = {
-    samples: 8,
-    resolution: 256,
+    samples: 4,
+    resolution: 128,
   }
 
   // Apply hover effects on each frame (scale animation removed)

@@ -8,21 +8,18 @@ import HeroMouseInteraction from './HeroMouseInteraction';
  * Adaptive wrapper that detects device performance and shows appropriate fallback
  */
 export default function AdaptiveHeroMouseInteraction() {
-  const [shouldLoad, setShouldLoad] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(true);
   const [showFallback, setShowFallback] = useState(false);
 
   useEffect(() => {
     const tier = detectPerformanceTier();
-    const settings = getPerformanceSettings(tier);
 
     // For low-end devices (potato or low tier), show CSS animation only - NO 3D
     if (tier === 'potato' || tier === 'low') {
+      setShouldLoad(false);
       setShowFallback(true);
       return;
     }
-
-    // For medium/high, load 3D scene
-    setShouldLoad(true);
 
     // Monitor FPS and downgrade to CSS if performance is bad
     const monitor = new FPSMonitor();
