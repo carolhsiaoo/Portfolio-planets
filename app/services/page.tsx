@@ -360,7 +360,7 @@ export default function ServicesPage() {
                   key={i}
                   className={`relative flex flex-col rounded-2xl transition-all duration-500 ${
                     tier.highlighted
-                      ? 'border border-[#3b64f6]/40 bg-white shadow-2xl shadow-[#3b64f6]/15 py-6 -mt-8'
+                      ? 'border border-[#3b64f6]/40 bg-white shadow-2xl shadow-[#3b64f6]/15 py-6 md:-mt-8'
                       : 'border border-[#e5e5e5] bg-white self-stretch'
                   }`}
                 >
