@@ -234,8 +234,8 @@ export default function ContactPage() {
       <Footer />
 
       {lastStatus && (
-        <div className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-500 ease-in-out ${msgVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <p className={`px-6 py-4 rounded-xl bg-white border border-[#1a1a1a]/8 shadow-lg text-sm sm:text-base font-semibold whitespace-nowrap ${lastStatus === 'error' ? 'text-[#c45c5c]' : 'text-[#1a1a1a]'} ${lang === 'zh' ? 'font-noto-sans' : 'font-cinzel'}`}>
+        <div className={`fixed bottom-20 sm:bottom-8 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 z-50 pointer-events-none transition-all duration-500 ease-in-out ${msgVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <p className={`px-4 sm:px-6 py-3 sm:py-4 rounded-xl bg-white border border-[#1a1a1a]/8 shadow-lg text-xs sm:text-base font-semibold text-center ${lastStatus === 'error' ? 'text-[#c45c5c]' : 'text-[#1a1a1a]'} ${lang === 'zh' ? 'font-noto-sans' : 'font-cinzel'}`}>
             ✦ {lastStatus === 'success' ? t.form.success : t.form.error} ✦
           </p>
         </div>
