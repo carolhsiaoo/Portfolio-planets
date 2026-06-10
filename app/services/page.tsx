@@ -93,7 +93,7 @@ const content = {
       tiers: [
         {
           name: 'Starter',
-          price: 'NT$ 25,000+',
+          price: '$ 800+',
           description: 'Perfect for simple, single-page sites or landing pages.',
           features: [
             'Single page / Landing page',
@@ -105,7 +105,7 @@ const content = {
         },
         {
           name: 'Standard',
-          price: 'NT$ 30,000+',
+          price: '$ 1,000+',
           description: 'For multi-page websites with custom design and interactions.',
           features: [
             'Up to 5 pages',
@@ -119,7 +119,7 @@ const content = {
         },
         {
           name: 'Premium',
-          price: 'NT$ 50,000+',
+          price: '$ 1,600+',
           description: 'Full-scope projects with advanced features and ongoing support.',
           features: [
             'Unlimited pages',
