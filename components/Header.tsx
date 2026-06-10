@@ -80,6 +80,7 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
     { href: '/', label: lang === 'zh' ? '首頁' : 'HOME' },
     { href: '/services', label: lang === 'zh' ? '服務' : 'SERVICE' },
     { href: '/blog', label: lang === 'zh' ? '部落格' : 'BLOG' },
+    { href: '/contact', label: lang === 'zh' ? '聯繫' : 'CONTACT' },
   ];
 
   const navContent = (

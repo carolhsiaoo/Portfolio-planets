@@ -21,6 +21,7 @@ const FADE_OUT_DURATION = 600;
 function getLabelForPath(path: string): string {
   if (path.startsWith('/blog')) return 'BLOG';
   if (path.startsWith('/services')) return 'SERVICE';
+  if (path.startsWith('/contact')) return 'CONTACT';
   return 'CAROL';
 }
 

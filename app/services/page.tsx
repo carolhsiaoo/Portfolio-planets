@@ -4,6 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FadeInSection from '@/components/FadeInSection';
 import { useLanguage } from '@/components/LanguageContext';
+import { usePageTransition } from '@/components/PageTransition';
 
 const content = {
   en: {
@@ -16,39 +17,39 @@ const content = {
       items: [
         {
           icon: '✦',
-          title: 'Web Design & Development',
+          title: 'Website Redesign',
           description:
-            'Custom websites built with modern frameworks, responsive, performant, and visually refined.',
+            'Refreshing existing sites with modern design, improved UX, and up-to-date technology.',
         },
         {
           icon: '✦',
-          title: 'UI/UX Design',
+          title: 'Creative Website Design',
           description:
-            'User-centered interfaces designed with clarity, consistency, and delight in mind.',
+            'Custom visual design with animations and interactions that make your brand stand out.',
         },
         {
           icon: '✦',
-          title: 'Brand & Visual Identity',
+          title: 'Interactive Development',
           description:
-            'Cohesive visual systems from logos and color palettes to typography and guidelines.',
+            'Bringing designs to life with GSAP, Framer Motion, and Three.js for immersive web experiences.',
         },
         {
           icon: '✦',
-          title: 'Interactive & Motion Design',
+          title: 'CMS Setup & Integration',
           description:
-            'Purposeful animations and micro-interactions that elevate the user experience.',
+            'Building content management systems with Sanity or headless CMS for easy content updates.',
         },
         {
           icon: '✦',
-          title: 'Landing Page & Campaign',
+          title: 'Deployment & Launch',
           description:
-            'High-converting pages designed for product launches, events, or marketing campaigns.',
+            'Getting your site live with hosting, custom domain, and automatic deployments.',
         },
         {
           icon: '✦',
-          title: 'Consultation & Strategy',
+          title: 'Full Package',
           description:
-            'Design audits, technical guidance, and product strategy for teams of any size.',
+            'End-to-end service from design to development to deployment — everything handled for you.',
         },
       ],
     },
@@ -133,7 +134,7 @@ const content = {
       ],
       longTerm: {
         name: 'Long-term Partnership',
-        description: 'Quarterly or annual collaboration agreements — pricing tailored through discussion.',
+        description: 'Quarterly or annual collaboration agreements with pricing tailored through discussion.',
       },
     },
     cta: "Let's Talk",
@@ -148,33 +149,33 @@ const content = {
       items: [
         {
           icon: '✦',
-          title: '網頁設計與開發',
-          description: '使用現代框架打造客製化網站，響應式、高效能、視覺精緻。',
+          title: '網站改版',
+          description: '以現代設計與技術重新打造既有網站，提升使用體驗與視覺質感。',
         },
         {
           icon: '✦',
-          title: 'UI/UX 設計',
-          description: '以使用者為中心的介面設計，注重清晰度、一致性與愉悅感。',
+          title: '創意網站設計',
+          description: '結合動畫與互動效果的客製化視覺設計，讓品牌脫穎而出。',
         },
         {
           icon: '✦',
-          title: '品牌與視覺識別',
-          description: '從標誌、色彩到字體排版，建構完整的品牌視覺系統。',
+          title: '互動開發',
+          description: '運用 GSAP、Framer Motion、Three.js 打造沉浸式網頁互動體驗。',
         },
         {
           icon: '✦',
-          title: '互動與動態設計',
-          description: '有目的性的動畫與微互動，提升整體使用體驗。',
+          title: 'CMS 建置與整合',
+          description: '透過 Sanity 或 Headless CMS 建立內容管理系統，輕鬆更新網站內容。',
         },
         {
           icon: '✦',
-          title: '著陸頁與活動頁面',
-          description: '為產品發佈、活動或行銷活動設計的高轉換頁面。',
+          title: '部署與上線',
+          description: '處理主機架設與網域設定，讓網站順利上線並自動更新。',
         },
         {
           icon: '✦',
-          title: '諮詢與策略規劃',
-          description: '設計審查、技術指導，以及適合各種規模團隊的產品策略。',
+          title: '全套服務',
+          description: '從設計到開發到部署，一站式全包服務。',
         },
       ],
     },
@@ -268,6 +269,7 @@ const content = {
 
 export default function ServicesPage() {
   const { lang } = useLanguage();
+  const { navigateTo } = usePageTransition();
   const t = content[lang];
 
   return (
@@ -378,13 +380,13 @@ export default function ServicesPage() {
                     <p className="font-cinzel text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-3">
                       {tier.price}
                     </p>
-                    <p className="font-noto-sans text-sm text-[#1a1a1a]/50 mb-6">
+                    <p className="font-noto-sans text-sm text-[#1a1a1a] mb-6">
                       {tier.description}
                     </p>
                     <ul className="space-y-3 flex-1">
                       {tier.features.map((feature, j) => (
-                        <li key={j} className="font-noto-sans text-sm text-[#1a1a1a]/70 flex items-start gap-2.5">
-                          <span className={`mt-0.5 ${tier.highlighted ? 'text-[#3b64f6]' : 'text-[#1a1a1a]/40'}`}>✓</span>
+                        <li key={j} className="font-noto-sans text-sm text-[#1a1a1a] flex items-center gap-2.5">
+                          <span className={`text-lg ${tier.highlighted ? 'text-[#3b64f6]' : 'text-[#1a1a1a]/30'}`}>✦</span>
                           {feature}
                         </li>
                       ))}
@@ -402,17 +404,12 @@ export default function ServicesPage() {
               </p>
             </div>
             <div className="mt-16 sm:mt-20 text-center">
-              <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                  setTimeout(() => window.dispatchEvent(new Event('footer-star-burst')), 350);
-                }}
-                className="inline-block bg-[#1a1a1a] text-white px-12 py-5 rounded-full font-inter font-medium tracking-wider text-base sm:text-lg hover:bg-[#333] transition-all duration-300"
+              <button
+                onClick={() => navigateTo('/contact')}
+                className="inline-block bg-[#1a1a1a] text-white px-12 py-5 rounded-full font-inter font-medium tracking-wider text-base sm:text-lg hover:bg-[#333] transition-all duration-300 cursor-pointer"
               >
                 {t.cta}
-              </a>
+              </button>
             </div>
           </div>
         </section>
