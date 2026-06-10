@@ -154,7 +154,7 @@ export default function ContactPage() {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder={t.form.namePlaceholder}
-                      className="w-full px-4 py-3 rounded-xl border border-[#e5e5e5] bg-[#faf8f5] font-noto-sans text-sm sm:text-base text-[#1a1a1a] placeholder:text-[#1a1a1a]/30 focus:outline-none focus:border-[#3b64f6]/40 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl border border-[#e5e5e5] bg-[#faf8f5] font-noto-sans text-base text-[#1a1a1a] placeholder:text-[#1a1a1a]/30 focus:outline-none focus:border-[#3b64f6]/40 transition-colors"
                     />
                   </div>
 
@@ -169,7 +169,7 @@ export default function ContactPage() {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       placeholder={t.form.emailPlaceholder}
-                      className="w-full px-4 py-3 rounded-xl border border-[#e5e5e5] bg-[#faf8f5] font-noto-sans text-sm sm:text-base text-[#1a1a1a] placeholder:text-[#1a1a1a]/30 focus:outline-none focus:border-[#3b64f6]/40 transition-colors"
+                      className="w-full px-4 py-3 rounded-xl border border-[#e5e5e5] bg-[#faf8f5] font-noto-sans text-base text-[#1a1a1a] placeholder:text-[#1a1a1a]/30 focus:outline-none focus:border-[#3b64f6]/40 transition-colors"
                     />
                   </div>
 
@@ -210,7 +210,7 @@ export default function ContactPage() {
                       value={form.message}
                       onChange={(e) => setForm({ ...form, message: e.target.value })}
                       placeholder={t.form.messagePlaceholder}
-                      className="w-full px-4 py-3 rounded-xl border border-[#e5e5e5] bg-[#faf8f5] font-noto-sans text-sm sm:text-base text-[#1a1a1a] placeholder:text-[#1a1a1a]/30 focus:outline-none focus:border-[#3b64f6]/40 transition-colors resize-none"
+                      className="w-full px-4 py-3 rounded-xl border border-[#e5e5e5] bg-[#faf8f5] font-noto-sans text-base text-[#1a1a1a] placeholder:text-[#1a1a1a]/30 focus:outline-none focus:border-[#3b64f6]/40 transition-colors resize-none"
                     />
                   </div>
 
@@ -235,7 +235,7 @@ export default function ContactPage() {
 
       {lastStatus && (
         <div className={`fixed bottom-20 sm:bottom-8 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 z-50 pointer-events-none transition-all duration-500 ease-in-out ${msgVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-          <p className={`px-4 sm:px-6 py-3 sm:py-4 rounded-xl bg-white border border-[#1a1a1a]/8 shadow-lg text-xs sm:text-base font-semibold text-center ${lastStatus === 'error' ? 'text-[#c45c5c]' : 'text-[#1a1a1a]'} ${lang === 'zh' ? 'font-noto-sans' : 'font-cinzel'}`}>
+          <p className={`px-4 sm:px-6 py-3 sm:py-4 rounded-xl bg-white border border-[#1a1a1a]/8 text-xs sm:text-base font-semibold text-center ${lastStatus === 'error' ? 'text-[#c45c5c]' : 'text-[#1a1a1a]'} ${lang === 'zh' ? 'font-noto-sans' : 'font-cinzel'}`}>
             ✦ {lastStatus === 'success' ? t.form.success : t.form.error} ✦
           </p>
         </div>
