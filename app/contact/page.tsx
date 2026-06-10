@@ -73,10 +73,17 @@ export default function ContactPage() {
     message: '',
   });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [msgVisible, setMsgVisible] = useState(false);
+  const [lastStatus, setLastStatus] = useState<'success' | 'error' | null>(null);
 
   useEffect(() => {
     if (status === 'success' || status === 'error') {
-      const timer = setTimeout(() => setStatus('idle'), 5000);
+      setLastStatus(status);
+      requestAnimationFrame(() => setMsgVisible(true));
+      const timer = setTimeout(() => {
+        setMsgVisible(false);
+        setTimeout(() => { setStatus('idle'); setLastStatus(null); }, 500);
+      }, 5000);
       return () => clearTimeout(timer);
     }
   }, [status]);
@@ -217,12 +224,6 @@ export default function ContactPage() {
                     {status === 'submitting' ? t.form.submitting : t.form.submit}
                   </button>
 
-                  {status === 'success' && (
-                    <p className={`mt-4 px-6 py-4 rounded-xl bg-[#faf8f5] border border-[#1a1a1a]/8 text-sm sm:text-base font-semibold text-[#1a1a1a] ${lang === 'zh' ? 'font-noto-sans' : 'font-cinzel'}`}>✦ {t.form.success} ✦</p>
-                  )}
-                  {status === 'error' && (
-                    <p className={`mt-4 px-6 py-4 rounded-xl bg-[#faf8f5] border border-[#1a1a1a]/8 text-sm sm:text-base font-semibold text-[#c45c5c] ${lang === 'zh' ? 'font-noto-sans' : 'font-cinzel'}`}>✦ {t.form.error} ✦</p>
-                  )}
                   </div>
                 </form>
               </div>
@@ -231,6 +232,14 @@ export default function ContactPage() {
       </FadeInSection>
 
       <Footer />
+
+      {lastStatus && (
+        <div className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-500 ease-in-out ${msgVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          <p className={`px-6 py-4 rounded-xl bg-white border border-[#1a1a1a]/8 shadow-lg text-sm sm:text-base font-semibold whitespace-nowrap ${lastStatus === 'error' ? 'text-[#c45c5c]' : 'text-[#1a1a1a]'} ${lang === 'zh' ? 'font-noto-sans' : 'font-cinzel'}`}>
+            ✦ {lastStatus === 'success' ? t.form.success : t.form.error} ✦
+          </p>
+        </div>
+      )}
     </div>
   );
 }
