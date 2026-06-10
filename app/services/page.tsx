@@ -93,7 +93,7 @@ const content = {
       tiers: [
         {
           name: 'Starter',
-          price: 'NT$ 30,000+',
+          price: 'NT$ 25,000+',
           description: 'Perfect for simple, single-page sites or landing pages.',
           features: [
             'Single page / Landing page',
@@ -105,7 +105,7 @@ const content = {
         },
         {
           name: 'Standard',
-          price: 'NT$ 80,000+',
+          price: 'NT$ 30,000+',
           description: 'For multi-page websites with custom design and interactions.',
           features: [
             'Up to 5 pages',
@@ -119,7 +119,7 @@ const content = {
         },
         {
           name: 'Premium',
-          price: 'NT$ 150,000+',
+          price: 'NT$ 50,000+',
           description: 'Full-scope projects with advanced features and ongoing support.',
           features: [
             'Unlimited pages',
@@ -131,6 +131,10 @@ const content = {
           ],
         },
       ],
+      longTerm: {
+        name: 'Long-term Partnership',
+        description: 'Quarterly or annual collaboration agreements — pricing tailored through discussion.',
+      },
     },
     cta: "Let's Talk",
   },
@@ -215,7 +219,7 @@ const content = {
       tiers: [
         {
           name: '基礎方案',
-          price: 'NT$ 30,000+',
+          price: 'NT$ 25,000+',
           description: '適合簡單的單頁網站或著陸頁。',
           features: [
             '單頁 / 著陸頁',
@@ -227,7 +231,7 @@ const content = {
         },
         {
           name: '標準方案',
-          price: 'NT$ 80,000+',
+          price: 'NT$ 30,000+',
           description: '適合需要客製設計與互動效果的多頁網站。',
           features: [
             '最多 5 頁',
@@ -241,7 +245,7 @@ const content = {
         },
         {
           name: '進階方案',
-          price: 'NT$ 150,000+',
+          price: 'NT$ 50,000+',
           description: '完整專案，包含進階功能與持續支援。',
           features: [
             '不限頁數',
@@ -253,6 +257,10 @@ const content = {
           ],
         },
       ],
+      longTerm: {
+        name: '長期合作方案',
+        description: '季度或年度的長期合作協議，價格依需求討論決定。',
+      },
     },
     cta: '聯繫我',
   },
@@ -302,6 +310,96 @@ export default function ServicesPage() {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+      </FadeInSection>
+
+      {/* Process */}
+      <FadeInSection>
+        <section className="py-24 sm:py-32 md:py-40 px-4 sm:px-6 md:px-8">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="font-cinzel text-3xl sm:text-4xl md:text-5xl font-semibold text-[#1a1a1a] mb-16 sm:mb-20 text-center">
+              {t.process.heading}
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {t.process.steps.map((step, i) => (
+                <div
+                  key={i}
+                  className="p-8 sm:p-10 rounded-3xl border border-[#1a1a1a]/8 bg-white/40"
+                >
+                  <span className="font-cinzel text-4xl font-bold text-[#3b64f6]/20 block mb-4">
+                    {step.number}
+                  </span>
+                  <h3 className="font-cinzel text-xl sm:text-2xl font-semibold text-[#1a1a1a] mb-3">
+                    {step.title}
+                  </h3>
+                  <p className="font-noto-sans text-[#1a1a1a]/60 leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </FadeInSection>
+
+      {/* Pricing */}
+      <FadeInSection>
+        <section className="py-24 sm:py-32 md:py-40 px-4 sm:px-6 md:px-8">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="font-cinzel text-3xl sm:text-4xl md:text-5xl font-semibold text-[#1a1a1a] mb-6 text-center">
+              {t.pricing.heading}
+            </h2>
+            <p className="font-noto-sans text-[#1a1a1a]/60 text-center mb-16 sm:mb-20 max-w-2xl mx-auto">
+              {t.pricing.note}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-center">
+              {t.pricing.tiers.map((tier, i) => (
+                <div
+                  key={i}
+                  className={`relative flex flex-col rounded-2xl transition-all duration-500 ${
+                    tier.highlighted
+                      ? 'border border-[#3b64f6]/40 bg-white shadow-2xl shadow-[#3b64f6]/15 py-6 -mt-8'
+                      : 'border border-[#e5e5e5] bg-white self-stretch'
+                  }`}
+                >
+                  {tier.highlighted && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                      <span className="bg-[#3b64f6] text-white text-xs font-cinzel font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full">
+                        Popular
+                      </span>
+                    </div>
+                  )}
+                  <div className="p-8 sm:p-10 flex flex-col flex-1">
+                    <h3 className="font-noto-sans text-lg font-bold text-[#1a1a1a] mb-2">
+                      {tier.name}
+                    </h3>
+                    <p className="font-cinzel text-3xl sm:text-4xl font-bold text-[#1a1a1a] mb-3">
+                      {tier.price}
+                    </p>
+                    <p className="font-noto-sans text-sm text-[#1a1a1a]/50 mb-6">
+                      {tier.description}
+                    </p>
+                    <ul className="space-y-3 flex-1">
+                      {tier.features.map((feature, j) => (
+                        <li key={j} className="font-noto-sans text-sm text-[#1a1a1a]/70 flex items-start gap-2.5">
+                          <span className={`mt-0.5 ${tier.highlighted ? 'text-[#3b64f6]' : 'text-[#1a1a1a]/40'}`}>✓</span>
+                          {feature}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="mt-12 sm:mt-16 text-center border border-dashed border-[#1a1a1a]/15 rounded-2xl py-8 px-6 sm:py-10 sm:px-10">
+              <h3 className="font-noto-sans text-xl sm:text-2xl font-bold text-[#1a1a1a] mb-2">
+                {t.pricing.longTerm.name}
+              </h3>
+              <p className="font-noto-sans text-[#1a1a1a]/50 max-w-lg mx-auto">
+                {t.pricing.longTerm.description}
+              </p>
             </div>
             <div className="mt-16 sm:mt-20 text-center">
               <a
