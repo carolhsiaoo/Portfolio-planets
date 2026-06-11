@@ -53,7 +53,7 @@ export default function Hero({ pageReady = false, skipDelay = false }: { pageRea
   }, []);
 
   return (
-    <section className="pt-32 sm:pt-40 md:pt-40 lg:pt-56 pb-12 sm:pb-16 md:pb-20 relative min-h-[600px] sm:min-h-[700px] md:min-h-[650px] lg:min-h-screen flex items-center justify-center overflow-x-hidden">
+    <section className="pt-32 sm:pt-40 md:pt-40 lg:pt-56 pb-12 sm:pb-16 md:pb-20 relative min-h-[600px] sm:min-h-[700px] md:min-h-[650px] lg:min-h-screen flex items-center justify-center overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
       {/* 3D Planets Model - Behind text (z-index 0) - Adaptive based on device performance */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-auto z-0 overflow-visible">
         <div
