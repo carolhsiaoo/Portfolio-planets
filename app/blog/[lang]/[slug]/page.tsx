@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPost, getAdjacentPosts } from "@/lib/queries";
 import { urlFor } from "@/lib/sanity";
@@ -6,6 +7,40 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import SanityTable from "@/components/SanityTable";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ lang: string; slug: string }>;
+}): Promise<Metadata> {
+  const { lang, slug } = await params;
+  const post = await getPost(slug, lang);
+  if (!post) return {};
+
+  const title = post.title;
+  const description =
+    post.excerpt || `${post.title} — a blog post by Carol Hsiao`;
+  const image = post.coverImage
+    ? urlFor(post.coverImage).width(1200).height(630).url()
+    : undefined;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+      ...(image && { images: [{ url: image, width: 1200, height: 630 }] }),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      ...(image && { images: [image] }),
+    },
+  };
+}
 
 export default async function PostPage({
   params,

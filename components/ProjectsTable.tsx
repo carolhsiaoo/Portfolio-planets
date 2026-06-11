@@ -134,6 +134,12 @@ export default function ProjectsTable() {
                   </div>
                 </div>
 
+                {project.tagline && (
+                  <p className="font-inter text-sm sm:text-base text-neutral-500 leading-relaxed max-w-2xl">
+                    {project.tagline}
+                  </p>
+                )}
+
                 {/* Mobile inline thumbnail */}
                 <div className="relative w-full h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden lg:hidden">
                   {project.video && !project.video.endsWith('.gif') ? (
@@ -148,7 +154,7 @@ export default function ProjectsTable() {
                   ) : project.video?.endsWith('.gif') ? (
                     <Image
                       src={project.video}
-                      alt={project.name}
+                      alt={`${project.name} — ${project.type} by Carol Hsiao`}
                       fill
                       className="object-cover"
                       unoptimized
@@ -156,7 +162,7 @@ export default function ProjectsTable() {
                   ) : (
                     <Image
                       src={project.image}
-                      alt={project.name}
+                      alt={`${project.name} — ${project.type} by Carol Hsiao`}
                       fill
                       className="object-cover"
                       sizes="100vw"
@@ -210,7 +216,7 @@ export default function ProjectsTable() {
                     return (
                       <Image
                         src={project.video}
-                        alt={project.name}
+                        alt={`${project.name} — ${project.type} by Carol Hsiao`}
                         fill
                         className="object-cover"
                         unoptimized
@@ -220,7 +226,7 @@ export default function ProjectsTable() {
                   return (
                     <Image
                       src={project.image}
-                      alt={project.name}
+                      alt={`${project.name} — ${project.type} by Carol Hsiao`}
                       fill
                       className="object-cover"
                       sizes="450px"
