@@ -135,7 +135,7 @@ export default function ProjectsTable() {
                 </div>
 
                 {project.tagline && (
-                  <p className="font-inter text-sm sm:text-base text-neutral-500 leading-relaxed max-w-2xl">
+                  <p className="sr-only">
                     {project.tagline}
                   </p>
                 )}
