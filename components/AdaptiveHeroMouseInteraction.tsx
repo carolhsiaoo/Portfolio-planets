@@ -86,7 +86,7 @@ function StaticHeroFallback() {
   return (
     <div
       className="w-full h-full flex items-center justify-center overflow-visible"
-      style={{ transform: 'translateZ(0)', paddingTop: 'min(3vh, 4rem)' }}
+      style={{ transform: 'translateZ(0)', marginTop: 'min(-2vh, -1rem)' }}
     >
       <video
         ref={videoRef}
@@ -100,8 +100,9 @@ function StaticHeroFallback() {
           maxWidth: '100%',
           WebkitBackfaceVisibility: 'hidden',
           backfaceVisibility: 'hidden',
-          transform: 'translateZ(0) scale(1.01)',
+          transform: 'translateZ(0) scale(0.9)',
           transformOrigin: 'center center',
+          clipPath: 'inset(1px)',
           border: 'none',
           outline: 'none',
           margin: 0,

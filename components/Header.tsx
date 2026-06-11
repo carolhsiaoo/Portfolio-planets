@@ -158,7 +158,7 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
         isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
       } ${isScrolled ? 'pt-4 px-4 sm:px-6 md:px-8' : ''}`}
       style={{
-        borderBottom: (isScrolled || menuOpen) ? 'none' : '1px solid #F1F1F1',
+        borderBottom: 'none',
         transition: 'opacity 1s ease-out, transform 1s ease-out, padding 0.5s ease-in-out',
         ...(hideOnScroll && isHidden ? {
           transform: 'translateY(-100%)',
@@ -175,7 +175,7 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
             ? 'max-w-7xl bg-transparent px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4'
             : isScrolled
               ? 'max-w-4xl bg-white/30 backdrop-blur-xl rounded-full px-6 py-3 shadow-2xl'
-              : 'max-w-7xl bg-[#faf8f5]/90 backdrop-blur-sm px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4'
+              : 'max-w-7xl bg-transparent px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4'
         }`}
         style={{
           border: 'none',
