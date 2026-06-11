@@ -76,7 +76,7 @@ function StaticHeroFallback() {
 
   return (
     <div
-      className="w-full h-full flex items-center justify-center overflow-hidden"
+      className="w-full h-full flex items-center justify-center overflow-hidden pt-16 sm:pt-20 md:pt-24"
       style={{ transform: 'translateZ(0)' }}
     >
       <video
