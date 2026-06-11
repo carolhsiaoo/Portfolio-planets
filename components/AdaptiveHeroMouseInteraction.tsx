@@ -10,6 +10,8 @@ import HeroMouseInteraction from './HeroMouseInteraction';
 export default function AdaptiveHeroMouseInteraction({ spinBurst = false }: { spinBurst?: boolean } = {}) {
   const [shouldLoad, setShouldLoad] = useState(true);
   const [showFallback, setShowFallback] = useState(false);
+  const [devOverride, setDevOverride] = useState<'model' | 'video' | null>(null);
+  const isDev = process.env.NODE_ENV === 'development';
 
   useEffect(() => {
     const tier = detectPerformanceTier();
@@ -39,15 +41,22 @@ export default function AdaptiveHeroMouseInteraction({ spinBurst = false }: { sp
     monitor.start();
   }, []);
 
-  if (showFallback) {
-    return <StaticHeroFallback />;
-  }
+  const showVideo = devOverride === 'video' || (devOverride === null && (showFallback || !shouldLoad));
+  const showModel = devOverride === 'model' || (devOverride === null && !showFallback && shouldLoad);
 
-  if (!shouldLoad) {
-    return null;
-  }
-
-  return <HeroMouseInteraction spinBurst={spinBurst} />;
+  return (
+    <>
+      {isDev && (
+        <button
+          onClick={() => setDevOverride(prev => prev === 'video' ? 'model' : 'video')}
+          className="fixed bottom-4 right-4 z-[9999] px-3 py-1.5 rounded-full text-xs font-mono bg-black/70 text-white backdrop-blur-sm hover:bg-black/90 transition-colors"
+        >
+          {showVideo ? '📹 Video' : '🌐 3D'} — click to switch
+        </button>
+      )}
+      {showVideo ? <StaticHeroFallback /> : showModel ? <HeroMouseInteraction spinBurst={spinBurst} /> : null}
+    </>
+  );
 }
 
 /**
@@ -76,8 +85,8 @@ function StaticHeroFallback() {
 
   return (
     <div
-      className="w-full h-full flex items-center justify-center overflow-hidden"
-      style={{ transform: 'translateZ(0)', paddingTop: 'min(5vh, 4rem)' }}
+      className="w-full h-full flex items-center justify-center overflow-visible"
+      style={{ transform: 'translateZ(0)', paddingTop: 'min(3vh, 4rem)' }}
     >
       <video
         ref={videoRef}
@@ -89,10 +98,9 @@ function StaticHeroFallback() {
         className="h-full w-auto object-contain"
         style={{
           maxWidth: '100%',
-          imageRendering: 'crisp-edges',
           WebkitBackfaceVisibility: 'hidden',
           backfaceVisibility: 'hidden',
-          transform: 'translateZ(0)',
+          transform: 'translateZ(0) scale(1.01)',
           transformOrigin: 'center center',
           border: 'none',
           outline: 'none',
