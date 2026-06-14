@@ -23,8 +23,8 @@ export default function Hero({ pageReady = false, skipDelay = false }: { pageRea
       const showTimer = setTimeout(() => setShowScene(true), 100);
       return () => clearTimeout(showTimer);
     }
-    const mountTimer = setTimeout(() => setMountScene(true), 800);
-    const showTimer = setTimeout(() => setShowScene(true), 1000);
+    const mountTimer = setTimeout(() => setMountScene(true), 400);
+    const showTimer = setTimeout(() => setShowScene(true), 600);
     return () => {
       clearTimeout(mountTimer);
       clearTimeout(showTimer);

@@ -48,6 +48,7 @@ const About = memo(function About() {
               alt="Carol Hsiao — Product Designer based in Calgary"
               width={384}
               height={384}
+              sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, (max-width: 1024px) 288px, 320px"
               className="w-full h-full object-cover"
             />
           </div>

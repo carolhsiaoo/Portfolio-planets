@@ -1,28 +1,28 @@
 import type { Metadata } from "next";
 import { Cinzel, Noto_Sans, Noto_Sans_TC } from "next/font/google";
 import "./globals.css";
-import CursorStars from "@/components/CursorStars";
+import LazyCursorStars from "@/components/LazyCursorStars";
 import PageTransitionProvider from "@/components/PageTransition";
 import { LanguageProvider } from "@/components/LanguageContext";
 
 
 const cinzel = Cinzel({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500", "700"],
   variable: "--font-cinzel",
   display: "swap",
 });
 
 const notoSans = Noto_Sans({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "700"],
   variable: "--font-noto-sans",
   display: "swap",
 });
 
 const notoSansTC = Noto_Sans_TC({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "700"],
   variable: "--font-noto-sans-tc",
   display: "swap",
 });
@@ -67,7 +67,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="overscroll-none">
       <head>
-        <link rel="preload" href="/models/planets.glb" as="fetch" crossOrigin="anonymous" />
+        <link rel="preload" href="/models/planets.glb" as="fetch" crossOrigin="anonymous" fetchPriority="low" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -110,7 +110,7 @@ export default function RootLayout({
       </head>
       <body className={`${cinzel.variable} ${notoSans.variable} ${notoSansTC.variable} antialiased overflow-x-clip`}>
         <LanguageProvider>
-          <CursorStars />
+          <LazyCursorStars />
           <PageTransitionProvider>
             {children}
           </PageTransitionProvider>

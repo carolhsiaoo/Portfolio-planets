@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 
-const INTRO_DURATION = 1800;
-const FADE_OUT_DURATION = 600;
+const INTRO_DURATION = 1200;
+const FADE_OUT_DURATION = 400;
 
 export default function LoadingIntro({ onComplete }: { onComplete: () => void }) {
   const [phase, setPhase] = useState<'playing' | 'fading' | 'done'>('playing');
