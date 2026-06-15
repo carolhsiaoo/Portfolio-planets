@@ -13,6 +13,7 @@ export default function Hero({ pageReady = false, skipDelay = false }: { pageRea
   const [showName, setShowName] = useState(false);
   const [showTagline, setShowTagline] = useState(false);
   const [mountScene, setMountScene] = useState(skipDelay);
+  const [idleReady, setIdleReady] = useState(skipDelay);
   const [showScene, setShowScene] = useState(false);
 
   // On first load: delay 800ms to let intro animations paint first
@@ -23,10 +24,17 @@ export default function Hero({ pageReady = false, skipDelay = false }: { pageRea
       const showTimer = setTimeout(() => setShowScene(true), 100);
       return () => clearTimeout(showTimer);
     }
-    const mountTimer = setTimeout(() => setMountScene(true), 400);
+    // Defer 3D scene until browser is idle to reduce TBT
+    const mountTimer = ('requestIdleCallback' in window)
+      ? window.requestIdleCallback(() => { setMountScene(true); setIdleReady(true); })
+      : setTimeout(() => { setMountScene(true); setIdleReady(true); }, 400);
     const showTimer = setTimeout(() => setShowScene(true), 600);
     return () => {
-      clearTimeout(mountTimer);
+      if ('requestIdleCallback' in window) {
+        window.cancelIdleCallback(mountTimer as number);
+      } else {
+        clearTimeout(mountTimer);
+      }
       clearTimeout(showTimer);
     };
   }, [skipDelay]);

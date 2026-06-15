@@ -1,15 +1,17 @@
 'use client'
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Marquee from "@/components/Marquee";
-import ProjectsTable from "@/components/ProjectsTable";
-import About from "@/components/About";
-import Footer from "@/components/Footer";
 import FadeInSection from "@/components/FadeInSection";
 import LoadingIntro from "@/components/LoadingIntro";
 import { usePageTransition } from "@/components/PageTransition";
+
+const ProjectsTable = dynamic(() => import("@/components/ProjectsTable"));
+const Marquee = dynamic(() => import("@/components/Marquee"));
+const About = dynamic(() => import("@/components/About"));
+const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   const { hasNavigated } = usePageTransition();
@@ -21,7 +23,6 @@ export default function Home() {
 
       <div
         style={{
-          visibility: pageReady ? 'visible' : 'hidden',
           opacity: pageReady ? 1 : 0,
           transition: 'opacity 0.5s ease',
         }}

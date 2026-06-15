@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cinzel, Noto_Sans, Noto_Sans_TC } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import LazyCursorStars from "@/components/LazyCursorStars";
 import PageTransitionProvider from "@/components/PageTransition";
@@ -116,6 +117,9 @@ export default function RootLayout({
           </PageTransitionProvider>
         </LanguageProvider>
       </body>
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
     </html>
   );
 }
