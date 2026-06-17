@@ -110,7 +110,7 @@ const content = {
           description: 'For multi-page websites with custom design and interactions.',
           features: [
             'Up to 5 pages',
-            'Custom UI/UX design',
+            'UI/UX planning & design',
             'Interactive animations',
             'CMS integration',
             '2 rounds of revisions',
@@ -236,7 +236,7 @@ const content = {
           description: '適合需要客製設計與互動效果的多頁網站。',
           features: [
             '最多 5 頁',
-            '客製 UI/UX 設計',
+            'UI/UX 規劃與設計',
             '互動動畫效果',
             'CMS 內容管理整合',
             '2 次設計修改回合',
