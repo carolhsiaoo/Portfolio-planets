@@ -38,7 +38,7 @@ function buildRows(): Row[] {
   rows.push({ kind: 'label', label: 'Functional Products' });
   functional.forEach((p, i) => rows.push({ kind: 'project', project: p, globalIndex: i }));
 
-  rows.push({ kind: 'label', label: 'Creative Projects' });
+  rows.push({ kind: 'label', label: 'Interactive Websites' });
   creative.forEach((p, i) =>
     rows.push({ kind: 'project', project: p, globalIndex: functional.length + i })
   );
@@ -51,7 +51,7 @@ const allProjects = rows.filter((r): r is Extract<Row, { kind: 'project' }> => r
 
 const categoryLabels: Record<string, Record<string, string>> = {
   'Functional Products': { en: 'Functional Products', zh: '功能性產品' },
-  'Creative Projects': { en: 'Creative Projects', zh: '創意專案' },
+  'Interactive Websites': { en: 'Interactive Websites', zh: '互動網站體驗' },
 };
 
 export default function ProjectsTable() {
