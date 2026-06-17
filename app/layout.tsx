@@ -32,17 +32,17 @@ const siteUrl = "https://www.carolhsiao.com";
 
 export const metadata: Metadata = {
   title: {
-    default: "Carol Hsiao | Product Designer in Calgary",
+    default: "Carol Hsiao | Creative Website Developer & Designer",
     template: "%s | Carol Hsiao",
   },
   description:
-    "Carol Hsiao is a product designer at Aburi Studio in Calgary, specializing in UI/UX design, user research, and frontend development. View portfolio projects including FireFree, DailyWage, and CoreHour.",
+    "Carol Hsiao is a creative website developer and designer specializing in interactive web experiences, UI/UX design, and frontend development. View portfolio projects including FireFree, DailyWage, and CoreHour.",
   metadataBase: new URL(siteUrl),
   alternates: { canonical: "/" },
   openGraph: {
-    title: "Carol Hsiao | Product Designer in Calgary",
+    title: "Carol Hsiao | Creative Website Developer & Designer",
     description:
-      "Product designer specializing in UI/UX design, user research, and frontend development. Portfolio featuring finance apps, time-tracking tools, and spatial experiences.",
+      "Creative website developer and designer specializing in interactive web experiences, UI/UX design, and frontend development. Portfolio featuring finance apps, time-tracking tools, and spatial experiences.",
     url: siteUrl,
     siteName: "Carol Hsiao Portfolio",
     locale: "en_CA",
@@ -50,9 +50,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Carol Hsiao | Product Designer",
+    title: "Carol Hsiao | Creative Website Developer & Designer",
     description:
-      "Product designer at Aburi Studio in Calgary. UI/UX design, user research, and frontend development.",
+      "Creative website developer and designer crafting interactive web experiences. UI/UX design, user research, and frontend development.",
   },
   robots: {
     index: true,
@@ -76,7 +76,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Carol Hsiao",
-              jobTitle: "Product Designer",
+              jobTitle: "Creative Website Developer & Designer",
               url: "https://www.carolhsiao.com",
               sameAs: [
                 "https://www.linkedin.com/in/carol-hsiao-5779a1158/",
