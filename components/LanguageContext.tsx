@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
 
 type Lang = 'en' | 'zh';
 
@@ -16,8 +17,14 @@ const LanguageContext = createContext<LanguageContextType>({
   toggleLang: () => {},
 });
 
+function getLangFromPathname(pathname: string): Lang {
+  const firstSegment = pathname.split('/')[1];
+  return firstSegment === 'zh' ? 'zh' : 'en';
+}
+
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>('en');
+  const pathname = usePathname();
+  const [lang, setLang] = useState<Lang>(() => getLangFromPathname(pathname));
   const toggleLang = useCallback(() => setLang((l) => (l === 'en' ? 'zh' : 'en')), []);
 
   return (

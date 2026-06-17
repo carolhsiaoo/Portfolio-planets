@@ -8,13 +8,17 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import SanityTable from "@/components/SanityTable";
 
+function sanityLang(lang: string) {
+  return lang === 'zh' ? 'zh-tw' : 'en';
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: string; slug: string }>;
 }): Promise<Metadata> {
   const { lang, slug } = await params;
-  const post = await getPost(slug, lang);
+  const post = await getPost(slug, sanityLang(lang));
   if (!post) return {};
 
   const title = post.title;
@@ -48,18 +52,19 @@ export default async function PostPage({
   params: Promise<{ lang: string; slug: string }>;
 }) {
   const { lang, slug } = await params;
-  const post = await getPost(slug, lang);
+  const sLang = sanityLang(lang);
+  const post = await getPost(slug, sLang);
 
   if (!post) notFound();
 
-  const { prev, next } = await getAdjacentPosts(slug, lang);
+  const { prev, next } = await getAdjacentPosts(slug, sLang);
 
   return (
     <div className="min-h-screen bg-(--background) text-(--foreground)">
       <Header hideOnScroll />
       <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-8 pt-28 pb-20 font-noto-sans">
         <Link
-          href={`/blog/${lang}`}
+          href={`/${lang}/blog`}
           className="text-(--foreground)/40 hover:text-(--foreground)/70 transition-opacity duration-500 mb-8 inline-block font-inter text-sm tracking-wider"
         >
           &larr; BACK TO BLOG
@@ -72,7 +77,7 @@ export default async function PostPage({
         {post.publishedAt && (
           <time className="text-sm text-(--foreground)/40 block mb-10 font-inter">
             {new Date(post.publishedAt).toLocaleDateString(
-              lang === "zh-tw" ? "zh-TW" : "en-US",
+              lang === "zh" ? "zh-TW" : "en-US",
               {
                 year: "numeric",
                 month: "long",
@@ -185,19 +190,19 @@ export default async function PostPage({
         <nav className="flex justify-between items-center mt-16 pt-8 border-t border-(--foreground)/10 font-inter text-base">
           {prev && (
             <Link
-              href={`/blog/${lang}/${prev.slug}`}
+              href={`/${lang}/blog/${prev.slug}`}
               className="group flex flex-col gap-1 max-w-[45%]"
             >
-              <span className="text-(--foreground)/70 group-hover:text-(--foreground) tracking-wider text-sm transition-colors duration-300">&larr; {lang === "zh-tw" ? "上一篇" : "PREVIOUS"}</span>
+              <span className="text-(--foreground)/70 group-hover:text-(--foreground) tracking-wider text-sm transition-colors duration-300">&larr; {lang === "zh" ? "上一篇" : "PREVIOUS"}</span>
               <span className="text-(--foreground)/70 group-hover:text-(--foreground) transition-colors duration-300 line-clamp-2">{prev.title}</span>
             </Link>
           )}
           {next && (
             <Link
-              href={`/blog/${lang}/${next.slug}`}
+              href={`/${lang}/blog/${next.slug}`}
               className="group flex flex-col items-end gap-1 max-w-[45%] ml-auto"
             >
-              <span className="text-(--foreground)/70 group-hover:text-(--foreground) tracking-wider text-sm transition-colors duration-300">{lang === "zh-tw" ? "下一篇" : "NEXT"} &rarr;</span>
+              <span className="text-(--foreground)/70 group-hover:text-(--foreground) tracking-wider text-sm transition-colors duration-300">{lang === "zh" ? "下一篇" : "NEXT"} &rarr;</span>
               <span className="text-(--foreground)/70 group-hover:text-(--foreground) transition-colors duration-300 line-clamp-2 text-right">{next.title}</span>
             </Link>
           )}

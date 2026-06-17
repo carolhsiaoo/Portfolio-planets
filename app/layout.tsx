@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import { Cinzel, Noto_Sans, Noto_Sans_TC } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
@@ -27,38 +26,6 @@ const notoSansTC = Noto_Sans_TC({
   variable: "--font-noto-sans-tc",
   display: "swap",
 });
-
-const siteUrl = "https://www.carolhsiao.com";
-
-export const metadata: Metadata = {
-  title: {
-    default: "Carol Hsiao | Creative Website Developer & Designer",
-    template: "%s | Carol Hsiao",
-  },
-  description:
-    "Carol Hsiao is a creative website developer and designer specializing in interactive web experiences, UI/UX design, and frontend development. View portfolio projects including FireFree, DailyWage, and CoreHour.",
-  metadataBase: new URL(siteUrl),
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "Carol Hsiao | Creative Website Developer & Designer",
-    description:
-      "Creative website developer and designer specializing in interactive web experiences, UI/UX design, and frontend development. Portfolio featuring finance apps, time-tracking tools, and spatial experiences.",
-    url: siteUrl,
-    siteName: "Carol Hsiao Portfolio",
-    locale: "en_CA",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Carol Hsiao | Creative Website Developer & Designer",
-    description:
-      "Creative website developer and designer crafting interactive web experiences. UI/UX design, user research, and frontend development.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
 
 export default function RootLayout({
   children,

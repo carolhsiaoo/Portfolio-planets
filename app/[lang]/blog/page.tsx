@@ -1,59 +1,51 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { getPosts } from "@/lib/queries";
 import { urlFor } from "@/lib/sanity";
 import Image from "next/image";
 import Header from "@/components/Header";
 import FadeInSection from "@/components/FadeInSection";
 import Footer from "@/components/Footer";
-import SyncLanguage from "@/components/SyncLanguage";
+import type { Metadata } from "next";
 
-const VALID_LANGS = ["en", "zh-tw"] as const;
-
-export function generateStaticParams() {
-  return VALID_LANGS.map((lang) => ({ lang }));
+function sanityLang(lang: string) {
+  return lang === 'zh' ? 'zh-tw' : 'en';
 }
 
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ lang: string }>;
-}) {
+}): Promise<Metadata> {
   const { lang } = await params;
   return {
-    title: lang === "zh-tw" ? "部落格 | Carol Hsiao" : "Blog | Carol Hsiao",
+    title: lang === "zh" ? "部落格" : "Blog",
     description:
-      lang === "zh-tw"
+      lang === "zh"
         ? "關於設計、開發與創作過程的想法。"
         : "Thoughts on design, development, and creative work.",
   };
 }
 
-export default async function BlogLangPage({
+export default async function BlogPage({
   params,
 }: {
   params: Promise<{ lang: string }>;
 }) {
   const { lang } = await params;
-
-  if (!VALID_LANGS.includes(lang as (typeof VALID_LANGS)[number])) {
-    notFound();
-  }
-
-  const posts = await getPosts(lang);
+  const sLang = sanityLang(lang);
+  const posts = await getPosts(sLang);
 
   return (
     <div className="min-h-screen bg-[#faf8f5]">
-      <SyncLanguage lang={lang} />
       <Header />
       {/* Hero */}
       <section className="pt-32 sm:pt-40 md:pt-48 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6 md:px-8">
         <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
           <h1 className="font-cinzel text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold tracking-tight text-[#1a1a1a]">
-            {lang === "zh-tw" ? "部落格" : "Blog"}
+            {lang === "zh" ? "部落格" : "Blog"}
           </h1>
           <p className="mt-6 text-lg sm:text-xl md:text-2xl font-noto-sans text-[#1a1a1a]/60 max-w-2xl">
-            {lang === "zh-tw" ? "關於設計、開發與創作過程的想法。" : "Design, code & creative process"}
+            {lang === "zh" ? "關於設計、開發與創作過程的想法。" : "Design, code & creative process"}
           </p>
         </div>
       </section>
@@ -63,7 +55,7 @@ export default async function BlogLangPage({
         <FadeInSection delay={200}>
         {posts.length === 0 ? (
           <p className="font-inter text-neutral-400">
-            {lang === "zh-tw" ? "目前還沒有文章，請稍後再來！" : "No posts yet. Check back soon!"}
+            {lang === "zh" ? "目前還沒有文章，請稍後再來！" : "No posts yet. Check back soon!"}
           </p>
         ) : (
           <div className="flex flex-col gap-10 sm:gap-14">
@@ -85,7 +77,7 @@ export default async function BlogLangPage({
                   <hr className="border-t border-neutral-200 mb-10 sm:mb-14" />
                 )}
                 <Link
-                  href={`/blog/${lang}/${post.slug.current}`}
+                  href={`/${lang}/blog/${post.slug.current}`}
                   className="group block"
                 >
                   <article
@@ -120,7 +112,7 @@ export default async function BlogLangPage({
                         {post.publishedAt && (
                           <time className="font-inter text-sm text-neutral-400 tracking-[0.2em] uppercase">
                             {new Date(post.publishedAt).toLocaleDateString(
-                              lang === "zh-tw" ? "zh-TW" : "en-US",
+                              lang === "zh" ? "zh-TW" : "en-US",
                               {
                                 year: "numeric",
                                 month: "long",

@@ -3,7 +3,7 @@
 import { memo, useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { usePageTransition } from './PageTransition';
 import { useLanguage } from './LanguageContext';
 
@@ -17,19 +17,15 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
   const langRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const { navigateTo } = usePageTransition();
-  const { lang, setLang } = useLanguage();
+  const { lang } = useLanguage();
   const pathname = usePathname();
-  const router = useRouter();
 
   const handleLangSwitch = useCallback((newLang: 'en' | 'zh') => {
-    setLang(newLang);
-    // If on a blog page, navigate to the correct language route
-    if (pathname.startsWith('/blog/')) {
-      const blogLang = newLang === 'zh' ? 'zh-tw' : 'en';
-      const rest = pathname.replace(/^\/blog\/(en|zh-tw)/, '');
-      router.push(`/blog/${blogLang}${rest}`);
-    }
-  }, [setLang, pathname, router]);
+    if (newLang === lang) return;
+    // Replace the lang prefix in the current path
+    const newPath = pathname.replace(/^\/(en|zh)/, `/${newLang}`);
+    navigateTo(newPath);
+  }, [lang, pathname, navigateTo]);
 
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
@@ -77,15 +73,15 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
   }, [hideOnScroll]);
 
   const navLinks = [
-    { href: '/', label: lang === 'zh' ? '首頁' : 'HOME' },
-    { href: '/services', label: lang === 'zh' ? '服務' : 'SERVICE' },
-    { href: '/blog', label: lang === 'zh' ? '部落格' : 'BLOG' },
-    { href: '/contact', label: lang === 'zh' ? '聯繫' : 'CONTACT' },
+    { href: `/${lang}`, label: lang === 'zh' ? '首頁' : 'HOME' },
+    { href: `/${lang}/services`, label: lang === 'zh' ? '服務' : 'SERVICE' },
+    { href: `/${lang}/blog`, label: lang === 'zh' ? '部落格' : 'BLOG' },
+    { href: `/${lang}/contact`, label: lang === 'zh' ? '聯繫' : 'CONTACT' },
   ];
 
   const navContent = (
     <>
-      <Link href="/" onClick={(e) => handleNavClick(e, '/')} className={`flex items-center transition-opacity duration-500 ${menuOpen ? 'opacity-0 pointer-events-none' : ''}`}>
+      <Link href={`/${lang}`} onClick={(e) => handleNavClick(e, `/${lang}`)} className={`flex items-center transition-opacity duration-500 ${menuOpen ? 'opacity-0 pointer-events-none' : ''}`}>
         <Image
           src="/logo.png"
           alt="Carol Hsiao Logo"

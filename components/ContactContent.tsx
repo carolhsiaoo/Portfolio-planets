@@ -61,7 +61,7 @@ const content = {
   },
 };
 
-export default function ContactPage() {
+export default function ContactContent() {
   const { lang } = useLanguage();
   const t = content[lang];
 

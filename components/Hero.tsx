@@ -106,8 +106,8 @@ export default function Hero({ pageReady = false, skipDelay = false }: { pageRea
             <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-medium leading-relaxed ${textColor} select-none transition-colors duration-300  flex items-center gap-2 sm:gap-3`}>
               <span className="text-sm sm:text-base md:text-lg lg:text-xl">✦</span>{lang === 'zh' ? '開放' : "Let's"}{' '}
               <a
-                href="/services"
-                onClick={(e) => { e.preventDefault(); navigateTo('/services'); }}
+                href={`/${lang}/services`}
+                onClick={(e) => { e.preventDefault(); navigateTo(`/${lang}/services`); }}
                 className="group cursor-pointer relative inline-flex items-center gap-1.5 pointer-events-auto"
               >
                 <TextRoll key={lang} lineHeight={1.3}>{lang === 'zh' ? '接案合作' : 'Create Together'}</TextRoll>

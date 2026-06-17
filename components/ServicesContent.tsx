@@ -267,7 +267,7 @@ const content = {
   },
 };
 
-export default function ServicesPage() {
+export default function ServicesContent() {
   const { lang } = useLanguage();
   const { navigateTo } = usePageTransition();
   const t = content[lang];
@@ -405,7 +405,7 @@ export default function ServicesPage() {
             </div>
             <div className="mt-16 sm:mt-20 text-center">
               <button
-                onClick={() => navigateTo('/contact')}
+                onClick={() => navigateTo(`/${lang}/contact`)}
                 className="inline-block bg-[#1a1a1a] text-white px-12 py-5 rounded-full font-inter font-medium tracking-wider text-base sm:text-lg hover:bg-[#333] transition-all duration-300 cursor-pointer"
               >
                 {t.cta}

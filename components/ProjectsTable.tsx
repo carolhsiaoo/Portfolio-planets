@@ -35,12 +35,12 @@ function buildRows(): Row[] {
   const functional = projects.filter((p) => p.category === 'functional' && !hidden.has(p.name));
   const rows: Row[] = [];
 
-  rows.push({ kind: 'label', label: 'Functional Products' });
-  functional.forEach((p, i) => rows.push({ kind: 'project', project: p, globalIndex: i }));
-
   rows.push({ kind: 'label', label: 'Interactive Websites' });
-  creative.forEach((p, i) =>
-    rows.push({ kind: 'project', project: p, globalIndex: functional.length + i })
+  creative.forEach((p, i) => rows.push({ kind: 'project', project: p, globalIndex: i }));
+
+  rows.push({ kind: 'label', label: 'Functional Products' });
+  functional.forEach((p, i) =>
+    rows.push({ kind: 'project', project: p, globalIndex: creative.length + i })
   );
 
   return rows;
