@@ -74,8 +74,8 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
 
   const navLinks = [
     { href: `/${lang}`, label: lang === 'zh' ? '首頁' : 'HOME' },
-    { href: `/${lang}/services`, label: lang === 'zh' ? '服務' : 'SERVICE' },
     { href: `/${lang}/blog`, label: lang === 'zh' ? '部落格' : 'BLOG' },
+    { href: `/${lang}/services`, label: lang === 'zh' ? '服務' : 'SERVICE' },
     { href: `/${lang}/contact`, label: lang === 'zh' ? '聯繫' : 'CONTACT' },
   ];
 
