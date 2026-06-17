@@ -6,13 +6,31 @@ import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motio
 import { projects } from '@/data/projects';
 import { useLanguage } from './LanguageContext';
 
+function VideoWithFallback({ src, fallbackImage, alt, className }: { src: string; fallbackImage: string; alt: string; className?: string }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return <Image src={fallbackImage} alt={alt} fill className={className || "object-cover"} />;
+  }
+  return (
+    <video
+      src={src}
+      autoPlay
+      loop
+      muted
+      playsInline
+      className={className || "w-full h-full object-cover"}
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
 // Build a flat list with inline category headers
 type Row =
   | { kind: 'label'; label: string }
   | { kind: 'project'; project: (typeof projects)[number]; globalIndex: number };
 
 function buildRows(): Row[] {
-  const hidden = new Set(['Timez']);
+  const hidden = new Set(['Timez', 'Healing Drinks', 'Equation Pyramid']);
   const creative = projects.filter((p) => p.category === 'creative' && !hidden.has(p.name));
   const functional = projects.filter((p) => p.category === 'functional' && !hidden.has(p.name));
   const rows: Row[] = [];
@@ -20,7 +38,7 @@ function buildRows(): Row[] {
   rows.push({ kind: 'label', label: 'Functional Products' });
   functional.forEach((p, i) => rows.push({ kind: 'project', project: p, globalIndex: i }));
 
-  rows.push({ kind: 'label', label: 'Immersive Experiences' });
+  rows.push({ kind: 'label', label: 'Creative Projects' });
   creative.forEach((p, i) =>
     rows.push({ kind: 'project', project: p, globalIndex: functional.length + i })
   );
@@ -33,7 +51,7 @@ const allProjects = rows.filter((r): r is Extract<Row, { kind: 'project' }> => r
 
 const categoryLabels: Record<string, Record<string, string>> = {
   'Functional Products': { en: 'Functional Products', zh: '功能性產品' },
-  'Immersive Experiences': { en: 'Immersive Experiences', zh: '沉浸式體驗' },
+  'Creative Projects': { en: 'Creative Projects', zh: '創意專案' },
 };
 
 export default function ProjectsTable() {
@@ -141,15 +159,13 @@ export default function ProjectsTable() {
                 )}
 
                 {/* Mobile inline thumbnail */}
-                <div className="relative w-full h-48 sm:h-64 md:h-80 rounded-lg overflow-hidden lg:hidden">
+                <div className="relative w-full aspect-video rounded-lg overflow-hidden lg:hidden">
                   {project.video && !project.video.endsWith('.gif') ? (
-                    <video
+                    <VideoWithFallback
                       src={project.videoMobile || project.video}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className="w-full h-full object-cover"
+                      fallbackImage={project.image}
+                      alt={`${project.name} — ${project.type} by Carol Hsiao`}
+                      className="w-full h-full object-cover rounded-lg"
                     />
                   ) : project.video?.endsWith('.gif') ? (
                     <Image
@@ -186,7 +202,7 @@ export default function ProjectsTable() {
               x: springX,
               y: springY,
             }}
-            className="fixed top-0 left-0 z-50 pointer-events-none w-[450px] h-[300px] rounded-xl overflow-hidden shadow-2xl hidden lg:block"
+            className="fixed top-0 left-0 z-50 pointer-events-none w-[450px] aspect-video rounded-xl overflow-hidden shadow-2xl hidden lg:block"
           >
             <AnimatePresence mode="wait">
               <motion.div
@@ -202,13 +218,10 @@ export default function ProjectsTable() {
                   if (!project) return null;
                   if (project.video && !project.video.endsWith('.gif')) {
                     return (
-                      <video
+                      <VideoWithFallback
                         src={project.video}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        className="w-full h-full object-cover"
+                        fallbackImage={project.image}
+                        alt={`${project.name} — ${project.type} by Carol Hsiao`}
                       />
                     );
                   }
