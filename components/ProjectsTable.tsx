@@ -8,11 +8,33 @@ import { useLanguage } from './LanguageContext';
 
 function VideoWithFallback({ src, fallbackImage, alt, className }: { src: string; fallbackImage: string; alt: string; className?: string }) {
   const [failed, setFailed] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || failed) return;
+
+    // Retry autoplay on any user interaction (for in-app browsers)
+    const retryOnTouch = () => {
+      if (video.paused) {
+        video.play().catch(() => {});
+      }
+    };
+    document.addEventListener('touchstart', retryOnTouch, { once: true });
+    document.addEventListener('scroll', retryOnTouch, { once: true });
+
+    return () => {
+      document.removeEventListener('touchstart', retryOnTouch);
+      document.removeEventListener('scroll', retryOnTouch);
+    };
+  }, [failed]);
+
   if (failed) {
     return <Image src={fallbackImage} alt={alt} fill className={className || "object-cover"} />;
   }
   return (
     <video
+      ref={videoRef}
       src={src}
       autoPlay
       loop

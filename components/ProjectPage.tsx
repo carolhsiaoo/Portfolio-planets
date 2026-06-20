@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ProjectData, projects } from '@/data/projects';
@@ -15,21 +15,46 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
   );
 }
 
+function AutoPlayVideo({ src, className }: { src: string; className: string }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const retryOnTouch = () => {
+      if (video.paused) {
+        video.play().catch(() => {});
+      }
+    };
+    document.addEventListener('touchstart', retryOnTouch, { once: true });
+    document.addEventListener('scroll', retryOnTouch, { once: true });
+
+    return () => {
+      document.removeEventListener('touchstart', retryOnTouch);
+      document.removeEventListener('scroll', retryOnTouch);
+    };
+  }, []);
+
+  return (
+    <video
+      ref={videoRef}
+      src={src}
+      autoPlay
+      loop
+      muted
+      playsInline
+      className={className}
+    />
+  );
+}
+
 function MediaDisplay({ src, alt, className = '' }: { src: string; alt: string; className?: string }) {
   const isVideo = src.endsWith('.mp4') || src.endsWith('.webm');
   const isGif = src.endsWith('.gif');
 
   if (isVideo) {
-    return (
-      <video
-        src={src}
-        autoPlay
-        loop
-        muted
-        playsInline
-        className={`w-full rounded-2xl ${className}`}
-      />
-    );
+    return <AutoPlayVideo src={src} className={`w-full rounded-2xl ${className}`} />;
   }
 
   return (

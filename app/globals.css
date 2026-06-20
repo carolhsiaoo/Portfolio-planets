@@ -1,6 +1,18 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Hide native video play button in in-app browsers (LINE, Instagram, etc.) */
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls {
+  display: none !important;
+  -webkit-appearance: none;
+}
+video::-webkit-media-controls-panel {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
 @theme {
   --font-family-cinzel: var(--font-cinzel), var(--font-noto-sans-tc), serif;
   --font-family-noto-sans: var(--font-noto-sans), var(--font-noto-sans-tc), sans-serif;

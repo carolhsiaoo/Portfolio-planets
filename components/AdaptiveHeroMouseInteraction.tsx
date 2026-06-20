@@ -65,6 +65,7 @@ export default function AdaptiveHeroMouseInteraction({ spinBurst = false }: { sp
  */
 function StaticHeroFallback() {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [needsTap, setNeedsTap] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -72,21 +73,46 @@ function StaticHeroFallback() {
 
     const handleEnded = () => {
       video.currentTime = 0;
-      video.play().catch(err => console.log('Video play error:', err));
+      video.play().catch(() => {});
     };
 
     video.addEventListener('ended', handleEnded);
-    video.play().catch(err => console.log('Video autoplay error:', err));
+
+    // Try autoplay — if blocked (in-app browsers), show tap-to-play
+    video.play().then(() => {
+      setNeedsTap(false);
+    }).catch(() => {
+      setNeedsTap(true);
+    });
+
+    // Also listen for global touch to retry autoplay
+    const retryOnTouch = () => {
+      if (video.paused) {
+        video.play().then(() => setNeedsTap(false)).catch(() => {});
+      }
+    };
+    document.addEventListener('touchstart', retryOnTouch, { once: true });
+    document.addEventListener('click', retryOnTouch, { once: true });
 
     return () => {
       video.removeEventListener('ended', handleEnded);
+      document.removeEventListener('touchstart', retryOnTouch);
+      document.removeEventListener('click', retryOnTouch);
     };
   }, []);
 
+  const handleTap = () => {
+    const video = videoRef.current;
+    if (video && video.paused) {
+      video.play().then(() => setNeedsTap(false)).catch(() => {});
+    }
+  };
+
   return (
     <div
-      className="w-full h-full flex items-center justify-center overflow-visible"
+      className="w-full h-full flex items-center justify-center overflow-visible relative"
       style={{ transform: 'translateZ(0)', marginTop: 'min(-2vh, -1rem)' }}
+      onClick={handleTap}
     >
       <video
         ref={videoRef}
@@ -95,6 +121,7 @@ function StaticHeroFallback() {
         muted
         playsInline
         preload="auto"
+        poster="/images/hero-planets-poster.png"
         className="h-full w-auto object-contain"
         style={{
           maxWidth: '100%',
@@ -117,6 +144,15 @@ function StaticHeroFallback() {
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-300/40 rounded-full blur-3xl animate-pulse" />
         </div>
       </video>
+      {needsTap && (
+        <div className="absolute inset-0 flex items-center justify-center cursor-pointer z-10">
+          <div className="bg-black/30 backdrop-blur-sm rounded-full p-4">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
