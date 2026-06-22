@@ -416,7 +416,7 @@ export const projects: ProjectData[] = [
     year: "2025",
     image: "/wowwow.webp",
     video: "/wowwow-compressed.mp4",
-    link: "https://wowwowdesssert.vercel.app/",
+    link: "https://wowwowdessert.vercel.app/",
     tagline: "A dessert brand website with a warm, inviting visual experience.",
     tags: ["Web Design", "Branding", "Dessert"],
   },
