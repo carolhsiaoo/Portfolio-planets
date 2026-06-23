@@ -155,7 +155,7 @@ export default function ProjectsTable() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.6, ease: 'easeOut', delay: globalIndex * 0.1 }}
-                className={`group border-t border-neutral-200 lg:last:border-b py-6 sm:py-8 flex flex-col gap-4 lg:transition-opacity lg:duration-300 ${
+                className={`group border-t border-neutral-200 lg:last:border-b py-14 sm:py-16 lg:py-8 flex flex-col gap-6 lg:gap-4 lg:transition-opacity lg:duration-300 ${
                   hoveredIndex !== null && hoveredIndex !== globalIndex ? 'lg:opacity-25' : ''
                 }`}
               >
