@@ -1,4 +1,4 @@
-import { client } from "./sanity";
+import { client, fetchOptions } from "./sanity";
 
 export async function getPosts(lang: string = "en") {
   const isZh = lang === "zh-tw";
@@ -19,7 +19,9 @@ export async function getPosts(lang: string = "en") {
       coverImage,
       category->{title, slug}
     }
-  `
+  `,
+    {},
+    fetchOptions
   );
 }
 
@@ -59,7 +61,8 @@ export async function getPost(slug: string, lang: string = "en") {
       category->{title, slug}
     }
   `,
-    { slug }
+    { slug },
+    fetchOptions
   );
 }
 
@@ -74,7 +77,9 @@ export async function getAdjacentPosts(slug: string, lang: string = "en") {
         title
       )
     }
-  `
+  `,
+    {},
+    fetchOptions
   );
 
   const currentIndex = allPosts.findIndex((p: { slug: string }) => p.slug === slug);

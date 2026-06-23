@@ -65,27 +65,37 @@ export default async function PostPage({
       <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-8 pt-28 pb-20 font-noto-sans">
         <Link
           href={`/${lang}/blog`}
-          className="text-(--foreground)/40 hover:text-(--foreground)/70 transition-opacity duration-500 mb-8 inline-block font-inter text-sm tracking-wider"
+          className="text-(--foreground)/40 hover:text-(--foreground)/70 transition-opacity duration-500 mb-12 inline-block font-inter text-sm tracking-wider"
         >
-          &larr; BACK TO BLOG
+          &larr; Back
         </Link>
 
-        <h1 className="text-4xl sm:text-5xl lg:text-5xl font-cinzel font-semibold mb-4 leading-[1.05] text-neutral-900">
+        <h1 className="text-4xl sm:text-5xl lg:text-5xl font-cinzel font-semibold mb-8 leading-[1.05] text-neutral-900">
           {post.title}
         </h1>
 
-        {post.publishedAt && (
-          <time className="text-sm text-(--foreground)/40 block mb-10 font-inter">
-            {new Date(post.publishedAt).toLocaleDateString(
-              lang === "zh" ? "zh-TW" : "en-US",
-              {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              }
-            )}
-          </time>
-        )}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-14">
+          {post.category?.title && (
+            <>
+              <span className="font-inter text-sm text-neutral-500 tracking-[0.2em] uppercase whitespace-nowrap">
+                {post.category.title}
+              </span>
+              <span className="text-neutral-500 leading-none -translate-y-0.5">·</span>
+            </>
+          )}
+          {post.publishedAt && (
+            <time className="font-inter text-sm text-neutral-500 tracking-[0.2em] uppercase whitespace-nowrap">
+              {new Date(post.publishedAt).toLocaleDateString(
+                lang === "zh" ? "zh-TW" : "en-US",
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                }
+              )}
+            </time>
+          )}
+        </div>
 
         {post.coverImage && (
           <div className="relative w-full h-64 md:h-96 mb-12 rounded-lg overflow-hidden border border-gray-200">

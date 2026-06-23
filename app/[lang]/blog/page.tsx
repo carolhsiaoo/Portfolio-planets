@@ -109,8 +109,16 @@ export default async function BlogPage({
 
 
                       <div className="mt-8 flex items-center gap-4">
+                        {post.category?.title && (
+                          <>
+                            <span className="font-inter text-sm text-neutral-500 tracking-[0.2em] uppercase">
+                              {post.category.title}
+                            </span>
+                            <span className="text-neutral-500 leading-none -translate-y-0.5">·</span>
+                          </>
+                        )}
                         {post.publishedAt && (
-                          <time className="font-inter text-sm text-neutral-400 tracking-[0.2em] uppercase">
+                          <time className="font-inter text-sm text-neutral-500 tracking-[0.2em] uppercase">
                             {new Date(post.publishedAt).toLocaleDateString(
                               lang === "zh" ? "zh-TW" : "en-US",
                               {

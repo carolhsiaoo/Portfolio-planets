@@ -180,32 +180,15 @@ export default function ProjectsTable() {
                   </p>
                 )}
 
-                {/* Mobile inline thumbnail */}
+                {/* Mobile inline thumbnail — always show image, no video */}
                 <div className="relative w-full aspect-video rounded-lg overflow-hidden lg:hidden">
-                  {project.video && !project.video.endsWith('.gif') ? (
-                    <VideoWithFallback
-                      src={project.videoMobile || project.video}
-                      fallbackImage={project.image}
-                      alt={`${project.name} — ${project.type} by Carol Hsiao`}
-                      className="w-full h-full object-cover rounded-lg"
-                    />
-                  ) : project.video?.endsWith('.gif') ? (
-                    <Image
-                      src={project.video}
-                      alt={`${project.name} — ${project.type} by Carol Hsiao`}
-                      fill
-                      className="object-cover"
-                      unoptimized
-                    />
-                  ) : (
-                    <Image
-                      src={project.image}
-                      alt={`${project.name} — ${project.type} by Carol Hsiao`}
-                      fill
-                      className="object-cover"
-                      sizes="100vw"
-                    />
-                  )}
+                  <Image
+                    src={project.image}
+                    alt={`${project.name} — ${project.type} by Carol Hsiao`}
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                  />
                 </div>
               </motion.a>
             );

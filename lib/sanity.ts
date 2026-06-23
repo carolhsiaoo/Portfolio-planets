@@ -7,8 +7,14 @@ export const client = createClient({
   projectId: "z4kjle0n",
   dataset: "production",
   apiVersion: "2024-01-01",
-  useCdn: true,
+  useCdn: process.env.NODE_ENV === "production",
+  stega: false,
 });
+
+export const fetchOptions =
+  process.env.NODE_ENV === "development"
+    ? { cache: "no-store" as const }
+    : {};
 
 const builder = createImageUrlBuilder(client);
 
