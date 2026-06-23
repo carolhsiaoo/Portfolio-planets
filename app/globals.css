@@ -99,8 +99,10 @@ html {
   will-change: transform;
 }
 
-.animate-marquee:hover {
-  animation-play-state: paused;
+@media (hover: hover) {
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
 }
 
 /* Washi tape scroll animation */
