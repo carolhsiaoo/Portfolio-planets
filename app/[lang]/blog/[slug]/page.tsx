@@ -74,17 +74,17 @@ export default async function PostPage({
           {post.title}
         </h1>
 
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-14">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-14">
           {post.category?.title && (
             <>
-              <span className="font-inter text-sm text-neutral-500 tracking-[0.2em] uppercase whitespace-nowrap">
+              <span className="font-inter text-xs sm:text-sm text-neutral-500 tracking-[0.2em] uppercase">
                 {post.category.title}
               </span>
-              <span className="text-neutral-500 leading-none -translate-y-0.5">·</span>
+              <span className="text-neutral-500 leading-none -translate-y-0.5 hidden sm:inline">·</span>
             </>
           )}
           {post.publishedAt && (
-            <time className="font-inter text-sm text-neutral-500 tracking-[0.2em] uppercase whitespace-nowrap">
+            <time className="font-inter text-xs sm:text-sm text-neutral-500 tracking-[0.2em] uppercase">
               {new Date(post.publishedAt).toLocaleDateString(
                 lang === "zh" ? "zh-TW" : "en-US",
                 {
