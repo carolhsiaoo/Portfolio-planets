@@ -2,10 +2,8 @@
 
 import { memo } from 'react';
 import Image from 'next/image';
-import { FiExternalLink } from 'react-icons/fi';
 import StickerWall from './StickerWall';
 import WashiTape from './WashiTape';
-import TextRoll from './TextRoll';
 import { useLanguage } from './LanguageContext';
 
 const About = memo(function About() {
@@ -23,21 +21,8 @@ const About = memo(function About() {
         </h2>
 
         {/* Description text */}
-        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-normal leading-relaxed mb-4 sm:mb-5 md:mb-6 max-w-full sm:max-w-2xl md:max-w-3xl px-2">
-          {lang === 'zh' ? '我打造為使用者創造真正價值的產品。' : 'I build products that create true value for users.'}
-        </p>
-        <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-normal leading-relaxed mb-8 sm:mb-10 md:mb-12 px-2 md:whitespace-nowrap">
-          {lang === 'zh' ? '我是' : "I'm a product designer at"}{' '}
-          <a
-            href="https://aburistudio.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-1.5 cursor-pointer relative"
-          >
-            <TextRoll>Aburi Studio</TextRoll>
-            <FiExternalLink className="text-sm sm:text-base md:text-lg lg:text-xl" strokeWidth={2.5} />
-          </a>
-          {lang === 'zh' ? ' 的產品設計師，目前居住在卡加利。' : ' based in Calgary.'}
+        <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-inter font-normal leading-relaxed mb-8 sm:mb-10 md:mb-12 max-w-full sm:max-w-2xl md:max-w-3xl px-2">
+          {lang === 'zh' ? '從設計到程式碼，我打造生動、有趣、且令人難忘的網站。' : 'I build websites that move, react, and get remembered, from design to code.'}
         </p>
 
         {/* Profile image - centered */}
@@ -45,7 +30,7 @@ const About = memo(function About() {
           <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 bg-gray-800 rounded-[3rem] overflow-hidden shadow-lg">
             <Image
               src="/carol-image.png"
-              alt="Carol Hsiao — Product Designer based in Calgary"
+              alt="Carol Hsiao — Creative Developer based in Calgary"
               width={384}
               height={384}
               sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, (max-width: 1024px) 288px, 320px"

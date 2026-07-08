@@ -9,19 +9,19 @@ const siteUrl = 'https://www.carolhsiao.com';
 
 const meta: Record<Lang, { title: string; description: string; ogDescription: string; locale: string }> = {
   en: {
-    title: 'Carol Hsiao | Creative Website Developer & Designer',
+    title: 'Carol Hsiao | Creative Developer',
     description:
-      'Carol Hsiao is a creative website developer and designer specializing in interactive web experiences, UI/UX design, and frontend development.',
+      'Carol Hsiao is a creative developer building websites that move, react, and get remembered, from design to code.',
     ogDescription:
-      'Creative website developer and designer specializing in interactive web experiences, UI/UX design, and frontend development. Portfolio featuring interactive experiences, finance apps, and time-tracking tools.',
+      'Creative developer building websites that move, react, and get remembered, from design to code. Portfolio featuring interactive experiences, finance apps, and time-tracking tools.',
     locale: 'en_CA',
   },
   zh: {
-    title: 'Carol Hsiao | 創意網站開發與設計',
+    title: 'Carol Hsiao | 創意開發者',
     description:
-      'Carol Hsiao 是一位專注於互動式網頁體驗、UI/UX 設計與前端開發的創意網站開發者與設計師。',
+      'Carol Hsiao 是一位創意開發者，從設計到程式碼，打造生動、有趣、且令人難忘的網站。',
     ogDescription:
-      '創意網站開發者與設計師，專精於互動式網頁體驗、UI/UX 設計與前端開發。作品集包含互動體驗、金融應用與時間管理工具。',
+      '創意開發者，從設計到程式碼，打造生動、有趣、且令人難忘的網站。作品集包含互動體驗、金融應用與時間管理工具。',
     locale: 'zh_TW',
   },
 };

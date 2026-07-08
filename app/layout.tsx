@@ -43,7 +43,7 @@ export default function RootLayout({
               "@context": "https://schema.org",
               "@type": "Person",
               name: "Carol Hsiao",
-              jobTitle: "Creative Website Developer & Designer",
+              jobTitle: "Creative Developer",
               url: "https://www.carolhsiao.com",
               sameAs: [
                 "https://www.linkedin.com/in/carol-hsiao-5779a1158/",
