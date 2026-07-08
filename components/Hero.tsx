@@ -101,7 +101,7 @@ export default function Hero({ pageReady = false, skipDelay = false }: { pageRea
               Designer and Developer
             </p> */}
             <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-medium mb-2 flex items-center justify-center gap-2 sm:gap-3 leading-relaxed ${textColor} select-none transition-colors duration-300`}>
-              Creative Developer
+              Interactive Designer
             </p>
             <p className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-inter font-medium leading-relaxed ${textColor} select-none transition-colors duration-300  flex items-center gap-2 sm:gap-3`}>
               <span className="text-sm sm:text-base md:text-lg lg:text-xl">✦</span>{lang === 'zh' ? '開放' : "Let's"}{' '}
