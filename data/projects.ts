@@ -206,7 +206,7 @@ export const projects: ProjectData[] = [
     type: "Mobile App",
     role: "Design",
     year: "2026",
-    image: "/dailywage-img.png",
+    image: "/dailywage-img.webp",
     link: "https://dailypay.aburi.app",
     tagline: "A mobile expense tracker designed so that logging a purchase takes fewer taps than unlocking your phone.",
     tags: ["Mobile", "Product Design", "React Native", "Local-First"],
@@ -221,12 +221,12 @@ export const projects: ProjectData[] = [
 
     challenge: {
       description: "Expense tracking apps have a paradox: the more features they offer (charts, categories, budgets, settings), the less likely users are to do the one thing that matters — actually logging their expenses. Research showed every extra tap or screen transition is a drop-off point. The challenge was designing an app where the primary action (logging an expense) has near-zero friction, while still providing daily awareness of spending patterns.",
-      image: "/dailywage-img.png",
+      image: "/dailywage-img.webp",
     },
 
     solutionSection: {
       description: "I stripped the experience down to a single screen. The app opens directly to a number pad — no onboarding, no dashboard, no settings wall. Type the amount, tap a smart-suggested category chip, done. One swipe reveals a daily summary showing whether you're on track. Everything runs locally on SQLite, so there's zero network latency and full offline support. The result is an app that feels more like a calculator than a traditional finance tool.",
-      image: "/dailywage-img.png",
+      image: "/dailywage-img.webp",
     },
 
     process: {
@@ -247,13 +247,13 @@ export const projects: ProjectData[] = [
       ],
       hmwStatement: "How might we make expense logging so effortless it becomes automatic?",
       description: "The biggest barrier to consistent expense tracking isn't motivation — it's friction. Users want to track spending, but every extra tap gives them a reason not to.",
-      image: "/dailywage-img.png",
+      image: "/dailywage-img.webp",
     },
     system: {
       userFlow: "App opens directly to a number pad. User types amount, taps a smart-suggested category chip, and the expense is logged. One swipe reveals the daily summary. No navigation menus, no settings to configure first.",
       designSystem: "Bold, high-contrast mobile palette with minimum 48px touch targets. Single-weight type scale for clarity on small screens. Haptic feedback on every interaction.",
       designSystemImages: [
-        { src: "/dailywage-img.png", caption: "Main expense input — number pad with smart category chips." },
+        { src: "/dailywage-img.webp", caption: "Main expense input — number pad with smart category chips." },
       ],
     },
     build: {
@@ -275,7 +275,7 @@ export const projects: ProjectData[] = [
         { label: "Animations", value: "60fps", description: "Native-thread rendering, no frame drops" },
         { label: "Offline", value: "100%", description: "Fully functional without network" },
       ],
-      demoVideo: "/dailywage-img.png",
+      demoVideo: "/dailywage-img.webp",
       liveUrl: "https://dailypay.aburi.app",
     },
 
@@ -440,7 +440,7 @@ export const projects: ProjectData[] = [
     type: "3D Experience",
     role: "Design & Dev",
     year: "2025",
-    image: "/healing-drinks-img.jpg",
+    image: "/healing-drinks-img.webp",
     link: "https://healingdrinks.carolhsiao.com/",
     tagline: "A mixed-reality toolkit that lets designers prototype spatial interactions with their hands — no build-deploy cycle required.",
     tags: ["AR/VR", "Unity", "Hand Tracking", "Spatial Design"],
@@ -530,7 +530,7 @@ export const projects: ProjectData[] = [
     role: "Design & Dev",
     year: "2025",
     link: "https://equation-pyramid.carolhsiao.com/",
-    image: "/equation-pyramid-img.jpg",
+    image: "/equation-pyramid-img.webp",
     tagline: "A web platform that helps users solve math equations by breaking them down into smaller steps.",
     tags: ["UX Design", "User Research", "Service Design", "Prototyping"],
     techStack: ["Figma", "Protopie", "User Research", "Usability Testing"],
@@ -544,12 +544,12 @@ export const projects: ProjectData[] = [
 
     challenge: {
       description: "Service marketplaces have a trust problem on both sides. Homeowners are anxious about inviting strangers into their homes — and opaque pricing makes it worse. Cleaning professionals need a reliable stream of bookings but struggle with scheduling tools that don't account for their real workflow. To complicate things further, some users are both: a homeowner who occasionally cleans for others. A dual-interface approach seemed obvious, but early testing showed it confused exactly these users. The challenge was designing one unified experience that serves both sides without compromising either.",
-      image: "/cleaingserviceplatform-img.png",
+      image: "/cleaingserviceplatform-img.webp",
     },
 
     solutionSection: {
       description: "I designed a single app with a role-switching mechanism instead of separate entry points. The booking flow was stripped from 6 steps to 3: select service type, choose a time slot (with real-time provider availability), and confirm with a fully transparent price breakdown. No account required for the first booking — reducing the trust barrier for new users. For cleaning professionals, a mirrored dashboard shows incoming requests, schedule management, and earnings transparency. The key design decision: show pricing upfront on every screen, because hiding it was the #1 source of user distrust.",
-      image: "/cleaingserviceplatform-img.png",
+      image: "/cleaingserviceplatform-img.webp",
     },
 
     process: {
@@ -570,13 +570,13 @@ export const projects: ProjectData[] = [
       ],
       hmwStatement: "How might we build trust between homeowners and cleaning professionals through transparent, friction-free booking?",
       description: "I interviewed 12 users across both sides of the marketplace and mapped the emotional journey — from the anxiety of inviting a stranger into your home to the relief of finding a reliable recurring professional. The insight: trust isn't built by features, it's built by transparency.",
-      image: "/cleaingserviceplatform-img.png",
+      image: "/cleaingserviceplatform-img.webp",
     },
     system: {
       userFlow: "3-step booking: select service type → choose time slot (real-time provider availability) → confirm with transparent price breakdown. No account required for the first booking.",
       designSystem: "Friendly, approachable visual language using rounded shapes and a blue-green palette. Real photography of cleaning professionals instead of stock imagery to build trust.",
       designSystemImages: [
-        { src: "/cleaingserviceplatform-img.png", caption: "Booking flow with transparent pricing at every stage." },
+        { src: "/cleaingserviceplatform-img.webp", caption: "Booking flow with transparent pricing at every stage." },
       ],
     },
     build: {
@@ -598,7 +598,7 @@ export const projects: ProjectData[] = [
         { label: "Usability Rounds", value: "3", description: "Iterative testing and redesign after each" },
         { label: "Booking Steps", value: "6 → 3", description: "Cut in half through iterative simplification" },
       ],
-      demoVideo: "/cleaingserviceplatform-img.png",
+      demoVideo: "/cleaingserviceplatform-img.webp",
     },
 
     reflection: {
@@ -610,6 +610,19 @@ export const projects: ProjectData[] = [
         "Add quantitative metrics (task completion rates, error rates) alongside qualitative feedback for stronger validation.",
       ],
     },
+  },
+  {
+    name: "Re:Write",
+    slug: "rewrite",
+    category: "creative",
+    type: "Interactive Story",
+    role: "Design & Dev",
+    year: "2026",
+    image: "/rewrite-img.webp",
+    video: "/rewrite-compressed.mp4",
+    link: "https://re-write-script.vercel.app/",
+    tagline: "An interactive painterly journey. Guide a small ghost through shifting worlds, changing form and rewriting the story as you go.",
+    tags: ["Interactive Story", "Web Design", "Creative Dev"],
   },
   // --- Creative placeholder (hidden for now) ---
   // {
