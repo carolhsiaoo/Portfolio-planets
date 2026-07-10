@@ -59,11 +59,16 @@ export async function generateMetadata({
       siteName: 'Carol Hsiao Portfolio',
       locale: m.locale,
       type: 'website',
+      // Explicit image instead of an opengraph-image.png file convention —
+      // static metadata files inside a dynamic segment crash the prerender
+      // on Next 16.2 ("failed to find source route")
+      images: [{ url: '/og-image.png', width: 1200, height: 630, alt: m.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: m.title,
       description: m.ogDescription,
+      images: ['/og-image.png'],
     },
   };
 }
