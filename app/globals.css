@@ -35,6 +35,32 @@ body {
   max-width: 100vw;
 }
 
+/* On touch devices, suppress iOS Safari's long-press selection highlight and
+   the Copy/Look Up callout for the app-like parts of the site. Readable
+   content (blog articles, prose, form fields) stays selectable. */
+@media (hover: none) and (pointer: coarse) {
+  body {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  article,
+  .prose,
+  .prose * {
+    -webkit-touch-callout: default;
+    -webkit-user-select: text;
+    user-select: text;
+  }
+
+  input,
+  textarea {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+}
+
 .font-cinzel {
   font-family: var(--font-cinzel), var(--font-noto-sans-tc), serif !important;
 }
