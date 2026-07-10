@@ -6,8 +6,9 @@ import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motio
 import { projects } from '@/data/projects';
 import { useLanguage } from './LanguageContext';
 
-function VideoWithFallback({ src, fallbackImage, alt, className }: { src: string; fallbackImage: string; alt: string; className?: string }) {
+function VideoWithFallback({ src, fallbackImage, alt }: { src: string; fallbackImage: string; alt: string }) {
   const [failed, setFailed] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -29,20 +30,27 @@ function VideoWithFallback({ src, fallbackImage, alt, className }: { src: string
     };
   }, [failed]);
 
-  if (failed) {
-    return <Image src={fallbackImage} alt={alt} fill className={className || "object-cover"} />;
-  }
+  // Thumbnail shows instantly; the video fades in over it once it can play,
+  // so the preview panel is never blank while the video buffers.
   return (
-    <video
-      ref={videoRef}
-      src={src}
-      autoPlay
-      loop
-      muted
-      playsInline
-      className={className || "w-full h-full object-cover"}
-      onError={() => setFailed(true)}
-    />
+    <div className="absolute inset-0">
+      <Image src={fallbackImage} alt={alt} fill className="object-cover" sizes="450px" quality={90} />
+      {!failed && (
+        <video
+          ref={videoRef}
+          src={src}
+          autoPlay
+          loop
+          muted
+          playsInline
+          onCanPlay={() => setVideoReady(true)}
+          onError={() => setFailed(true)}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+            videoReady ? 'opacity-100' : 'opacity-0'
+          }`}
+        />
+      )}
+    </div>
   );
 }
 
@@ -96,7 +104,8 @@ export default function ProjectsTable() {
       video.muted = true;
       video.src = project.video;
       video.load();
-    } else if (project.image) {
+    }
+    if (project.image) {
       const img = new window.Image();
       // Match the Next.js Image optimization URL so the cache hit is exact
       img.src = project.image.startsWith('http')
@@ -132,7 +141,7 @@ export default function ProjectsTable() {
               return (
                 <span
                   key={row.label}
-                  className={`block font-inter text-xs tracking-widest uppercase text-neutral-400 ${
+                  className={`block font-inter text-xs tracking-widest uppercase text-neutral-500 ${
                     i === 0 ? 'mb-4' : 'mt-16 mb-4'
                   }`}
                 >
@@ -156,7 +165,7 @@ export default function ProjectsTable() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
-                transition={{ duration: 0.6, ease: 'easeOut', delay: globalIndex * 0.1 }}
+                transition={{ duration: 0.5, ease: 'easeOut', delay: Math.min(globalIndex * 0.08, 0.24) }}
                 className={`group border-t border-neutral-200 lg:last:border-b py-10 sm:py-12 lg:py-8 flex flex-col gap-6 lg:gap-4 lg:transition-opacity lg:duration-300 ${
                   hoveredIndex !== null && hoveredIndex !== globalIndex ? 'lg:opacity-25' : ''
                 }`}
@@ -167,10 +176,10 @@ export default function ProjectsTable() {
                   </h3>
 
                   <div className="shrink-0 text-right">
-                    <span className="block font-inter text-xs sm:text-sm lg:text-base text-neutral-500">
+                    <span className="block font-inter text-xs sm:text-sm lg:text-base text-neutral-600">
                       {project.type}
                     </span>
-                    <span className="block font-inter text-xs sm:text-sm lg:text-base text-neutral-500">
+                    <span className="block font-inter text-xs sm:text-sm lg:text-base text-neutral-600">
                       {project.role}
                     </span>
                   </div>

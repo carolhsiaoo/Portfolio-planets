@@ -15,7 +15,9 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
   useEffect(() => {
     const preload = (url: string) => fetch(url, { priority: 'low' as RequestPriority }).catch(() => {});
     preload('/models/planets.glb');
-    preload('https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/studio_small_09_1k.hdr');
+    // Warm the exact HDR drei's `preset="studio"` fetches, so Environment
+    // gets a cache hit instead of a second 1.6MB download
+    preload('https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/studio_small_03_1k.hdr');
   }, []);
 
   // Count from 0 to 100 over INTRO_DURATION using rAF for smoothness

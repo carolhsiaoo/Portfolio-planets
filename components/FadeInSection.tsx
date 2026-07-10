@@ -36,8 +36,10 @@ export default function FadeInSection({
         }
       },
       {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        // Trigger as soon as the section peeks into the viewport — a late
+        // trigger plus a long fade reads as a blank dead zone while scrolling
+        threshold: 0.05,
+        rootMargin: '0px'
       }
     );
 
@@ -55,7 +57,7 @@ export default function FadeInSection({
   return (
     <div
       ref={sectionRef}
-      className={`transition-all duration-1000 ease-out ${
+      className={`transition-all duration-700 ease-out ${
         isVisible
           ? 'opacity-100 translate-x-0 translate-y-0'
           : `opacity-0 ${direction === 'bottom' ? 'translate-y-12' : 'translate-x-12'}`
