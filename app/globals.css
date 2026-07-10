@@ -1,14 +1,16 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-/* Hide native video play button in in-app browsers (LINE, Instagram, etc.) */
-video::-webkit-media-controls-start-playback-button,
-video::-webkit-media-controls-play-button,
-video::-webkit-media-controls {
+/* Hide native video play button on decorative/autoplay videos in in-app
+   browsers (LINE, Instagram, etc.). Scoped with :not([controls]) so videos
+   that opt into controls (e.g. blog embeds) keep their native player. */
+video:not([controls])::-webkit-media-controls-start-playback-button,
+video:not([controls])::-webkit-media-controls-play-button,
+video:not([controls])::-webkit-media-controls {
   display: none !important;
   -webkit-appearance: none;
 }
-video::-webkit-media-controls-panel {
+video:not([controls])::-webkit-media-controls-panel {
   display: none !important;
   -webkit-appearance: none;
 }

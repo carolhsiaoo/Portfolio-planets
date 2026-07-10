@@ -297,7 +297,7 @@ export const projects: ProjectData[] = [
     role: "Design & Dev",
     year: "2025",
     image: "/corehour-img.webp",
-    video: "/corehour-demo.gif",
+    video: "/corehour-demo.mp4",
     videoMobile: "/corehour-demo-small.mp4",
     link: "https://corehour.app/",
     tagline: "A time-tracking tool that shows teams when their best work hours overlap — so they stop scheduling meetings during deep focus time.",
@@ -313,12 +313,12 @@ export const projects: ProjectData[] = [
 
     challenge: {
       description: "Traditional time trackers treat every hour the same. But a focused 2-hour morning block is worth more than 4 hours of scattered afternoon work — and most teams have no visibility into when their members' productive windows actually overlap. The result: meetings get scheduled over deep-work time, and individuals can't protect the hours that matter most. I needed to build a tool that makes time quality visible, not just time quantity.",
-      image: "/corehour-demo.gif",
+      image: "/corehour-demo.mp4",
     },
 
     solutionSection: {
       description: "CoreHour asks one question during onboarding: 'When are your core hours?' From there, a weekly heatmap visualizes how your logged time aligns with those hours, revealing patterns you can't see in a spreadsheet. For teams, a real-time overlap view shows exactly when the group's productive windows intersect — making it obvious which meeting slots protect focus and which ones destroy it. The key design decision was keeping data density low: one screen, one heatmap, one insight.",
-      image: "/corehour-demo.gif",
+      image: "/corehour-demo.mp4",
     },
 
     process: {
@@ -339,13 +339,13 @@ export const projects: ProjectData[] = [
       ],
       hmwStatement: "How might we make time quality visible — not just time quantity?",
       description: "Productivity isn't about tracking more hours. It's about understanding patterns. Users wanted a tool that reveals when they do their best work, not just how much they work.",
-      image: "/corehour-demo.gif",
+      image: "/corehour-demo.mp4",
     },
     system: {
       userFlow: "One-time onboarding: set your core hours. The dashboard then visualizes how logged time aligns with those hours over weeks. For teams, a real-time overlap view highlights shared productive windows.",
       designSystem: "Monochromatic palette with a single accent color for core-hour highlights. Deliberately low data density — one screen, one heatmap, one clear insight per view.",
       designSystemImages: [
-        { src: "/corehour-demo.gif", caption: "Weekly heatmap showing core-hour alignment and team overlap." },
+        { src: "/corehour-demo.mp4", caption: "Weekly heatmap showing core-hour alignment and team overlap." },
       ],
     },
     build: {
@@ -367,7 +367,7 @@ export const projects: ProjectData[] = [
         { label: "Bundle", value: "0 libs", description: "Heatmap built with pure CSS Grid" },
         { label: "Sync", value: "Real-time", description: "Live team overlap via Supabase" },
       ],
-      demoVideo: "/corehour-demo.gif",
+      demoVideo: "/corehour-demo.mp4",
       liveUrl: "https://corehour.app/",
     },
 

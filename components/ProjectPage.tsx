@@ -17,20 +17,39 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 
 function AutoPlayVideo({ src, className }: { src: string; className: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const poster = src.startsWith('/') ? `/posters${src.replace(/\.(mp4|webm)$/, '.webp')}` : undefined;
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
+    let inView = false;
 
+    // Only fetch and play a video while it is near the viewport, so a project
+    // page doesn't download every demo video on load.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        inView = entry.isIntersecting;
+        if (inView) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(video);
+
+    // Retry on user interaction (autoplay can be blocked in in-app browsers)
     const retryOnTouch = () => {
-      if (video.paused) {
+      if (inView && video.paused) {
         video.play().catch(() => {});
       }
     };
-    document.addEventListener('touchstart', retryOnTouch, { once: true });
-    document.addEventListener('scroll', retryOnTouch, { once: true });
+    document.addEventListener('touchstart', retryOnTouch, { passive: true });
+    document.addEventListener('scroll', retryOnTouch, { passive: true });
 
     return () => {
+      observer.disconnect();
       document.removeEventListener('touchstart', retryOnTouch);
       document.removeEventListener('scroll', retryOnTouch);
     };
@@ -40,7 +59,8 @@ function AutoPlayVideo({ src, className }: { src: string; className: string }) {
     <video
       ref={videoRef}
       src={src}
-      autoPlay
+      preload="metadata"
+      poster={poster}
       loop
       muted
       playsInline

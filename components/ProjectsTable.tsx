@@ -81,29 +81,28 @@ export default function ProjectsTable() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLElement>(null);
 
-  // Preload hover media so they appear instantly
-  useEffect(() => {
-    allProjects.forEach(({ project }) => {
-      if (project.video && !project.video.endsWith('.gif')) {
-        // Preload videos by creating a hidden video element that buffers the file
-        const video = document.createElement('video');
-        video.preload = 'auto';
-        video.muted = true;
-        video.src = project.video;
-        video.load();
-      } else {
-        const src = project.video?.endsWith('.gif') ? project.video : project.image;
-        if (src) {
-          const img = new window.Image();
-          // Match the Next.js Image optimization URL so the cache hit is exact
-          if (!project.video && !src.startsWith('http')) {
-            img.src = `/_next/image?url=${encodeURIComponent(src)}&w=640&q=90`;
-          } else {
-            img.src = src;
-          }
-        }
-      }
-    });
+  // Preload a project's hover media on first hover intent, so we never
+  // download previews the user doesn't reach for (matters a lot on mobile,
+  // where the hover preview is never shown at all).
+  const preloadedRef = useRef(new Set<string>());
+  const preloadProject = useCallback((project: (typeof projects)[number]) => {
+    const key = project.slug;
+    if (preloadedRef.current.has(key)) return;
+    preloadedRef.current.add(key);
+
+    if (project.video) {
+      const video = document.createElement('video');
+      video.preload = 'auto';
+      video.muted = true;
+      video.src = project.video;
+      video.load();
+    } else if (project.image) {
+      const img = new window.Image();
+      // Match the Next.js Image optimization URL so the cache hit is exact
+      img.src = project.image.startsWith('http')
+        ? project.image
+        : `/_next/image?url=${encodeURIComponent(project.image)}&w=640&q=90`;
+    }
   }, []);
 
   const mouseX = useMotionValue(0);
@@ -149,7 +148,10 @@ export default function ProjectsTable() {
                 href={project.link || `/projects/${project.slug}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                onMouseEnter={() => setHoveredIndex(globalIndex)}
+                onMouseEnter={() => {
+                  preloadProject(project);
+                  setHoveredIndex(globalIndex);
+                }}
                 onMouseLeave={() => setHoveredIndex(null)}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -221,23 +223,12 @@ export default function ProjectsTable() {
                 {(() => {
                   const project = allProjects[hoveredIndex]?.project;
                   if (!project) return null;
-                  if (project.video && !project.video.endsWith('.gif')) {
+                  if (project.video) {
                     return (
                       <VideoWithFallback
                         src={project.video}
                         fallbackImage={project.image}
                         alt={`${project.name} — ${project.type} by Carol Hsiao`}
-                      />
-                    );
-                  }
-                  if (project.video?.endsWith('.gif')) {
-                    return (
-                      <Image
-                        src={project.video}
-                        alt={`${project.name} — ${project.type} by Carol Hsiao`}
-                        fill
-                        className="object-cover"
-                        unoptimized
                       />
                     );
                   }

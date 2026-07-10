@@ -29,7 +29,7 @@ const About = memo(function About() {
         <div className="flex justify-center">
           <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-72 md:h-72 lg:w-80 lg:h-80 bg-gray-800 rounded-[3rem] overflow-hidden shadow-lg">
             <Image
-              src="/carol-image.png"
+              src="/carol-image.webp"
               alt="Carol Hsiao — Interactive Designer based in Calgary"
               width={384}
               height={384}
