@@ -20,8 +20,8 @@ const FADE_OUT_DURATION = 600;
 
 function getLabelForPath(path: string): string {
   if (path.match(/^\/(en|zh)\/blog/) || path.startsWith('/blog')) return 'BLOG';
+  if (path.match(/^\/(en|zh)\/contact/) || path.startsWith('/contact') || path.endsWith('#contact')) return 'CONTACT';
   if (path.match(/^\/(en|zh)\/services/) || path.startsWith('/services')) return 'SERVICE';
-  if (path.match(/^\/(en|zh)\/contact/) || path.startsWith('/contact')) return 'CONTACT';
   return 'CAROL';
 }
 

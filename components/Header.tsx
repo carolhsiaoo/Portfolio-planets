@@ -7,10 +7,11 @@ import { usePathname } from 'next/navigation';
 import { usePageTransition } from './PageTransition';
 import { useLanguage } from './LanguageContext';
 
-const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: boolean }) {
+const Header = memo(function Header({ hideOnScroll = false, revealAfterId }: { hideOnScroll?: boolean; revealAfterId?: string }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [pastReveal, setPastReveal] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
@@ -29,8 +30,15 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
 
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
+    const [path, hash] = href.split('#');
+    if (hash && path === pathname) {
+      // Same page: set the hash so hashchange listeners react (e.g. contact modal),
+      // and the browser scrolls natively if a matching anchor exists
+      window.location.hash = hash;
+      return;
+    }
     navigateTo(href);
-  }, [navigateTo]);
+  }, [navigateTo, pathname]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -40,6 +48,12 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 50);
+
+      if (revealAfterId) {
+        const el = document.getElementById(revealAfterId);
+        const threshold = el ? el.offsetHeight - 80 : 400;
+        setPastReveal(currentScrollY > threshold);
+      }
 
       if (hideOnScroll) {
         const scrollingDown = currentScrollY > lastScrollY.current;
@@ -70,13 +84,15 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [hideOnScroll]);
+  }, [hideOnScroll, revealAfterId]);
+
+  // In revealAfterId mode the header stays hidden until scrolled past the target section
+  const revealHidden = !!revealAfterId && !pastReveal;
 
   const navLinks = [
     { href: `/${lang}`, label: lang === 'zh' ? '首頁' : 'HOME' },
     { href: `/${lang}/blog`, label: lang === 'zh' ? '部落格' : 'BLOG' },
     { href: `/${lang}/services`, label: lang === 'zh' ? '服務' : 'SERVICE' },
-    { href: `/${lang}/contact`, label: lang === 'zh' ? '聯繫' : 'CONTACT' },
   ];
 
   const navContent = (
@@ -152,7 +168,7 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
     <header
       className={`fixed top-0 left-0 right-0 ${menuOpen ? 'z-60' : 'z-50'} ${
         isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
-      } ${isScrolled ? 'pt-4 px-4 sm:px-6 md:px-8' : ''}`}
+      } ${isScrolled ? 'pt-4 px-4 sm:px-6 md:px-8' : ''} ${revealHidden ? 'pointer-events-none' : ''}`}
       style={{
         borderBottom: 'none',
         transition: 'opacity 1s ease-out, transform 1s ease-out, padding 0.5s ease-in-out',
@@ -162,6 +178,11 @@ const Header = memo(function Header({ hideOnScroll = false }: { hideOnScroll?: b
         } : {}),
         ...(hideOnScroll && !isHidden && isScrolled ? {
           transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease-in-out',
+        } : {}),
+        ...(revealAfterId ? {
+          transform: revealHidden ? 'translateY(-100%)' : 'translateY(0)',
+          opacity: revealHidden ? 0 : 1,
+          transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out, padding 0.5s ease-in-out',
         } : {}),
       }}
     >

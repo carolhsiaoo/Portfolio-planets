@@ -11,7 +11,7 @@ interface FooterStar {
   y: number;
 }
 
-const Footer = memo(function Footer() {
+const Footer = memo(function Footer({ id = 'contact' }: { id?: string }) {
   const [stars, setStars] = useState<FooterStar[]>([]);
   const emailRef = useRef<HTMLAnchorElement>(null);
   const nextId = useRef(0);
@@ -39,7 +39,7 @@ const Footer = memo(function Footer() {
   }, [spawnStars]);
 
   return (
-    <footer id="contact" className="py-20 mt-0 bg-black text-white rounded-tl-[60px] rounded-tr-[60px] sm:rounded-tl-[100px] sm:rounded-tr-[100px] md:rounded-tl-[150px] md:rounded-tr-[150px]">
+    <footer id={id} className="py-20 mt-0 bg-black text-white rounded-tl-[60px] rounded-tr-[60px] sm:rounded-tl-[100px] sm:rounded-tr-[100px] md:rounded-tl-[150px] md:rounded-tr-[150px]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Let's talk section */}
         <div className="text-center mb-12">

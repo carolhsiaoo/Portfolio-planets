@@ -1,10 +1,11 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FadeInSection from '@/components/FadeInSection';
+import ContactModal from '@/components/ContactModal';
 import { useLanguage } from '@/components/LanguageContext';
-import { usePageTransition } from '@/components/PageTransition';
 
 const content = {
   en: {
@@ -269,8 +270,26 @@ const content = {
 
 export default function ServicesContent() {
   const { lang } = useLanguage();
-  const { navigateTo } = usePageTransition();
   const t = content[lang];
+  const [contactOpen, setContactOpen] = useState(false);
+
+  // Open the contact form when arriving via /contact redirect or the CONTACT nav link (#contact)
+  useEffect(() => {
+    const checkHash = () => {
+      if (window.location.hash === '#contact') setContactOpen(true);
+    };
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, []);
+
+  const closeContact = () => {
+    setContactOpen(false);
+    // Strip the hash so the CONTACT nav link can re-trigger a hashchange
+    if (window.location.hash === '#contact') {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#faf8f5]">
@@ -328,7 +347,7 @@ export default function ServicesContent() {
               {t.process.steps.map((step, i) => (
                 <div
                   key={i}
-                  className="p-8 sm:p-10 rounded-3xl border border-[#1a1a1a]/8 bg-white/40"
+                  className="group p-8 sm:p-10 rounded-3xl border border-[#1a1a1a]/8 hover:border-[#1a1a1a]/15 bg-white/40 hover:bg-white/70 transition-all duration-500 hover:-translate-y-1"
                 >
                   <span className="font-cinzel text-4xl font-bold text-[#3b64f6]/20 block mb-4">
                     {step.number}
@@ -405,7 +424,7 @@ export default function ServicesContent() {
             </div>
             <div className="mt-16 sm:mt-20 text-center">
               <button
-                onClick={() => navigateTo(`/${lang}/contact`)}
+                onClick={() => setContactOpen(true)}
                 className="inline-block bg-[#1a1a1a] text-white px-12 py-5 rounded-full font-inter font-medium tracking-wider text-base sm:text-lg hover:bg-[#333] transition-all duration-300 cursor-pointer"
               >
                 {t.cta}
@@ -415,7 +434,9 @@ export default function ServicesContent() {
         </section>
       </FadeInSection>
 
-      <Footer />
+      <Footer id="footer" />
+
+      <ContactModal open={contactOpen} onClose={closeContact} />
     </div>
   );
 }

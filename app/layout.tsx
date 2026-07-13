@@ -1,7 +1,6 @@
 import { Cinzel, Noto_Sans, Noto_Sans_TC } from "next/font/google";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
-import LazyCursorStars from "@/components/LazyCursorStars";
 import PageTransitionProvider from "@/components/PageTransition";
 import { LanguageProvider } from "@/components/LanguageContext";
 
@@ -78,7 +77,6 @@ export default function RootLayout({
       </head>
       <body className={`${cinzel.variable} ${notoSans.variable} ${notoSansTC.variable} antialiased overflow-x-clip`}>
         <LanguageProvider>
-          <LazyCursorStars />
           <PageTransitionProvider>
             {children}
           </PageTransitionProvider>

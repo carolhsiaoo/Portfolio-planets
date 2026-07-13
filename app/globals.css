@@ -93,7 +93,7 @@ html {
   min-height: 1em;
 }
 
-/* Star cursor effect animations */
+/* Star pop effect (footer email easter egg) */
 @keyframes starFadeOut {
   0% {
     opacity: 1;

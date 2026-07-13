@@ -86,6 +86,27 @@ export interface ProjectData {
     learnings?: string[];
     nextSteps?: string[];
   };
+
+  // Lightweight creative case study — visual-first, minimal copy.
+  // Framework: hero video → meta → concept → styleframes → live link.
+  // When present, the project card links to /projects/[slug] instead of
+  // opening the live site directly; the live-site button links out from there.
+  creativeStudy?: {
+    meta: { role: string; year: string; tech: string[] };
+    // concept/decision are not rendered on the page anymore; kept as source
+    // copy for blog posts, OG descriptions, or if the sections return.
+    concept?: string;
+    visuals: { src: string; caption?: string }[];
+    visualsHeading?: string; // defaults to "Styleframes"
+    decision?: { title: string; body: string };
+    playUrl: string;
+    playNote?: string;
+    ctaHeading?: string; // closing line above the button; defaults to "Experience it live."
+    ctaLabel?: string; // button text; defaults to "See It Live"
+    // Optional link to the long-form build-story blog post. The secondary
+    // "Read the build story" links only render when this is set.
+    blogUrl?: string;
+  };
 }
 
 export const projects: ProjectData[] = [
@@ -104,6 +125,25 @@ export const projects: ProjectData[] = [
     tags: ["0 → 1", "Product Design", "Frontend Dev", "Finance", "React"],
     techStack: ["React", "TypeScript", "Tailwind CSS", "Firebase"],
     timeline: "Jan 2025 — Present",
+
+    creativeStudy: {
+      meta: {
+        role: "Design & Development",
+        year: "2025 — Present",
+        tech: ["React", "TypeScript", "Tailwind CSS", "Firebase"],
+      },
+      concept:
+        "A goal-first personal finance app that answers 'when can I be free?' instead of 'where did my money go?' The Life Goals dashboard turns compound-interest projections into a visual freedom roadmap — expense tracking becomes a means to an end, not the end itself.",
+      visuals: [
+        { src: "/firefree/frame-1.webp" },
+        { src: "/firefree/frame-2.webp" },
+        { src: "/firefree/frame-3.webp" },
+        { src: "/firefree/frame-4.webp" },
+      ],
+      playUrl: "https://firefree.app",
+      ctaHeading: "See your freedom timeline.",
+      ctaLabel: "Try It Live",
+    },
 
     // TL;DR — sharp, scannable, numbers where possible
     heroSummary: {
@@ -213,6 +253,25 @@ export const projects: ProjectData[] = [
     techStack: ["React Native", "TypeScript", "Expo", "SQLite"],
     timeline: "2026",
 
+    creativeStudy: {
+      meta: {
+        role: "Design",
+        year: "2026",
+        tech: ["React Native", "Expo", "SQLite"],
+      },
+      concept:
+        "A mobile expense tracker built on one rule: logging a purchase must take fewer taps than unlocking your phone. The app opens straight to a number pad, smart category chips do the sorting, and everything runs local-first — under three seconds per entry, fully offline.",
+      visuals: [
+        { src: "/dailywage-img.webp" },
+        { src: "/dailywage/frame-2.webp" },
+        { src: "/dailywage/frame-3.webp" },
+        { src: "/dailywage/frame-4.webp" },
+      ],
+      playUrl: "https://dailypay.aburi.app",
+      ctaHeading: "Three seconds per expense.",
+      ctaLabel: "Try It Live",
+    },
+
     heroSummary: {
       problem: "Expense trackers lose users because logging a single purchase takes too many taps. By the time you navigate, categorize, and confirm, the moment has passed.",
       solution: "A single-screen input that opens straight to a number pad with smart category suggestions — log any expense in under 3 seconds.",
@@ -305,6 +364,25 @@ export const projects: ProjectData[] = [
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase"],
     timeline: "2025",
 
+    creativeStudy: {
+      meta: {
+        role: "Design & Development",
+        year: "2025",
+        tech: ["Next.js", "TypeScript", "Supabase"],
+      },
+      concept:
+        "A time tracker that measures quality, not just quantity. Set your core hours once, and a weekly heatmap shows how your logged time aligns with them — while a real-time team view reveals when everyone's deep-work windows overlap, so meetings stop landing on the hours that matter most.",
+      visuals: [
+        { src: "/corehour/frame-1.webp" },
+        { src: "/corehour/frame-2.webp" },
+        { src: "/corehour/frame-3.webp" },
+        { src: "/corehour/frame-4.webp" },
+      ],
+      playUrl: "https://corehour.app/",
+      ctaHeading: "Find your core hours.",
+      ctaLabel: "Try It Live",
+    },
+
     heroSummary: {
       problem: "Time trackers count hours but ignore quality. Teams can't see when their deep-work windows overlap, leading to meetings that fragment everyone's most productive time.",
       solution: "A lightweight tool that distinguishes core working hours from shallow time, with a visual team overlap heatmap updated in real time.",
@@ -393,6 +471,24 @@ export const projects: ProjectData[] = [
     link: "https://lumaaa-beige.vercel.app",
     tagline: "Interior design portfolio with visual distortion effects and curated project galleries.",
     tags: ["Web Design", "Portfolio", "Interior Design"],
+
+    creativeStudy: {
+      meta: {
+        role: "Design & Development",
+        year: "2025",
+        tech: ["Next.js", "GSAP"],
+      },
+      concept:
+        "A portfolio for an interior design studio where browsing itself feels interior — warm neutrals, generous whitespace, and image distortion effects that make moving between project galleries feel like walking from room to room.",
+      visuals: [
+        { src: "/luma-studio/frame-1.webp" },
+        { src: "/luma-studio/frame-2.webp" },
+        { src: "/luma-studio/frame-3.webp" },
+        { src: "/luma-studio/frame-4.webp" },
+      ],
+      playUrl: "https://lumaaa-beige.vercel.app",
+      ctaHeading: "Step inside the space.",
+    },
   },
   {
     name: "Verso Studio",
@@ -406,6 +502,24 @@ export const projects: ProjectData[] = [
     link: "https://verso-smoky.vercel.app",
     tagline: "Creative direction & production company website for a game studio pushing boundaries.",
     tags: ["Web Design", "Portfolio", "Gaming"],
+
+    creativeStudy: {
+      meta: {
+        role: "Design & Development",
+        year: "2025",
+        tech: ["Next.js", "Three.js", "GSAP"],
+      },
+      concept:
+        "A site for a creative direction & production company serving game studios. High-contrast black and white, a rotating 3D 'V' as the centerpiece, and loud editorial type — so the studio's promise, 'We play bold,' lands before you read a single paragraph.",
+      visuals: [
+        { src: "/verso-studio/frame-1.webp" },
+        { src: "/verso-studio/frame-2.webp" },
+        { src: "/verso-studio/frame-3.webp" },
+        { src: "/verso-studio/frame-4.webp" },
+      ],
+      playUrl: "https://verso-smoky.vercel.app",
+      ctaHeading: "Bold is better in motion.",
+    },
   },
   {
     name: "Wowwow Dessert",
@@ -419,6 +533,24 @@ export const projects: ProjectData[] = [
     link: "https://wowwowdessert.vercel.app/",
     tagline: "A dessert brand website with a warm, inviting visual experience.",
     tags: ["Web Design", "Branding", "Dessert"],
+
+    creativeStudy: {
+      meta: {
+        role: "Design & Development",
+        year: "2025",
+        tech: ["Next.js", "GSAP"],
+      },
+      concept:
+        "A brand site for a dessert food truck in full sugar-rush pink. Playful display type, bouncy scroll motion, and a menu-first layout designed to make you hungry before you even reach the address.",
+      visuals: [
+        { src: "/wowwow-dessert/frame-1.webp" },
+        { src: "/wowwow-dessert/frame-2.webp" },
+        { src: "/wowwow-dessert/frame-3.webp" },
+        { src: "/wowwow-dessert/frame-4.webp" },
+      ],
+      playUrl: "https://wowwowdessert.vercel.app/",
+      ctaHeading: "Taste it in motion.",
+    },
   },
   {
     name: "Arco",
@@ -432,6 +564,24 @@ export const projects: ProjectData[] = [
     link: "https://arco-chi.vercel.app",
     tagline: "Portfolio website for an architecture & design studio showcasing residential, commercial, and cultural projects.",
     tags: ["Web Design", "Portfolio", "Architecture"],
+
+    creativeStudy: {
+      meta: {
+        role: "Design & Development",
+        year: "2025",
+        tech: ["Next.js", "GSAP"],
+      },
+      concept:
+        "A portfolio for an architecture & design studio, treated like a printed monograph: an editorial grid, restrained monochrome, and scroll-driven galleries that give residential, commercial, and cultural work room to breathe.",
+      visuals: [
+        { src: "/arco/frame-1.webp" },
+        { src: "/arco/frame-2.webp" },
+        { src: "/arco/frame-3.webp" },
+        { src: "/arco/frame-4.webp" },
+      ],
+      playUrl: "https://arco-chi.vercel.app",
+      ctaHeading: "Walk through the archive.",
+    },
   },
   {
     name: "Healing Drinks",
@@ -621,8 +771,45 @@ export const projects: ProjectData[] = [
     image: "/rewrite-img.webp",
     video: "/rewrite-compressed.mp4",
     link: "https://re-write-script.vercel.app/",
-    tagline: "An interactive painterly journey. Guide a small ghost through shifting worlds, changing form and rewriting the story as you go.",
+    tagline: "A playable story about who writes the script.",
     tags: ["Interactive Story", "Web Design", "Creative Dev"],
+
+    creativeStudy: {
+      meta: {
+        role: "Self-initiated — Design & Development",
+        year: "2026",
+        tech: ["React Three Fiber", "GLSL Shaders", "Web Audio"],
+      },
+      concept:
+        "You wake as a small ghost inside a side-scroller you never chose — coins, timers, someone else's rules. Question the script, and the world starts repainting itself around you.",
+      visuals: [
+        {
+          src: "/rewrite/life-is-a-video-game.webp",
+          caption: "World 1-1 opens on rules everyone already knows — score, coins, a timer counting down.",
+        },
+        {
+          src: "/rewrite/trapped-in-the-tutorial.webp",
+          caption: "Other ghosts circle the same platforms forever, still living someone else's script.",
+        },
+        {
+          src: "/rewrite/the-mirror.webp",
+          caption: "The turn: the moment you question the script, you see the player behind the character.",
+        },
+        {
+          src: "/rewrite/who-holds-the-controller.webp",
+          caption: "The final scene answers the opening question — you were holding the controller all along.",
+        },
+      ],
+      decision: {
+        title: "Pixel HUD on hand-painted worlds",
+        body: "The HUD is set in Press Start 2P — the hard-edged language of arcade rules — while every world underneath is soft, hand-painted watercolor. The collision is deliberate: it's the theme rendered visually, the system's script laid over the life happening beneath it.",
+      },
+      visualsHeading: "The Story in Frames",
+      playUrl: "https://re-write-script.vercel.app/",
+      playNote: "Best with sound on",
+      ctaHeading: "See who's writing the script.",
+      ctaLabel: "▶ Play It Live",
+    },
   },
   // --- Creative placeholder (hidden for now) ---
   // {
