@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { type ProjectData, projects } from '@/data/projects';
@@ -15,12 +15,14 @@ function AutoPlayVideo({
   allowPlay = true,
   showProgress = false,
   progressColor = '#000000',
+  onPlaying,
 }: {
   src: string;
   className: string;
   allowPlay?: boolean;
   showProgress?: boolean;
   progressColor?: string;
+  onPlaying?: () => void;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -61,6 +63,16 @@ function AutoPlayVideo({
       document.removeEventListener('scroll', retryOnTouch);
     };
   }, [allowPlay]);
+
+  // Surface the moment frames actually start rendering, so the hero can keep
+  // its still image up until then (avoids a flash between the view-transition
+  // morph landing and playback starting)
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !onPlaying) return;
+    video.addEventListener('playing', onPlaying);
+    return () => video.removeEventListener('playing', onPlaying);
+  }, [onPlaying]);
 
   // Progress bar — driven by rAF while playing (timeupdate only fires ~4x/s,
   // which looks choppy on a bar this thin)
@@ -135,6 +147,13 @@ export default function CreativeCaseStudy({ project }: { project: ProjectData })
   // once the animation has finished (heroReady)
   const [heroIn, setHeroIn] = useState(false);
   const [heroReady, setHeroReady] = useState(false);
+
+  // The hero shows the project still until the video is actually rendering
+  // frames — the view-transition morph lands on the same image the home card
+  // (or the prev/next thumbnail) shows, so there is no flash while the video
+  // element loads its first frame
+  const [videoLive, setVideoLive] = useState(false);
+  const handleVideoPlaying = useCallback(() => setVideoLive(true), []);
 
   // Arriving via the shared-element view transition from the home page:
   // the browser is already morphing the preview into the hero, so skip the
@@ -212,13 +231,32 @@ export default function CreativeCaseStudy({ project }: { project: ProjectData })
               }`}
             >
               {project.video ? (
-                <AutoPlayVideo
-                  src={project.video}
-                  allowPlay={heroReady}
-                  showProgress
-                  progressColor={project.themeColor}
-                  className="w-full aspect-video object-cover"
-                />
+                <div className="relative">
+                  <AutoPlayVideo
+                    src={project.video}
+                    allowPlay={heroReady}
+                    showProgress
+                    progressColor={project.themeColor}
+                    onPlaying={handleVideoPlaying}
+                    className="w-full aspect-video object-cover"
+                  />
+                  {/* Still image cover — same picture as the home card /
+                      prev-next thumbnails, faded out once frames render */}
+                  <div
+                    className={`absolute inset-0 pointer-events-none transition-opacity duration-500 ${
+                      videoLive ? 'opacity-0' : 'opacity-100'
+                    }`}
+                  >
+                    <Image
+                      src={project.image}
+                      alt=""
+                      fill
+                      priority
+                      className="object-cover"
+                      sizes="100vw"
+                    />
+                  </div>
+                </div>
               ) : (
                 <div className="relative w-full aspect-video">
                   <Image

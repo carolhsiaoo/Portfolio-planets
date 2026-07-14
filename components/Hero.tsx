@@ -78,7 +78,7 @@ export default function Hero({ pageReady = false, skipDelay = false }: { pageRea
 
       {/* Hero Content - Split layout with header-matching width */}
       <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden" style={{ transform: 'translateZ(0)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-full flex flex-col justify-center sm:justify-between gap-80 sm:gap-0 py-12 sm:py-20 md:py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 h-full flex flex-col justify-center sm:justify-between gap-80 sm:gap-0 pt-24 sm:pt-32 md:pt-36 pb-12 sm:pb-20 md:pb-24">
           {/* Carol Hsiao - Top Left on desktop, Top Center on mobile */}
           <div
             className="pointer-events-auto self-center sm:self-start text-center sm:text-left will-change-transform"
