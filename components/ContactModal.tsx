@@ -3,8 +3,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useLanguage } from '@/components/LanguageContext';
 
-const OPEN_DURATION = 280;
-const CLOSE_DURATION = 220;
+// Matches the site's FadeInSection entrance (700ms ease-out, rise from below)
+const OPEN_DURATION = 700;
+const CLOSE_DURATION = 300;
 
 const serviceOptions = [
   { value: 'website-redesign', en: 'Website Redesign', zh: '網站改版' },
@@ -141,14 +142,14 @@ export default function ContactModal({ open, onClose }: { open: boolean; onClose
 
   return (
     <div
-      className={`fixed inset-0 z-70 overflow-y-auto overscroll-contain bg-[#0a0a0a]/50 backdrop-blur-md transition-opacity ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none ${visible ? 'opacity-100' : 'opacity-0'}`}
+      className={`fixed inset-0 z-70 overflow-y-auto overscroll-contain bg-[#0a0a0a]/50 backdrop-blur-md transition-opacity ease-out motion-reduce:transition-none ${visible ? 'opacity-100' : 'opacity-0'}`}
       style={{ transitionDuration: `${visible ? OPEN_DURATION : CLOSE_DURATION}ms` }}
     >
       <div className="min-h-full flex items-center justify-center px-3 py-3 sm:px-5 sm:py-5">
         {/* Floating white panel — same treatment as the case study pages */}
         <div
-          className={`relative w-full max-w-3xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl shadow-black/30 transition-all ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none will-change-transform ${
-            visible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-3 scale-[0.97]'
+          className={`relative w-full max-w-3xl bg-white rounded-2xl sm:rounded-3xl shadow-2xl shadow-black/30 transition-all ease-out motion-reduce:transition-none will-change-transform ${
+            visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
           }`}
           style={{ transitionDuration: `${visible ? OPEN_DURATION : CLOSE_DURATION}ms` }}
         >

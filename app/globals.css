@@ -88,6 +88,52 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Cross-document view transitions: the clicked project preview on the home
+   page morphs into the case study hero (both carry the same
+   view-transition-name). Browsers without support just navigate normally. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-group(project-hero) {
+  animation-duration: 0.55s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Closing a case study: no matching element on the home page, so the hero
+   collapses out on its own instead of morphing */
+::view-transition-old(project-hero):only-child {
+  animation: vtHeroCollapse 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes vtHeroCollapse {
+  to {
+    opacity: 0;
+    transform: translateY(40px) scale(0.92);
+  }
+}
+
+/* Pre-hydration first-frame state, driven by the render-blocking script in
+   layout.tsx. The view-transition snapshot of the incoming page is taken at
+   first paint — React effects run too late — so these attributes make the
+   SSR HTML already look like the post-transition state. React removes the
+   attributes after consuming the sessionStorage flags. */
+html[data-vt-hero] .hero-entrance {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+  transition: none !important;
+}
+
+html[data-skip-intro] .loading-intro-overlay {
+  display: none !important;
+}
+
+html[data-skip-intro] .home-page-content {
+  opacity: 1 !important;
+  transition: none !important;
+}
+
 /* Give empty paragraphs from Sanity a visible height for spacing */
 .prose p:empty {
   min-height: 1em;

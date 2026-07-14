@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useLayoutEffect, useRef } from 'react';
 
 const INTRO_DURATION = 1200;
 const FADE_OUT_DURATION = 400;
@@ -10,6 +10,21 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
   const [count, setCount] = useState(0);
   const rafRef = useRef<number>(0);
   const startRef = useRef(0);
+
+  // Skip entirely when arriving from an internal page that set the flag
+  // (e.g. closing a case study) — the user has already seen the intro.
+  // Before hydration the overlay is already hidden via the data-skip-intro
+  // attribute (inline script in layout.tsx); here we hand over to React
+  // state and clean up.
+  useLayoutEffect(() => {
+    if (sessionStorage.getItem('skip-intro') === '1') {
+      sessionStorage.removeItem('skip-intro');
+      setPhase('done');
+      onComplete();
+    }
+    document.documentElement.removeAttribute('data-skip-intro');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Preload 3D assets into browser cache during the intro (network only, no GPU)
   useEffect(() => {
@@ -58,7 +73,7 @@ export default function LoadingIntro({ onComplete }: { onComplete: () => void })
 
   return (
     <div
-      className="fixed inset-0 z-100 flex items-center justify-center"
+      className="loading-intro-overlay fixed inset-0 z-100 flex items-center justify-center"
       style={{
         backgroundColor: '#faf8f5',
         opacity: phase === 'fading' ? 0 : 1,

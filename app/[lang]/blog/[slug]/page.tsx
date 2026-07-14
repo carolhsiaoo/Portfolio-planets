@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import SanityTable from "@/components/SanityTable";
+import FadeInSection from "@/components/FadeInSection";
+import BlogPostNavLink from "@/components/BlogPostNavLink";
 
 function sanityLang(lang: string) {
   return lang === 'zh' ? 'zh-tw' : 'en';
@@ -60,20 +62,37 @@ export default async function PostPage({
   const { prev, next } = await getAdjacentPosts(slug, sLang);
 
   return (
-    <div className="min-h-screen bg-(--background) text-(--foreground)">
-      <Header hideOnScroll />
-      <main className="max-w-3xl mx-auto px-4 sm:px-6 md:px-8 pt-28 pb-20 font-noto-sans">
-        <Link
-          href={`/${lang}/blog`}
-          className="text-(--foreground)/40 hover:text-(--foreground)/70 transition-opacity duration-500 mb-12 inline-block font-inter text-sm tracking-wider"
-        >
-          &larr; Back
-        </Link>
+    <div className="min-h-screen bg-[#0a0a0a] pb-16 sm:pb-24">
+      {/* Header — same behavior as the case study pages: hidden at the top
+          and while scrolling down; shows when scrolling up */}
+      <Header hideOnScroll hideAtTop />
 
-        <h1 className="text-4xl sm:text-5xl lg:text-5xl font-cinzel font-semibold mb-8 leading-[1.05] text-neutral-900">
-          {post.title}
-        </h1>
+      {/* Floating white panel — the post itself, presented like a modal
+          over the dark backdrop (matches the project case study pages) */}
+      <div className="px-3 pt-3 sm:px-5 sm:pt-5">
+        <div className="relative bg-white rounded-2xl sm:rounded-3xl overflow-hidden">
+          {/* Close — back to the blog list */}
+          <Link
+            href={`/${lang}/blog`}
+            aria-label="Close post"
+            className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-black text-white transition-colors duration-300 hover:bg-[#333]"
+          >
+            <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </Link>
 
+          <main className="max-w-3xl mx-auto px-6 sm:px-8 md:px-10 pt-20 sm:pt-28 pb-20 sm:pb-28 font-noto-sans text-(--foreground)">
+        {/* Keyed by slug so prev/next navigation remounts these and replays
+            the entrance animation (page client components otherwise keep
+            their state when only the route params change) */}
+        <FadeInSection key={`title-${slug}`} direction="bottom">
+          <h1 className="text-4xl sm:text-5xl lg:text-5xl font-cinzel font-semibold mb-8 leading-[1.05] text-neutral-900">
+            {post.title}
+          </h1>
+        </FadeInSection>
+
+        <FadeInSection key={`meta-${slug}`} direction="bottom" delay={150}>
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-14">
           {post.category?.title && (
             <>
@@ -96,6 +115,7 @@ export default async function PostPage({
             </time>
           )}
         </div>
+        </FadeInSection>
 
         {post.coverImage && (
           <div className="relative w-full h-64 md:h-96 mb-12 rounded-lg overflow-hidden border border-gray-200">
@@ -197,27 +217,46 @@ export default async function PostPage({
           />
         </div>
 
-        <nav className="flex justify-between items-center mt-16 pt-8 border-t border-(--foreground)/10 font-inter text-base">
-          {prev && (
-            <Link
+          </main>
+        </div>
+      </div>
+
+      {/* Previous / next — quiet text links on the dark backdrop,
+          pushed to the edges (matches the case study prev/next) */}
+      {(prev || next) && (
+        <nav className="pt-16 sm:pt-24 px-6 sm:px-10 lg:px-16 flex justify-between items-start gap-6 sm:gap-8 font-inter">
+          {prev ? (
+            <BlogPostNavLink
               href={`/${lang}/blog/${prev.slug}`}
-              className="group flex flex-col gap-1 max-w-[45%]"
+              className="group flex flex-col gap-3 max-w-[45%]"
             >
-              <span className="text-(--foreground)/70 group-hover:text-(--foreground) tracking-wider text-sm transition-colors duration-300">&larr; {lang === "zh" ? "上一篇" : "PREVIOUS"}</span>
-              <span className="text-(--foreground)/70 group-hover:text-(--foreground) transition-colors duration-300 line-clamp-2">{prev.title}</span>
-            </Link>
+              <span className="flex items-center gap-2 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase text-white/60 transition-colors duration-300 group-hover:text-white">
+                <span className="transition-transform duration-300 group-hover:-translate-x-1">&larr;</span>
+                {lang === "zh" ? "上一篇" : "Prev"}
+              </span>
+              <span className="font-cinzel font-medium text-base md:text-xl lg:text-2xl text-white/60 transition-colors duration-300 group-hover:text-white line-clamp-2">
+                {prev.title}
+              </span>
+            </BlogPostNavLink>
+          ) : (
+            <div />
           )}
           {next && (
-            <Link
+            <BlogPostNavLink
               href={`/${lang}/blog/${next.slug}`}
-              className="group flex flex-col items-end gap-1 max-w-[45%] ml-auto"
+              className="group flex flex-col items-end gap-3 max-w-[45%] ml-auto text-right"
             >
-              <span className="text-(--foreground)/70 group-hover:text-(--foreground) tracking-wider text-sm transition-colors duration-300">{lang === "zh" ? "下一篇" : "NEXT"} &rarr;</span>
-              <span className="text-(--foreground)/70 group-hover:text-(--foreground) transition-colors duration-300 line-clamp-2 text-right">{next.title}</span>
-            </Link>
+              <span className="flex items-center justify-end gap-2 text-xs sm:text-sm font-medium tracking-[0.2em] uppercase text-white/60 transition-colors duration-300 group-hover:text-white">
+                {lang === "zh" ? "下一篇" : "Next"}
+                <span className="transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+              </span>
+              <span className="font-cinzel font-medium text-base md:text-xl lg:text-2xl text-white/60 transition-colors duration-300 group-hover:text-white line-clamp-2">
+                {next.title}
+              </span>
+            </BlogPostNavLink>
           )}
         </nav>
-      </main>
+      )}
     </div>
   );
 }

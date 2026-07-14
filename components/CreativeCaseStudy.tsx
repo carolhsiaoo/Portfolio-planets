@@ -1,15 +1,29 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { type ProjectData, projects } from '@/data/projects';
 import FadeInSection from '@/components/FadeInSection';
 import Header from '@/components/Header';
 import { usePageTransition } from '@/components/PageTransition';
+import { useLanguage } from '@/components/LanguageContext';
 
-function AutoPlayVideo({ src, className, allowPlay = true }: { src: string; className: string; allowPlay?: boolean }) {
+function AutoPlayVideo({
+  src,
+  className,
+  allowPlay = true,
+  showProgress = false,
+  progressColor = '#000000',
+}: {
+  src: string;
+  className: string;
+  allowPlay?: boolean;
+  showProgress?: boolean;
+  progressColor?: string;
+}) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
   const poster = src.startsWith('/') ? `/posters${src.replace(/\.(mp4|webm)$/, '.webp')}` : undefined;
 
   useEffect(() => {
@@ -48,7 +62,39 @@ function AutoPlayVideo({ src, className, allowPlay = true }: { src: string; clas
     };
   }, [allowPlay]);
 
-  return (
+  // Progress bar — driven by rAF while playing (timeupdate only fires ~4x/s,
+  // which looks choppy on a bar this thin)
+  useEffect(() => {
+    if (!showProgress) return;
+    const video = videoRef.current;
+    const bar = progressRef.current;
+    if (!video || !bar) return;
+    let raf = 0;
+
+    const tick = () => {
+      if (video.duration) {
+        bar.style.width = `${(video.currentTime / video.duration) * 100}%`;
+      }
+      raf = requestAnimationFrame(tick);
+    };
+    const start = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(tick);
+    };
+    const stop = () => cancelAnimationFrame(raf);
+
+    video.addEventListener('play', start);
+    video.addEventListener('pause', stop);
+    if (!video.paused) start();
+
+    return () => {
+      video.removeEventListener('play', start);
+      video.removeEventListener('pause', stop);
+      cancelAnimationFrame(raf);
+    };
+  }, [showProgress]);
+
+  const video = (
     <video
       ref={videoRef}
       src={src}
@@ -60,16 +106,49 @@ function AutoPlayVideo({ src, className, allowPlay = true }: { src: string; clas
       className={className}
     />
   );
+
+  if (!showProgress) return video;
+
+  return (
+    <div className="relative">
+      {video}
+      {/* Bottom border doubling as playback progress — no track, only the
+          played portion is visible. Width (not scaleX) so the rounded right
+          cap keeps its shape as the bar grows. */}
+      <div className="absolute inset-x-0 bottom-0 h-0.5 sm:h-1">
+        <div
+          ref={progressRef}
+          className="h-full rounded-r-full"
+          style={{ width: '0%', backgroundColor: progressColor }}
+        />
+      </div>
+    </div>
+  );
 }
 
 export default function CreativeCaseStudy({ project }: { project: ProjectData }) {
   const study = project.creativeStudy!;
   const { isTransitioning } = usePageTransition();
+  const { lang } = useLanguage();
 
   // Hero entrance: blur + slide up on load; the video only starts playing
   // once the animation has finished (heroReady)
   const [heroIn, setHeroIn] = useState(false);
   const [heroReady, setHeroReady] = useState(false);
+
+  // Arriving via the shared-element view transition from the home page:
+  // the browser is already morphing the preview into the hero, so skip the
+  // blur entrance and show the hero immediately. The pre-paint first frame
+  // is handled by the data-vt-hero attribute (inline script in layout.tsx)
+  // — here we just hand over to React state and clean up.
+  useLayoutEffect(() => {
+    if (sessionStorage.getItem('vt-project-hero') === '1') {
+      sessionStorage.removeItem('vt-project-hero');
+      setHeroIn(true);
+      setHeroReady(true);
+    }
+    document.documentElement.removeAttribute('data-vt-hero');
+  }, []);
 
   useEffect(() => {
     if (isTransitioning) return;
@@ -107,21 +186,26 @@ export default function CreativeCaseStudy({ project }: { project: ProjectData })
       {/* Floating white panel — the case itself */}
       <div className="px-3 pt-3 sm:px-5 sm:pt-5">
         <div className="relative bg-white rounded-2xl sm:rounded-3xl overflow-hidden">
-          {/* Close — back to the projects list */}
-          <Link
-            href="/#work"
+          {/* Close — back to the projects list. A plain anchor (full-page
+              navigation) so the cross-document view transition collapses the
+              hero on the way out; the flag tells the home page to skip the
+              loading intro. */}
+          <a
+            href={`/${lang}#work`}
             aria-label="Close case study"
+            onClick={() => sessionStorage.setItem('skip-intro', '1')}
             className="absolute top-4 right-4 sm:top-6 sm:right-6 z-20 flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-black text-white transition-colors duration-300 hover:bg-[#333]"
           >
             <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
-          </Link>
+          </a>
 
-          {/* Hero — blur + slide-up entrance; playback starts after it settles */}
-          <section id="hero" className="relative">
+          {/* Hero — blur + slide-up entrance; playback starts after it settles.
+              Carries the view-transition-name that the home-page preview morphs into. */}
+          <section id="hero" className="relative" style={{ viewTransitionName: 'project-hero' }}>
             <div
-              className={`transition-all duration-1000 ease-out ${
+              className={`hero-entrance transition-all duration-1000 ease-out ${
                 heroIn ? 'opacity-100 translate-y-0 blur-0' : 'opacity-0 translate-y-16 blur-xl'
               }`}
             >
@@ -129,6 +213,8 @@ export default function CreativeCaseStudy({ project }: { project: ProjectData })
                 <AutoPlayVideo
                   src={project.video}
                   allowPlay={heroReady}
+                  showProgress
+                  progressColor={project.themeColor}
                   className="w-full aspect-video object-cover"
                 />
               ) : (
@@ -179,7 +265,7 @@ export default function CreativeCaseStudy({ project }: { project: ProjectData })
                   <div className="rounded-xl sm:rounded-2xl overflow-hidden border border-black/10">
                     <Image
                       src={visual.src}
-                      alt={visual.caption ?? `${project.name} styleframe ${i + 1}`}
+                      alt={visual.alt ?? visual.caption ?? `${project.name} styleframe ${i + 1}`}
                       width={1440}
                       height={810}
                       className="w-full"

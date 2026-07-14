@@ -9,6 +9,8 @@ export interface ProjectData {
   image: string;
   video?: string;
   videoMobile?: string;
+  // Accent for the hero video progress bar; defaults to black
+  themeColor?: string;
   link?: string;
 
   // Hero section
@@ -96,7 +98,7 @@ export interface ProjectData {
     // concept/decision are not rendered on the page anymore; kept as source
     // copy for blog posts, OG descriptions, or if the sections return.
     concept?: string;
-    visuals: { src: string; caption?: string }[];
+    visuals: { src: string; caption?: string; alt?: string }[];
     visualsHeading?: string; // defaults to "Styleframes"
     decision?: { title: string; body: string };
     playUrl: string;
@@ -116,12 +118,13 @@ export const projects: ProjectData[] = [
     category: "functional",
     type: "Web App",
     role: "Design & Dev",
-    year: "2025 ~ now",
+    year: "2026",
     image: "/firefree-img.webp",
     video: "/firefree-demo.mp4",
     videoMobile: "/firefre-demo-small.mp4",
+    themeColor: "#FFFFFF",
     link: "https://firefree.app",
-    tagline: "A 0-to-1 personal finance app that helps users see when they'll be financially free — not just where their money went.",
+    tagline: "A 0-to-1 personal finance app that helps users see when they'll be financially free, not just where their money went.",
     tags: ["0 → 1", "Product Design", "Frontend Dev", "Finance", "React"],
     techStack: ["React", "TypeScript", "Tailwind CSS", "Firebase"],
     timeline: "Jan 2025 — Present",
@@ -129,7 +132,7 @@ export const projects: ProjectData[] = [
     creativeStudy: {
       meta: {
         role: "Design & Development",
-        year: "2025 — Present",
+        year: "2026",
         tech: ["React", "TypeScript", "Tailwind CSS", "Firebase"],
       },
       concept:
@@ -248,7 +251,7 @@ export const projects: ProjectData[] = [
     year: "2026",
     image: "/dailywage-img.webp",
     link: "https://dailypay.aburi.app",
-    tagline: "A mobile expense tracker designed so that logging a purchase takes fewer taps than unlocking your phone.",
+    tagline: "A mobile app that shows your salary growing in real time, with a pixel corgi companion that makes every work second count toward your dreams.",
     tags: ["Mobile", "Product Design", "React Native", "Local-First"],
     techStack: ["React Native", "TypeScript", "Expo", "SQLite"],
     timeline: "2026",
@@ -260,15 +263,15 @@ export const projects: ProjectData[] = [
         tech: ["React Native", "Expo", "SQLite"],
       },
       concept:
-        "A mobile expense tracker built on one rule: logging a purchase must take fewer taps than unlocking your phone. The app opens straight to a number pad, smart category chips do the sorting, and everything runs local-first — under three seconds per entry, fully offline.",
+        "Watch your earnings grow every second. DailyWage calculates your salary in real time as you work, while a pixel corgi companion cheers you on and goal progress bars show every dream getting closer, turning an ordinary workday into visible motivation.",
       visuals: [
-        { src: "/dailywage-img.webp" },
+        { src: "/dailywage/frame-1.webp" },
         { src: "/dailywage/frame-2.webp" },
         { src: "/dailywage/frame-3.webp" },
         { src: "/dailywage/frame-4.webp" },
       ],
       playUrl: "https://dailypay.aburi.app",
-      ctaHeading: "Three seconds per expense.",
+      ctaHeading: "Watch every second count.",
       ctaLabel: "Try It Live",
     },
 
@@ -358,8 +361,9 @@ export const projects: ProjectData[] = [
     image: "/corehour-img.webp",
     video: "/corehour-demo.mp4",
     videoMobile: "/corehour-demo-small.mp4",
+    themeColor: "#FFFFFF",
     link: "https://corehour.app/",
-    tagline: "A time-tracking tool that shows teams when their best work hours overlap — so they stop scheduling meetings during deep focus time.",
+    tagline: "A timeboxing app that helps you do less and achieve more by planning your day in 30-minute blocks and protecting your focus hours.",
     tags: ["Web App", "Product Design", "Real-Time", "Next.js"],
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase"],
     timeline: "2025",
@@ -371,7 +375,7 @@ export const projects: ProjectData[] = [
         tech: ["Next.js", "TypeScript", "Supabase"],
       },
       concept:
-        "A time tracker that measures quality, not just quantity. Set your core hours once, and a weekly heatmap shows how your logged time aligns with them — while a real-time team view reveals when everyone's deep-work windows overlap, so meetings stop landing on the hours that matter most.",
+        "Do less, achieve more. CoreHour turns your day into 30-minute blocks you can drag into place, marks the tasks that actually matter, and tracks how much of your time goes to high-impact work versus busywork, so real progress replaces fake productivity.",
       visuals: [
         { src: "/corehour/frame-1.webp" },
         { src: "/corehour/frame-2.webp" },
@@ -465,9 +469,10 @@ export const projects: ProjectData[] = [
     category: "creative",
     type: "Creative Web",
     role: "Design & Dev",
-    year: "2025",
+    year: "2026",
     image: "/luma.webp",
     video: "/luma-compressed.mp4",
+    themeColor: "#D4D4D4",
     link: "https://lumaaa-beige.vercel.app",
     tagline: "Interior design portfolio with visual distortion effects and curated project galleries.",
     tags: ["Web Design", "Portfolio", "Interior Design"],
@@ -475,8 +480,8 @@ export const projects: ProjectData[] = [
     creativeStudy: {
       meta: {
         role: "Design & Development",
-        year: "2025",
-        tech: ["Next.js", "GSAP"],
+        year: "2026",
+        tech: ["Vanilla JS", "GSAP"],
       },
       concept:
         "A portfolio for an interior design studio where browsing itself feels interior — warm neutrals, generous whitespace, and image distortion effects that make moving between project galleries feel like walking from room to room.",
@@ -496,21 +501,22 @@ export const projects: ProjectData[] = [
     category: "creative",
     type: "Creative Web",
     role: "Design & Dev",
-    year: "2025",
+    year: "2026",
     image: "/verso.webp",
     video: "/verso-compressed.mp4",
+    themeColor: "#FFFFFF",
     link: "https://verso-smoky.vercel.app",
-    tagline: "Creative direction & production company website for a game studio pushing boundaries.",
+    tagline: "A bold black-and-white site for a motion studio, built around an interactive 3D logo that sets the tone before you read a single word.",
     tags: ["Web Design", "Portfolio", "Gaming"],
 
     creativeStudy: {
       meta: {
         role: "Design & Development",
-        year: "2025",
-        tech: ["Next.js", "Three.js", "GSAP"],
+        year: "2026",
+        tech: ["Next.js", "React", "Three.js"],
       },
       concept:
-        "A site for a creative direction & production company serving game studios. High-contrast black and white, a rotating 3D 'V' as the centerpiece, and loud editorial type — so the studio's promise, 'We play bold,' lands before you read a single paragraph.",
+        "A site for a motion studio that plays bold. High-contrast black and white, loud editorial type, and a rotating 3D logo rendered live at the centerpiece, so the studio's promise lands before you read a single paragraph.",
       visuals: [
         { src: "/verso-studio/frame-1.webp" },
         { src: "/verso-studio/frame-2.webp" },
@@ -527,9 +533,10 @@ export const projects: ProjectData[] = [
     category: "creative",
     type: "Creative Web",
     role: "Design & Dev",
-    year: "2025",
+    year: "2026",
     image: "/wowwow.webp",
     video: "/wowwow-compressed.mp4",
+    themeColor: "#FFFFFF",
     link: "https://wowwowdessert.vercel.app/",
     tagline: "A dessert brand website with a warm, inviting visual experience.",
     tags: ["Web Design", "Branding", "Dessert"],
@@ -537,8 +544,8 @@ export const projects: ProjectData[] = [
     creativeStudy: {
       meta: {
         role: "Design & Development",
-        year: "2025",
-        tech: ["Next.js", "GSAP"],
+        year: "2026",
+        tech: ["Astro", "GSAP"],
       },
       concept:
         "A brand site for a dessert food truck in full sugar-rush pink. Playful display type, bouncy scroll motion, and a menu-first layout designed to make you hungry before you even reach the address.",
@@ -558,9 +565,10 @@ export const projects: ProjectData[] = [
     category: "creative",
     type: "Creative Web",
     role: "Design & Dev",
-    year: "2025",
+    year: "2026",
     image: "/arco.webp",
     video: "/arco-compressed.mp4",
+    themeColor: "#D4D4D4",
     link: "https://arco-chi.vercel.app",
     tagline: "Portfolio website for an architecture & design studio showcasing residential, commercial, and cultural projects.",
     tags: ["Web Design", "Portfolio", "Architecture"],
@@ -568,8 +576,8 @@ export const projects: ProjectData[] = [
     creativeStudy: {
       meta: {
         role: "Design & Development",
-        year: "2025",
-        tech: ["Next.js", "GSAP"],
+        year: "2026",
+        tech: ["Vanilla JS", "GSAP"],
       },
       concept:
         "A portfolio for an architecture & design studio, treated like a printed monograph: an editorial grid, restrained monochrome, and scroll-driven galleries that give residential, commercial, and cultural work room to breathe.",
@@ -589,7 +597,7 @@ export const projects: ProjectData[] = [
     category: "creative",
     type: "3D Experience",
     role: "Design & Dev",
-    year: "2025",
+    year: "2026",
     image: "/healing-drinks-img.webp",
     link: "https://healingdrinks.carolhsiao.com/",
     tagline: "A mixed-reality toolkit that lets designers prototype spatial interactions with their hands — no build-deploy cycle required.",
@@ -678,7 +686,7 @@ export const projects: ProjectData[] = [
     category: "creative",
     type: "Web Game",
     role: "Design & Dev",
-    year: "2025",
+    year: "2026",
     link: "https://equation-pyramid.carolhsiao.com/",
     image: "/equation-pyramid-img.webp",
     tagline: "A web platform that helps users solve math equations by breaking them down into smaller steps.",
@@ -770,13 +778,14 @@ export const projects: ProjectData[] = [
     year: "2026",
     image: "/rewrite-img.webp",
     video: "/rewrite-compressed.mp4",
+    themeColor: "#FFFFFF",
     link: "https://re-write-script.vercel.app/",
-    tagline: "A playable story about who writes the script.",
+    tagline: "Re:Write is a scroll-driven story about a little ghost who questions the script it was handed, sees the player behind the character, and picks up the controller to rewrite it.",
     tags: ["Interactive Story", "Web Design", "Creative Dev"],
 
     creativeStudy: {
       meta: {
-        role: "Self-initiated — Design & Development",
+        role: "Design & Development",
         year: "2026",
         tech: ["React Three Fiber", "GLSL Shaders", "Web Audio"],
       },
@@ -785,19 +794,19 @@ export const projects: ProjectData[] = [
       visuals: [
         {
           src: "/rewrite/life-is-a-video-game.webp",
-          caption: "World 1-1 opens on rules everyone already knows — score, coins, a timer counting down.",
+          alt: "World 1-1 opens on rules everyone already knows — score, coins, a timer counting down.",
         },
         {
           src: "/rewrite/trapped-in-the-tutorial.webp",
-          caption: "Other ghosts circle the same platforms forever, still living someone else's script.",
+          alt: "Other ghosts circle the same platforms forever, still living someone else's script.",
         },
         {
           src: "/rewrite/the-mirror.webp",
-          caption: "The turn: the moment you question the script, you see the player behind the character.",
+          alt: "The turn: the moment you question the script, you see the player behind the character.",
         },
         {
           src: "/rewrite/who-holds-the-controller.webp",
-          caption: "The final scene answers the opening question — you were holding the controller all along.",
+          alt: "The final scene answers the opening question — you were holding the controller all along.",
         },
       ],
       decision: {

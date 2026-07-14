@@ -32,8 +32,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="overscroll-none">
+    <html lang="en" className="overscroll-none" suppressHydrationWarning>
       <head>
+        {/* Render-blocking: view-transition snapshots are taken at first
+            paint, long before React hydrates, so the sessionStorage flags
+            must be reflected in the very first frame via CSS attributes.
+            The flags themselves are consumed later by the React effects. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var d=document.documentElement,s=sessionStorage;if(s.getItem('vt-project-hero')==='1')d.setAttribute('data-vt-hero','');if(s.getItem('skip-intro')==='1')d.setAttribute('data-skip-intro','')}catch(e){}})();",
+          }}
+        />
         <link rel="preload" href="/models/planets.glb" as="fetch" crossOrigin="anonymous" fetchPriority="low" />
         <script
           type="application/ld+json"

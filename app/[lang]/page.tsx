@@ -22,6 +22,7 @@ export default function Home() {
       {!hasNavigated && <LoadingIntro onComplete={() => setPageReady(true)} />}
 
       <div
+        className="home-page-content"
         style={{
           opacity: pageReady ? 1 : 0,
           transition: 'opacity 0.5s ease',

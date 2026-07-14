@@ -164,6 +164,16 @@ export default function ProjectsTable() {
                 href={hasCaseStudy ? `/projects/${project.slug}` : project.link || `/projects/${project.slug}`}
                 target={hasCaseStudy ? undefined : '_blank'}
                 rel={hasCaseStudy ? undefined : 'noopener noreferrer'}
+                onClick={(e) => {
+                  if (!hasCaseStudy) return;
+                  // Shared-element view transition into the case study hero:
+                  // tag the visible preview (mobile thumb; the desktop hover
+                  // panel is tagged permanently) and tell the case study to
+                  // skip its own hero entrance animation.
+                  sessionStorage.setItem('vt-project-hero', '1');
+                  const thumb = e.currentTarget.querySelector<HTMLElement>('[data-vt-thumb]');
+                  if (thumb) thumb.style.viewTransitionName = 'project-hero';
+                }}
                 onMouseEnter={() => {
                   preloadProject(project);
                   setHoveredIndex(globalIndex);
@@ -206,7 +216,7 @@ export default function ProjectsTable() {
                 )}
 
                 {/* Mobile inline thumbnail — always show image, no video */}
-                <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-black/10 lg:hidden">
+                <div data-vt-thumb className="relative w-full aspect-video rounded-lg overflow-hidden border border-black/10 lg:hidden">
                   <Image
                     src={project.image}
                     alt={`${project.name} — ${project.type} by Carol Hsiao`}
@@ -231,6 +241,7 @@ export default function ProjectsTable() {
             style={{
               x: springX,
               y: springY,
+              viewTransitionName: 'project-hero',
             }}
             className="fixed top-0 left-0 z-50 pointer-events-none w-[450px] aspect-video rounded-xl overflow-hidden border border-black/10 shadow-2xl hidden lg:block"
           >
