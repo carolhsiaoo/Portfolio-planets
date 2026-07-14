@@ -164,7 +164,7 @@ export default function ContactModal({ open, onClose }: { open: boolean; onClose
           </button>
 
           <div className="p-8 sm:p-12">
-            <h2 className="font-cinzel text-2xl sm:text-3xl font-semibold text-[#1a1a1a] mb-1 text-center">
+            <h2 className="font-cinzel text-2xl sm:text-3xl font-semibold text-[#1a1a1a] mb-1 text-center px-8 sm:px-0">
               {t.form.heading}
             </h2>
             <p className="font-noto-sans text-sm sm:text-base text-[#1a1a1a]/70 mb-8 text-center">

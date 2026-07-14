@@ -88,12 +88,6 @@ const categoryLabels: Record<string, Record<string, string>> = {
   'Interactive Websites': { en: 'Interactive Websites', zh: '互動網站體驗' },
 };
 
-// Where does clicking this project take you? Shown as an overlay on previews.
-function destinationLabel(project: (typeof projects)[number], lang: string) {
-  if (project.creativeStudy) return lang === 'zh' ? '作品解析' : 'Case Study';
-  return lang === 'zh' ? '線上觀看' : 'See It Live';
-}
-
 export default function ProjectsTable() {
   const { lang } = useLanguage();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -211,9 +205,7 @@ export default function ProjectsTable() {
                   </p>
                 )}
 
-                {/* Mobile inline thumbnail — always show image, no video.
-                    The destination label is always visible here since touch
-                    devices have no hover preview. */}
+                {/* Mobile inline thumbnail — always show image, no video */}
                 <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-black/10 lg:hidden">
                   <Image
                     src={project.image}
@@ -222,9 +214,6 @@ export default function ProjectsTable() {
                     className="object-cover"
                     sizes="100vw"
                   />
-                  <span className="absolute bottom-3 right-3 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-sm font-inter text-[10px] font-medium tracking-widest uppercase text-neutral-900">
-                    {destinationLabel(project, lang)}
-                  </span>
                 </div>
               </motion.a>
             );

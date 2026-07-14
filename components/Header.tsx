@@ -7,10 +7,11 @@ import { usePathname } from 'next/navigation';
 import { usePageTransition } from './PageTransition';
 import { useLanguage } from './LanguageContext';
 
-const Header = memo(function Header({ hideOnScroll = false, revealAfterId }: { hideOnScroll?: boolean; revealAfterId?: string }) {
+const Header = memo(function Header({ hideOnScroll = false, hideAtTop = false, revealAfterId }: { hideOnScroll?: boolean; hideAtTop?: boolean; revealAfterId?: string }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
+  const [atTop, setAtTop] = useState(true);
   const [pastReveal, setPastReveal] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -48,6 +49,7 @@ const Header = memo(function Header({ hideOnScroll = false, revealAfterId }: { h
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setIsScrolled(currentScrollY > 50);
+      setAtTop(currentScrollY < 80);
 
       if (revealAfterId) {
         const el = document.getElementById(revealAfterId);
@@ -172,18 +174,17 @@ const Header = memo(function Header({ hideOnScroll = false, revealAfterId }: { h
       style={{
         borderBottom: 'none',
         transition: 'opacity 1s ease-out, transform 1s ease-out, padding 0.5s ease-in-out',
-        ...(hideOnScroll && isHidden ? {
-          transform: 'translateY(-100%)',
-          transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease-in-out',
-        } : {}),
-        ...(hideOnScroll && !isHidden && isScrolled ? {
-          transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease-in-out',
-        } : {}),
-        ...(revealAfterId ? {
-          transform: revealHidden ? 'translateY(-100%)' : 'translateY(0)',
-          opacity: revealHidden ? 0 : 1,
-          transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out, padding 0.5s ease-in-out',
-        } : {}),
+        // hideOnScroll / hideAtTop / revealAfterId compose: hidden while
+        // scrolling down, at the very top of the page, or until past the
+        // reveal section — whichever conditions are enabled
+        ...(hideOnScroll || hideAtTop || revealAfterId ? (() => {
+          const hidden = (hideOnScroll && isHidden) || (hideAtTop && atTop) || revealHidden;
+          return {
+            transform: hidden ? 'translateY(-100%)' : 'translateY(0)',
+            ...(revealAfterId || hideAtTop ? { opacity: hidden ? 0 : 1 } : {}),
+            transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out, padding 0.5s ease-in-out',
+          };
+        })() : {}),
       }}
     >
       <div
