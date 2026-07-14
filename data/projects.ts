@@ -564,8 +564,8 @@ export const projects: ProjectData[] = [
       visuals: [
         { src: "/wowwow-dessert/frame-1.webp" },
         { src: "/wowwow-dessert/frame-2.webp" },
-        { src: "/wowwow-dessert/frame-3.webp" },
         { src: "/wowwow-dessert/frame-4.webp" },
+        { src: "/wowwow-dessert/frame-3.webp" },
       ],
       playUrl: "https://wowwowdessert.vercel.app/",
       ctaHeading: "Taste it in motion.",
