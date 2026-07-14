@@ -85,9 +85,12 @@ export async function getAdjacentPosts(slug: string, lang: string = "en") {
   const currentIndex = allPosts.findIndex((p: { slug: string }) => p.slug === slug);
   if (currentIndex === -1) return { prev: null, next: null };
 
+  // Follow the blog list order (newest first): "prev" is the post above the
+  // current one on the list page, "next" is the post below it. Wraps around
+  // at both ends, same as the case study prev/next.
   const total = allPosts.length;
-  const prev = allPosts[(currentIndex + 1) % total]; // older post (next in desc order)
-  const next = allPosts[(currentIndex - 1 + total) % total]; // newer post
+  const prev = allPosts[(currentIndex - 1 + total) % total]; // newer post (above in the list)
+  const next = allPosts[(currentIndex + 1) % total]; // older post (below in the list)
 
   return { prev, next };
 }
