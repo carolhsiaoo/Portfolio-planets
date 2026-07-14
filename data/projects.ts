@@ -16,6 +16,9 @@ export interface ProjectData {
   // Hero section
   company?: string;
   tagline?: string;
+  // Traditional Chinese version of the tagline, shown on the case study
+  // page when the site language is zh; falls back to tagline when absent.
+  taglineZh?: string;
   tags?: string[];
   workflow?: string[];
   techStack?: string[];
@@ -105,6 +108,7 @@ export interface ProjectData {
     playNote?: string;
     ctaHeading?: string; // closing line above the button; defaults to "Experience it live."
     ctaLabel?: string; // button text; defaults to "See It Live"
+    ctaLabelZh?: string; // zh button text; defaults to "線上體驗"
     // Optional link to the long-form build-story blog post. The secondary
     // "Read the build story" links only render when this is set.
     blogUrl?: string;
@@ -125,6 +129,7 @@ export const projects: ProjectData[] = [
     themeColor: "#FFFFFF",
     link: "https://firefree.app",
     tagline: "A 0-to-1 personal finance app that helps users see when they'll be financially free, not just where their money went.",
+    taglineZh: "一款從 0 到 1 打造的個人理財應用工具，讓你看見自己何時能達到財務自由，而不只是錢花去了哪裡。",
     tags: ["0 → 1", "Product Design", "Frontend Dev", "Finance", "React"],
     techStack: ["React", "TypeScript", "Tailwind CSS"],
     timeline: "Jan 2025 — Present",
@@ -146,6 +151,7 @@ export const projects: ProjectData[] = [
       playUrl: "https://firefree.app",
       ctaHeading: "See your freedom timeline.",
       ctaLabel: "Try It Live",
+      ctaLabelZh: "立即體驗",
     },
 
     // TL;DR — sharp, scannable, numbers where possible
@@ -252,6 +258,7 @@ export const projects: ProjectData[] = [
     image: "/dailywage-img.webp",
     link: "https://dailypay.aburi.app",
     tagline: "A mobile app that shows your salary growing in real time, with a pixel corgi companion that makes every work second count toward your dreams.",
+    taglineZh: "一款即時顯示薪水成長的行動 APP，還有像素柯基陪你上班，讓工作的每一秒都朝夢想更近一步。",
     tags: ["Mobile", "Product Design", "Local-First"],
     timeline: "2026",
 
@@ -272,6 +279,7 @@ export const projects: ProjectData[] = [
       playUrl: "https://dailypay.aburi.app",
       ctaHeading: "Watch every second count.",
       ctaLabel: "Try It Live",
+      ctaLabelZh: "立即體驗",
     },
 
     heroSummary: {
@@ -363,6 +371,7 @@ export const projects: ProjectData[] = [
     themeColor: "#FFFFFF",
     link: "https://corehour.app/",
     tagline: "A timeboxing app that helps you do less and achieve more by planning your day in 30-minute blocks and protecting your focus hours.",
+    taglineZh: "一款時間規劃應用，以 30 分鐘為單位安排你的一天、守護你的專注時段，讓你做得更少、成就更多。",
     tags: ["Web App", "Product Design", "Real-Time", "Next.js"],
     techStack: ["Next.js", "TypeScript", "Tailwind CSS", "Supabase"],
     timeline: "2025",
@@ -384,6 +393,7 @@ export const projects: ProjectData[] = [
       playUrl: "https://corehour.app/",
       ctaHeading: "Find your core hours.",
       ctaLabel: "Try It Live",
+      ctaLabelZh: "立即體驗",
     },
 
     heroSummary: {
@@ -474,6 +484,7 @@ export const projects: ProjectData[] = [
     themeColor: "#D4D4D4",
     link: "https://lumaaa-beige.vercel.app",
     tagline: "Interior design portfolio with visual distortion effects and curated project galleries.",
+    taglineZh: "室內設計作品集網站，結合影像扭曲特效與精心策劃的專案呈現。",
     tags: ["Web Design", "Portfolio", "Interior Design"],
 
     creativeStudy: {
@@ -506,6 +517,7 @@ export const projects: ProjectData[] = [
     themeColor: "#FFFFFF",
     link: "https://verso-smoky.vercel.app",
     tagline: "A bold black-and-white site for a motion studio, built around an interactive 3D logo that sets the tone before you read a single word.",
+    taglineZh: "為動態設計工作室打造的大膽黑白網站，以可互動的 3D Logo 為核心。",
     tags: ["Web Design", "Portfolio", "Gaming"],
 
     creativeStudy: {
@@ -538,6 +550,7 @@ export const projects: ProjectData[] = [
     themeColor: "#FFFFFF",
     link: "https://wowwowdessert.vercel.app/",
     tagline: "A dessert brand website with a warm, inviting visual experience.",
+    taglineZh: "甜點品牌網站，帶來溫暖且美味的視覺體驗。",
     tags: ["Web Design", "Branding", "Dessert"],
 
     creativeStudy: {
@@ -570,6 +583,7 @@ export const projects: ProjectData[] = [
     themeColor: "#D4D4D4",
     link: "https://arco-chi.vercel.app",
     tagline: "Portfolio website for an architecture & design studio showcasing residential, commercial, and cultural projects.",
+    taglineZh: "為建築與設計工作室打造的作品集網站，呈現住宅、商業空間專案。",
     tags: ["Web Design", "Portfolio", "Architecture"],
 
     creativeStudy: {
@@ -779,7 +793,8 @@ export const projects: ProjectData[] = [
     video: "/rewrite-compressed.mp4",
     themeColor: "#FFFFFF",
     link: "https://re-write-script.vercel.app/",
-    tagline: "Re:Write is a scroll-driven story about a little ghost who questions the script it was handed, sees the player behind the character, and picks up the controller to rewrite it.",
+    tagline: "Re:Write is an interactive story about a little ghost who questions the script it was handed, and finally picks up the controller to rewrite its own story.",
+    taglineZh: "Re:Write 是一個互動故事：一隻小幽靈開始質疑手中被給定的劇本，最終拿起搖桿，重寫自己的故事。",
     tags: ["Interactive Story", "Web Design", "Creative Dev"],
 
     creativeStudy: {
@@ -816,7 +831,8 @@ export const projects: ProjectData[] = [
       playUrl: "https://re-write-script.vercel.app/",
       playNote: "Best with sound on",
       ctaHeading: "See who's writing the script.",
-      ctaLabel: "▶ Play It Live",
+      ctaLabel: "Play It Live ▶",
+      ctaLabelZh: "立即遊玩 ▶",
     },
   },
   // --- Creative placeholder (hidden for now) ---

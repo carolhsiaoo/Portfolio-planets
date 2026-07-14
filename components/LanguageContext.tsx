@@ -1,9 +1,11 @@
 'use client';
 
-import { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { usePathname } from 'next/navigation';
 
 type Lang = 'en' | 'zh';
+
+const STORAGE_KEY = 'lang';
 
 interface LanguageContextType {
   lang: Lang;
@@ -17,15 +19,41 @@ const LanguageContext = createContext<LanguageContextType>({
   toggleLang: () => {},
 });
 
-function getLangFromPathname(pathname: string): Lang {
+// Returns null on routes without a lang prefix (e.g. /projects/[slug]),
+// where the URL alone can't tell us the language.
+function getLangFromPathname(pathname: string): Lang | null {
   const firstSegment = pathname.split('/')[1];
-  return firstSegment === 'zh' ? 'zh' : 'en';
+  if (firstSegment === 'zh') return 'zh';
+  if (firstSegment === 'en') return 'en';
+  return null;
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const [lang, setLang] = useState<Lang>(() => getLangFromPathname(pathname));
-  const toggleLang = useCallback(() => setLang((l) => (l === 'en' ? 'zh' : 'en')), []);
+  const [lang, setLangState] = useState<Lang>(() => getLangFromPathname(pathname) ?? 'en');
+
+  // Persist every explicit choice so un-prefixed routes can restore it
+  const setLang = useCallback((l: Lang) => {
+    setLangState(l);
+    try {
+      localStorage.setItem(STORAGE_KEY, l);
+    } catch {}
+  }, []);
+
+  const toggleLang = useCallback(
+    () => setLang(lang === 'en' ? 'zh' : 'en'),
+    [lang, setLang]
+  );
+
+  // On un-prefixed routes, restore the last choice after mount (reading
+  // localStorage in the initializer would cause a hydration mismatch)
+  useEffect(() => {
+    if (getLangFromPathname(pathname) !== null) return;
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored === 'zh' || stored === 'en') setLangState(stored);
+    } catch {}
+  }, [pathname]);
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, toggleLang }}>

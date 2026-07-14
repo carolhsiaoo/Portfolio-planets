@@ -289,7 +289,7 @@ export default function CreativeCaseStudy({ project }: { project: ProjectData })
                 <div>
                   {project.tagline && (
                     <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-inter font-normal leading-relaxed text-gray-900">
-                      {project.tagline}
+                      {lang === 'zh' ? project.taglineZh ?? project.tagline : project.tagline}
                     </p>
                   )}
                 </div>
@@ -333,14 +333,14 @@ export default function CreativeCaseStudy({ project }: { project: ProjectData })
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-black text-white rounded-full text-base sm:text-lg font-inter font-medium tracking-wider hover:bg-[#333] transition-colors duration-300"
                 >
-                  {study.ctaLabel ?? 'See It Live'}
+                  {lang === 'zh' ? study.ctaLabelZh ?? '線上體驗' : study.ctaLabel ?? 'See It Live'}
                 </a>
                 {study.blogUrl && (
                   <Link
                     href={study.blogUrl}
                     className="inline-flex items-center gap-2 px-8 py-4 border border-gray-300 rounded-full text-base sm:text-lg font-inter font-medium tracking-wider hover:border-gray-500 transition-colors duration-300"
                   >
-                    Read the Build Story
+                    {lang === 'zh' ? '閱讀開發故事' : 'Read the Build Story'}
                   </Link>
                 )}
               </div>

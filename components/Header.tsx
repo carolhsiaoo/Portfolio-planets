@@ -19,15 +19,21 @@ const Header = memo(function Header({ hideOnScroll = false, hideAtTop = false, r
   const langRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const { navigateTo } = usePageTransition();
-  const { lang } = useLanguage();
+  const { lang, setLang } = useLanguage();
   const pathname = usePathname();
 
   const handleLangSwitch = useCallback((newLang: 'en' | 'zh') => {
     if (newLang === lang) return;
+    // Un-prefixed routes (e.g. /projects/[slug]) have no lang segment to
+    // rewrite — switch the language in place instead of navigating
+    if (!/^\/(en|zh)(\/|$)/.test(pathname)) {
+      setLang(newLang);
+      return;
+    }
     // Replace the lang prefix in the current path
     const newPath = pathname.replace(/^\/(en|zh)/, `/${newLang}`);
     navigateTo(newPath);
-  }, [lang, pathname, navigateTo]);
+  }, [lang, pathname, navigateTo, setLang]);
 
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
