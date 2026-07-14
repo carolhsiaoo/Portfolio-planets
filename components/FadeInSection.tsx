@@ -24,33 +24,52 @@ export default function FadeInSection({
     // Don't start observing while a page transition overlay is active
     if (isTransitioning) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            setIsVisible(true);
-          }, delay);
-          if (sectionRef.current) {
-            observer.unobserve(sectionRef.current);
-          }
-        }
-      },
-      {
-        // Trigger as soon as the section peeks into the viewport — a late
-        // trigger plus a long fade reads as a blank dead zone while scrolling
-        threshold: 0.05,
-        rootMargin: '0px'
-      }
-    );
+    const el = sectionRef.current;
+    if (!el) return;
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
+    let observer: IntersectionObserver | undefined;
+    let fallback: ReturnType<typeof setTimeout> | undefined;
+    let attached = false;
+
+    const attach = () => {
+      if (attached) return;
+      attached = true;
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              setIsVisible(true);
+            }, delay);
+            observer?.unobserve(el);
+          }
+        },
+        {
+          // Trigger as soon as the section peeks into the viewport — a late
+          // trigger plus a long fade reads as a blank dead zone while scrolling
+          threshold: 0.05,
+          rootMargin: '0px'
+        }
+      );
+      observer.observe(el);
+    };
+
+    // Arriving via a cross-document view transition: the browser snapshots the
+    // incoming page and animates it in. If the fade-in runs during that
+    // snapshot, the animation appears to play twice (once inside the
+    // transition, once on the live DOM). Stay hidden until the transition
+    // settles, with a timeout in case it hangs or is skipped.
+    const activeVT = (document as Document & { activeViewTransition?: { finished: Promise<void> } })
+      .activeViewTransition;
+    if (activeVT?.finished) {
+      activeVT.finished.then(attach, attach);
+      fallback = setTimeout(attach, 1200);
+    } else {
+      attach();
     }
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
+      clearTimeout(fallback);
+      observer?.disconnect();
     };
   }, [delay, isTransitioning]);
 

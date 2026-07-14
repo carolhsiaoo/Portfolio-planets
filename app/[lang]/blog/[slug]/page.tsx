@@ -69,8 +69,8 @@ export default async function PostPage({
 
       {/* Floating white panel — the post itself, presented like a modal
           over the dark backdrop (matches the project case study pages) */}
-      <div className="px-3 pt-3 sm:px-5 sm:pt-5">
-        <div className="relative bg-white rounded-2xl sm:rounded-3xl overflow-hidden">
+      <div className="sm:px-5 sm:pt-5">
+        <div className="relative bg-white rounded-b-2xl sm:rounded-3xl overflow-hidden">
           {/* Close — back to the blog list */}
           <Link
             href={`/${lang}/blog`}

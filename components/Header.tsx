@@ -91,6 +91,9 @@ const Header = memo(function Header({ hideOnScroll = false, hideAtTop = false, r
   // In revealAfterId mode the header stays hidden until scrolled past the target section
   const revealHidden = !!revealAfterId && !pastReveal;
 
+  // Whether the header chrome is currently off-screen (any of the hide modes)
+  const chromeHidden = (hideOnScroll && isHidden) || (hideAtTop && atTop) || revealHidden;
+
   const navLinks = [
     { href: `/${lang}`, label: lang === 'zh' ? '首頁' : 'HOME' },
     { href: `/${lang}/blog`, label: lang === 'zh' ? '部落格' : 'BLOG' },
@@ -177,14 +180,15 @@ const Header = memo(function Header({ hideOnScroll = false, hideAtTop = false, r
         // hideOnScroll / hideAtTop / revealAfterId compose: hidden while
         // scrolling down, at the very top of the page, or until past the
         // reveal section — whichever conditions are enabled
-        ...(hideOnScroll || hideAtTop || revealAfterId ? (() => {
-          const hidden = (hideOnScroll && isHidden) || (hideAtTop && atTop) || revealHidden;
-          return {
-            transform: hidden ? 'translateY(-100%)' : 'translateY(0)',
-            ...(revealAfterId || hideAtTop ? { opacity: hidden ? 0 : 1 } : {}),
-            transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease-out, padding 0.5s ease-in-out',
-          };
-        })() : {}),
+        ...(hideOnScroll || hideAtTop || revealAfterId ? {
+          // Slide only — no opacity fade. Animating opacity on this ancestor
+          // turns it into a backdrop root, which suspends the pill's
+          // backdrop-blur until the fade finishes (the frosted background
+          // then pops in abruptly). The extra offset keeps the pill's drop
+          // shadow out of view while hidden.
+          transform: chromeHidden ? 'translateY(calc(-100% - 80px))' : 'translateY(0)',
+          transition: 'transform 0.45s cubic-bezier(0.4, 0, 0.2, 1), padding 0.5s ease-in-out',
+        } : {}),
       }}
     >
       <div
@@ -197,7 +201,11 @@ const Header = memo(function Header({ hideOnScroll = false, hideAtTop = false, r
         }`}
         style={{
           border: 'none',
-          transition: 'all 0.5s ease-in-out'
+          // While the header is off-screen, snap the pill background (and the
+          // rest of the chrome) to its target state instead of animating —
+          // otherwise a quick scroll-down-then-up reveals the header while the
+          // background is still mid-transition and it shows up transparent
+          transition: chromeHidden ? 'none' : 'all 0.5s ease-in-out'
         }}
       >
         {navContent}

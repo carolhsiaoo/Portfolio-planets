@@ -126,14 +126,14 @@ export const projects: ProjectData[] = [
     link: "https://firefree.app",
     tagline: "A 0-to-1 personal finance app that helps users see when they'll be financially free, not just where their money went.",
     tags: ["0 → 1", "Product Design", "Frontend Dev", "Finance", "React"],
-    techStack: ["React", "TypeScript", "Tailwind CSS", "Firebase"],
+    techStack: ["React", "TypeScript", "Tailwind CSS"],
     timeline: "Jan 2025 — Present",
 
     creativeStudy: {
       meta: {
         role: "Design & Development",
         year: "2026",
-        tech: ["React", "TypeScript", "Tailwind CSS", "Firebase"],
+        tech: ["React", "TypeScript", "Tailwind CSS"],
       },
       concept:
         "A goal-first personal finance app that answers 'when can I be free?' instead of 'where did my money go?' The Life Goals dashboard turns compound-interest projections into a visual freedom roadmap — expense tracking becomes a means to an end, not the end itself.",
@@ -252,15 +252,14 @@ export const projects: ProjectData[] = [
     image: "/dailywage-img.webp",
     link: "https://dailypay.aburi.app",
     tagline: "A mobile app that shows your salary growing in real time, with a pixel corgi companion that makes every work second count toward your dreams.",
-    tags: ["Mobile", "Product Design", "React Native", "Local-First"],
-    techStack: ["React Native", "TypeScript", "Expo", "SQLite"],
+    tags: ["Mobile", "Product Design", "Local-First"],
     timeline: "2026",
 
     creativeStudy: {
       meta: {
         role: "Design",
         year: "2026",
-        tech: ["React Native", "Expo", "SQLite"],
+        tech: [],
       },
       concept:
         "Watch your earnings grow every second. DailyWage calculates your salary in real time as you work, while a pixel corgi companion cheers you on and goal progress bars show every dream getting closer, turning an ordinary workday into visible motivation.",
@@ -372,7 +371,7 @@ export const projects: ProjectData[] = [
       meta: {
         role: "Design & Development",
         year: "2025",
-        tech: ["Next.js", "TypeScript", "Supabase"],
+        tech: ["Next.js", "TypeScript"],
       },
       concept:
         "Do less, achieve more. CoreHour turns your day into 30-minute blocks you can drag into place, marks the tasks that actually matter, and tracks how much of your time goes to high-impact work versus busywork, so real progress replaces fake productivity.",

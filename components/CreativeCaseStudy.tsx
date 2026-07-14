@@ -183,9 +183,11 @@ export default function CreativeCaseStudy({ project }: { project: ProjectData })
           scrolling up anywhere else on the page */}
       <Header hideOnScroll hideAtTop />
 
-      {/* Floating white panel — the case itself */}
-      <div className="px-3 pt-3 sm:px-5 sm:pt-5">
-        <div className="relative bg-white rounded-2xl sm:rounded-3xl overflow-hidden">
+      {/* Floating white panel — the case itself. Full-bleed on mobile with
+          rounded bottom edge where it meets the dark backdrop; inset with
+          fully rounded corners from sm up */}
+      <div className="sm:px-5 sm:pt-5">
+        <div className="relative bg-white rounded-b-2xl sm:rounded-3xl overflow-hidden">
           {/* Close — back to the projects list. A plain anchor (full-page
               navigation) so the cross-document view transition collapses the
               hero on the way out; the flag tells the home page to skip the
@@ -243,7 +245,7 @@ export default function CreativeCaseStudy({ project }: { project: ProjectData })
                     {project.name}
                   </h1>
                   <p className="mt-4 font-cinzel font-medium text-lg sm:text-xl text-gray-900 leading-relaxed">
-                    {study.meta.role} · {study.meta.year} · {study.meta.tech.join(' · ')}
+                    {[study.meta.role, study.meta.year, ...study.meta.tech].join(' · ')}
                   </p>
                 </div>
                 <div>
