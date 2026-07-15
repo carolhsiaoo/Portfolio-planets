@@ -811,8 +811,8 @@ export const projects: ProjectData[] = [
           alt: "World 1-1 opens on rules everyone already knows — score, coins, a timer counting down.",
         },
         {
-          src: "/rewrite/trapped-in-the-tutorial.webp",
-          alt: "Other ghosts circle the same platforms forever, still living someone else's script.",
+          src: "/rewrite/your-choices-multiply.webp",
+          alt: "Question the script and your choices multiply — glowing doors branch out ahead of the little ghost.",
         },
         {
           src: "/rewrite/the-mirror.webp",
