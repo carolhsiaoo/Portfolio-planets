@@ -150,11 +150,22 @@ export default async function PostPage({
                 video: ({ value }) => (
                   <figure className="my-8">
                     <div className="rounded-lg overflow-hidden border border-gray-200">
-                      <video
-                        src={value.videoUrl}
-                        controls
-                        className="w-full"
-                      />
+                      {value.autoplay ? (
+                        <video
+                          src={value.videoUrl}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="w-full"
+                        />
+                      ) : (
+                        <video
+                          src={value.videoUrl}
+                          controls
+                          className="w-full"
+                        />
+                      )}
                     </div>
                     {value.caption && (
                       <figcaption className="mt-3 text-sm font-inter text-gray-500 text-center">

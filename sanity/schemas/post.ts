@@ -107,6 +107,14 @@ const richTextMembers = [
     options: { accept: "video/*" },
     fields: [
       {
+        name: "autoplay",
+        title: "Autoplay (GIF-like)",
+        description:
+          "Plays automatically, muted, in a loop, without controls — for short demo clips",
+        type: "boolean",
+        initialValue: false,
+      },
+      {
         name: "caption",
         title: "Caption",
         type: "array",

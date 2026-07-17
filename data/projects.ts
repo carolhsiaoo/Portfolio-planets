@@ -833,6 +833,7 @@ export const projects: ProjectData[] = [
       ctaHeading: "See who's writing the script.",
       ctaLabel: "Play It Live ▶",
       ctaLabelZh: "立即遊玩 ▶",
+      blogUrl: "/blog/how-i-built-rewrite-in-a-week",
     },
   },
   // --- Creative placeholder (hidden for now) ---

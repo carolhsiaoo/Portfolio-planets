@@ -326,23 +326,23 @@ export default function CreativeCaseStudy({ project }: { project: ProjectData })
           {/* CTA — after the styleframes */}
           <section className="pb-20 sm:pb-28">
             <FadeInSection>
-              <div className="flex flex-wrap items-center justify-center gap-3 px-6">
+              <div className="grid w-fit mx-auto grid-flow-col auto-cols-fr gap-10 px-6">
+                {study.blogUrl && (
+                  <Link
+                    href={study.blogUrl.startsWith("/") ? `/${lang}${study.blogUrl}` : study.blogUrl}
+                    className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-gray-300 rounded-full text-base sm:text-lg font-inter font-medium tracking-wider hover:border-gray-500 transition-colors duration-300"
+                  >
+                    {lang === 'zh' ? '幕後故事' : 'Read BTS'}
+                  </Link>
+                )}
                 <a
                   href={study.playUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-8 py-4 bg-black text-white rounded-full text-base sm:text-lg font-inter font-medium tracking-wider hover:bg-[#333] transition-colors duration-300"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-black text-white rounded-full text-base sm:text-lg font-inter font-medium tracking-wider hover:bg-[#333] transition-colors duration-300"
                 >
                   {lang === 'zh' ? study.ctaLabelZh ?? '線上體驗' : study.ctaLabel ?? 'See It Live'}
                 </a>
-                {study.blogUrl && (
-                  <Link
-                    href={study.blogUrl}
-                    className="inline-flex items-center gap-2 px-8 py-4 border border-gray-300 rounded-full text-base sm:text-lg font-inter font-medium tracking-wider hover:border-gray-500 transition-colors duration-300"
-                  >
-                    {lang === 'zh' ? '閱讀開發故事' : 'Read the Build Story'}
-                  </Link>
-                )}
               </div>
             </FadeInSection>
           </section>
