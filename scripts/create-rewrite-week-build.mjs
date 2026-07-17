@@ -88,27 +88,40 @@ function divider() {
   };
 }
 
-const SLUG = "how-i-built-rewrite-in-a-week";
+// References an already-uploaded file asset in the Sanity dataset.
+function video(assetRef, captionText, autoplay = false) {
+  return {
+    _type: "video",
+    _key: key(),
+    asset: { _type: "reference", _ref: assetRef },
+    ...(autoplay ? { autoplay: true } : {}),
+    caption: [paragraph(captionText)],
+  };
+}
+
+const DEMO_VIDEO = "file-9874de25105efedbc8e9642f51ec2409da930824-mp4";
+const SPIKE_VIDEO = "file-c376053b4e783d85beb5f4256964e134c31e21ab-mp4";
+const LAB_VIDEO = "file-4544fac10ece29d221e3e649e1c614a48a9420ce-mp4";
+
+const SLUG = "how-i-built-rewrite-in-two-weeks";
 const PLAY_URL = "https://rewrite.carolhsiao.com/";
 
 const post = {
   _type: "post",
   slug: { _type: "slug", current: SLUG },
-  publishedAt: new Date().toISOString(),
+  publishedAt: "2026-07-17T20:26:39.884Z",
 
   // ─── Traditional Chinese ───
-  title_zhTw: "Re:write，改寫你的人生！我用一週實作了一個互動敘事網站",
+  title_zhTw: "Re:write，改寫你的人生！我用兩週實作了一個互動敘事網站",
   excerpt_zhTw:
-    "「人生就像一場電腦遊戲，你一直握有掌控權。」這篇文章拆解我如何在 AI 的幫助下，一週內完成 Re:write 這個互動敘事網站，以及「把素材變成程式碼」這個關鍵決定，如何徹底改變了迭代速度。",
+    "「人生就像一場電腦遊戲，你一直握有掌控權。」這篇文章拆解我如何在 AI 的幫助下，兩週內完成 Re:write 這個互動敘事網站，以及「把素材變成程式碼」這個關鍵決定，如何徹底改變了迭代速度。",
   body_zhTw: [
     block("Re:write，你是人生這場遊戲的主角！"),
     blockquote("人生就像一場電腦遊戲，你一直握有掌控權"),
     paragraph(
-      `這是 Re:write 這個互動網頁想帶來的啟發。這篇文章將會拆解我是怎麼透過 AI 幫助，實作一週就完成這個專案，若還沒有體驗過 Re:write，歡迎先[去玩玩看](${PLAY_URL})！`
+      `這是 Re:write 這個互動網頁想帶來的啟發。這篇文章將會拆解我是怎麼透過 AI 幫助，實作兩週就完成這個專案，若還沒有體驗過 Re:write，歡迎先[去玩玩看](${PLAY_URL})！`
     ),
-    paragraph(
-      "（Demo 影片與 Play it live 按鈕：請在 Sanity Studio 的 /studio 後台，於此處插入影片區塊。）"
-    ),
+    video(DEMO_VIDEO, "Re:write Demo Video"),
 
     divider(),
     block("起心動念"),
@@ -127,15 +140,11 @@ const post = {
     paragraph(
       "我想要的畫面是可以互動的 2.5D 視覺，滑鼠在上面移動會有視覺落差，並且角色會隨著滾輪滑動而移動，文字也會跟著角色和背景出現。在這階段主要是確認想要實現的畫面技術上可行。"
     ),
-    paragraph(
-      "（Spike 影片：請在 /studio 後台，於此處插入影片區塊。）"
-    ),
+    video(SPIKE_VIDEO, "Re:write Spike Video"),
     paragraph(
       "就算 spike 證明技術上可實現，轉場的畫面也很重要，所以也做了一個轉場的 lab，套用 post-processing 的特效，去實驗這些特效在畫面上的實際效果如何。"
     ),
-    paragraph(
-      "（Lab 影片：請在 /studio 後台，於此處插入影片區塊。）"
-    ),
+    video(LAB_VIDEO, "Re:write Demo Video"),
 
     divider(),
     block("正式實作"),
@@ -147,9 +156,12 @@ const post = {
     ),
 
     divider(),
-    block("一週完成實作的關鍵！我的素材是程式碼"),
+    block("兩週完成實作的關鍵！我的素材是程式碼"),
     paragraph(
-      "它先幫自己寫了一套手繪筆刷，並且幫每個場景都寫函式套用這些筆刷組合，所以**我的素材不是圖檔，是程式碼，改圖不用重畫！**舉例來說，如果我要改主角的樣子，我只要下一個 prompt 像是：給幽靈加上小手，它改個幾行程式碼後重跑一次腳本，就能產出新的圖。這就是迭代速度的關鍵，如果素材是一張一張畫的，就絕對沒辦法這麼快完成。"
+      "Fable 先幫自己寫了一套手繪筆刷，並且幫每個場景都寫函式套用這些筆刷組合，所以**我的素材不是圖檔，是程式碼，改圖不用重畫！**"
+    ),
+    paragraph(
+      "舉例來說，如果我要改主角的樣子，我只要下一個 prompt 像是：給幽靈加上小手，它改個幾行程式碼後重跑一次腳本，就能產出新的圖。這就是迭代速度的關鍵，如果素材是一張一張畫的，就絕對沒辦法這麼快完成。"
     ),
     paragraph(
       "而且那時候 Fable 剛出來，說只會開放幾天能用，所以我有天一次推了 54 個 commit，一天內把主要素材都產完了。做完之後才發現 Fable reset 了，根本可以慢慢來不用急…。"
@@ -166,13 +178,13 @@ const post = {
 
     divider(),
     block("工作流程"),
-    paragraph("回頭看，這個專案的流程其實就是我平常工作的節奏："),
+    paragraph("這個專案如下："),
     numbered("先問清楚要解決什麼（概念先行，而不是先挑效果）。"),
     numbered("投入之前就知道技術行不行，先 spike 確認技術狀況。"),
     numbered("把架構寫成規格，讓後面的內容能量產、能交接、能改。"),
-    numbered("在意效能和真實使用者，手機、無障礙、瀏覽器限制都是交付的一部分。"),
+    numbered("效能和真實使用者，手機、無障礙、瀏覽器限制都是交付的一部分。"),
     paragraph(
-      "AI 改變的是執行速度，但概念、故事、美術方向，還有上千個「感覺對不對」的決定，仍然得有人做。**現在稀缺的不是把東西做出來的能力，是知道什麼值得做、以及分辨它對了沒有。**"
+      "AI 改變的是執行速度，但概念、故事、美術方向，還有上千個「感覺對不對」的決定，仍然得有人做。**現在稀缺的不是把東西做出來的能力，是知道什麼值得做、以及分辨它是否有做對。**"
     ),
 
     divider(),
@@ -187,18 +199,16 @@ const post = {
   ],
 
   // ─── English ───
-  title: "Re:write, Rewrite Your Life! How I Built an Interactive Storytelling Site in One Week",
+  title: "Rewrite Your Life! How I Built an Interactive Storytelling Site in Two Weeks",
   excerpt:
-    "Life is like a video game, and you have been holding the controller all along. This is the story of how I built Re:write, an interactive storytelling website, in just one week with help from AI, and how the decision to turn my assets into code changed everything.",
+    "Life is like a video game, and you have been holding the controller all along. This is the story of how I built Re:write, an interactive storytelling website, in just two weeks with help from AI, and how the decision to turn my assets into code changed everything.",
   body: [
     block("Re:write, You Are the Main Character of This Game Called Life!"),
     blockquote("Life is like a video game, and you have been holding the controller all along"),
     paragraph(
-      `That is the idea Re:write hopes to leave you with. In this post I will break down how, with help from AI, I built and shipped this project in just one week. If you have not experienced Re:write yet, feel free to [go play it first](${PLAY_URL})!`
+      `That is the idea Re:write hopes to leave you with. In this post I will break down how, with help from AI, I built and shipped this project in just two weeks. If you have not experienced Re:write yet, feel free to [go play it first](${PLAY_URL})!`
     ),
-    paragraph(
-      "(Demo video and Play it live button: add the video block right here in Sanity Studio at /studio.)"
-    ),
+    video(DEMO_VIDEO, "Re:write Demo Video"),
 
     divider(),
     block("Where the Idea Came From"),
@@ -217,15 +227,11 @@ const post = {
     paragraph(
       "The visual I wanted was an interactive 2.5D scene. Moving the mouse creates parallax, the character moves as you scroll, and text shows up along with the character and the background. The main goal at this stage was to confirm that the picture in my head was technically possible."
     ),
-    paragraph(
-      "(Spike video: add the video block right here in /studio.)"
-    ),
+    video(SPIKE_VIDEO, "Re:write spike video"),
     paragraph(
       "Even though the spike proved the tech could work, the transitions between scenes mattered just as much. So I also built a small transition lab, applying post-processing effects to see how they would actually feel on screen."
     ),
-    paragraph(
-      "(Lab video: add the video block right here in /studio.)"
-    ),
+    video(LAB_VIDEO, "Re:write lab video"),
 
     divider(),
     block("Building It for Real"),
@@ -237,9 +243,12 @@ const post = {
     ),
 
     divider(),
-    block("The Key to Shipping in One Week: My Assets Are Code"),
+    block("The Key to Shipping in Two Weeks: My Assets Are Code"),
     paragraph(
-      "It first wrote itself a set of hand-drawn brushes, then wrote a function for each scene that combines those brushes. So **my assets are not image files, they are code, and changing a picture does not mean redrawing it!** For example, if I want to change the main character, I just give it a prompt like: add little hands to the ghost. It tweaks a few lines of code, reruns the script, and out comes the new image. That is the key to iteration speed. If every asset had to be drawn one by one, there is no way this could have been finished so fast."
+      "Fable first wrote itself a set of hand-drawn brushes, then wrote a function for each scene that combines those brushes. So **my assets are not image files, they are code, and changing a picture does not mean redrawing it!**"
+    ),
+    paragraph(
+      "For example, if I want to change the main character, I just give it a prompt like: add little hands to the ghost. It tweaks a few lines of code, reruns the script, and out comes the new image. That is the key to iteration speed. If every asset had to be drawn one by one, there is no way this could have been finished so fast."
     ),
     paragraph(
       "Also, Fable had just come out at the time and was supposedly only available for a few days, so one day I pushed 54 commits and generated all the main assets in a single day. Only after finishing did I find out Fable had reset, so I could have taken my time after all..."
@@ -256,9 +265,7 @@ const post = {
 
     divider(),
     block("My Workflow"),
-    paragraph(
-      "Looking back, the flow of this project is really just the rhythm I work with every day:"
-    ),
+    paragraph("The flow of this project is as follow:"),
     numbered(
       "Ask what problem we are solving first (concept comes before picking effects)."
     ),
