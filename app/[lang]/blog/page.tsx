@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { getPosts } from "@/lib/queries";
-import { urlFor } from "@/lib/sanity";
-import Image from "next/image";
 import Header from "@/components/Header";
 import FadeInSection from "@/components/FadeInSection";
 import Footer from "@/components/Footer";
@@ -67,7 +65,6 @@ export default async function BlogPage({
                   slug: { current: string };
                   publishedAt: string;
                   excerpt?: string;
-                  coverImage?: object;
                   category?: { title: string };
                 },
                 index: number
@@ -80,28 +77,8 @@ export default async function BlogPage({
                   href={`/${lang}/blog/${post.slug.current}`}
                   className="group block"
                 >
-                  <article
-                    className={`flex flex-col ${index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"} gap-8 lg:gap-16 items-start`}
-                  >
-                    {/* Image */}
-                    {post.coverImage && (
-                      <div className="relative w-full lg:w-[40%] aspect-4/3 overflow-hidden rounded-sm">
-                        <Image
-                          src={urlFor(post.coverImage)
-                            .width(900)
-                            .height(560)
-                            .url()}
-                          alt={post.title}
-                          fill
-                          className="object-cover group-hover:scale-[1.03] transition-transform duration-1000 ease-out"
-                        />
-                      </div>
-                    )}
-
-                    {/* Content */}
-                    <div
-                      className={`flex-1 flex flex-col justify-center ${post.coverImage ? "" : "lg:w-full"}`}
-                    >
+                  <article className="flex flex-col gap-8 items-start">
+                    <div className="flex-1 flex flex-col justify-center w-full">
 
                       <h2 className="font-cinzel font-medium text-3xl sm:text-4xl lg:text-5xl text-neutral-900 leading-[1.05] group-hover:text-black group-hover:scale-[1.02] origin-left transition-all duration-500">
                         {post.title}
