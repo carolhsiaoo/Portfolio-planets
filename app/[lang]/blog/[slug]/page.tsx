@@ -28,7 +28,7 @@ export async function generateMetadata({
     post.excerpt || `${post.title} — a blog post by Carol Hsiao`;
   const image = post.coverImage
     ? urlFor(post.coverImage).width(1200).height(630).url()
-    : undefined;
+    : "/og-image.png";
 
   return {
     title,
@@ -37,13 +37,13 @@ export async function generateMetadata({
       title,
       description,
       type: "article",
-      ...(image && { images: [{ url: image, width: 1200, height: 630 }] }),
+      images: [{ url: image, width: 1200, height: 630 }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
-      ...(image && { images: [image] }),
+      images: [image],
     },
   };
 }
