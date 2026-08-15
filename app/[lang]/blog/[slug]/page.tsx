@@ -9,6 +9,7 @@ import Header from "@/components/Header";
 import SanityTable from "@/components/SanityTable";
 import FadeInSection from "@/components/FadeInSection";
 import BlogPostNavLink from "@/components/BlogPostNavLink";
+import BlogVideo from "@/components/BlogVideo";
 
 function sanityLang(lang: string) {
   return lang === 'zh' ? 'zh-tw' : 'en';
@@ -150,22 +151,7 @@ export default async function PostPage({
                 video: ({ value }) => (
                   <figure className="my-8">
                     <div className="rounded-lg overflow-hidden border border-gray-200">
-                      {value.autoplay ? (
-                        <video
-                          src={value.videoUrl}
-                          autoPlay
-                          muted
-                          loop
-                          playsInline
-                          className="w-full"
-                        />
-                      ) : (
-                        <video
-                          src={value.videoUrl}
-                          controls
-                          className="w-full"
-                        />
-                      )}
+                      <BlogVideo src={value.videoUrl} autoplay={value.autoplay} />
                     </div>
                     {value.caption && (
                       <figcaption className="mt-3 text-sm font-inter text-gray-500 text-center">
