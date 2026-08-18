@@ -107,8 +107,8 @@ export interface ProjectData {
     playUrl: string;
     playNote?: string;
     ctaHeading?: string; // closing line above the button; defaults to "Experience it live."
-    ctaLabel?: string; // button text; defaults to "See It Live"
-    ctaLabelZh?: string; // zh button text; defaults to "線上體驗"
+    ctaLabel?: string; // button text; defaults to "Try It Live"
+    ctaLabelZh?: string; // zh button text; defaults to "立即體驗"
     // Optional link to the long-form build-story blog post. The secondary
     // "Read the build story" links only render when this is set.
     blogUrl?: string;
@@ -150,8 +150,6 @@ export const projects: ProjectData[] = [
       ],
       playUrl: "https://firefree.app",
       ctaHeading: "See your freedom timeline.",
-      ctaLabel: "Try It Live",
-      ctaLabelZh: "立即體驗",
     },
 
     // TL;DR — sharp, scannable, numbers where possible
@@ -278,8 +276,6 @@ export const projects: ProjectData[] = [
       ],
       playUrl: "https://dailypay.aburi.app",
       ctaHeading: "Watch every second count.",
-      ctaLabel: "Try It Live",
-      ctaLabelZh: "立即體驗",
     },
 
     heroSummary: {
@@ -392,8 +388,6 @@ export const projects: ProjectData[] = [
       ],
       playUrl: "https://corehour.app/",
       ctaHeading: "Find your core hours.",
-      ctaLabel: "Try It Live",
-      ctaLabelZh: "立即體驗",
     },
 
     heroSummary: {
@@ -831,8 +825,6 @@ export const projects: ProjectData[] = [
       playUrl: "https://rewrite.carolhsiao.com/",
       playNote: "Best with sound on",
       ctaHeading: "See who's writing the script.",
-      ctaLabel: "Play It Live ▶",
-      ctaLabelZh: "立即遊玩 ▶",
       blogUrl: "/blog/how-i-built-rewrite-in-two-weeks",
     },
   },

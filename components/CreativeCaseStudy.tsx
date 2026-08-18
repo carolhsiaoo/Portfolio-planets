@@ -341,7 +341,7 @@ export default function CreativeCaseStudy({ project }: { project: ProjectData })
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-black text-white rounded-full text-base sm:text-lg font-inter font-medium tracking-wider hover:bg-[#333] transition-colors duration-300"
                 >
-                  {lang === 'zh' ? study.ctaLabelZh ?? '線上體驗' : study.ctaLabel ?? 'See It Live'}
+                  {lang === 'zh' ? study.ctaLabelZh ?? '立即體驗' : study.ctaLabel ?? 'Try It Live'}
                 </a>
               </div>
             </FadeInSection>
