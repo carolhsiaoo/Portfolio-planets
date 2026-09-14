@@ -140,6 +140,68 @@ const richTextMembers = [
     ],
   }),
   defineArrayMember({
+    type: "object",
+    name: "videoCompare",
+    title: "Video Comparison (side by side)",
+    fields: [
+      defineField({
+        name: "leftVideo",
+        title: "Left video",
+        type: "file",
+        options: { accept: "video/*" },
+      }),
+      defineField({
+        name: "leftLabel",
+        title: "Left label",
+        type: "string",
+        initialValue: "Windows",
+      }),
+      defineField({
+        name: "rightVideo",
+        title: "Right video",
+        type: "file",
+        options: { accept: "video/*" },
+      }),
+      defineField({
+        name: "rightLabel",
+        title: "Right label",
+        type: "string",
+        initialValue: "Mac",
+      }),
+      defineField({
+        name: "caption",
+        title: "Caption",
+        type: "array",
+        of: [
+          {
+            type: "block",
+            styles: [{ title: "Normal", value: "normal" }],
+            lists: [],
+            marks: {
+              decorators: [],
+              annotations: [
+                {
+                  name: "link",
+                  type: "object",
+                  title: "Link",
+                  fields: [{ name: "href", type: "url", title: "URL" }],
+                },
+              ],
+            },
+          },
+        ],
+      }),
+    ],
+    preview: {
+      select: { leftLabel: "leftLabel", rightLabel: "rightLabel" },
+      prepare({ leftLabel, rightLabel }) {
+        return {
+          title: `⇄ Video comparison: ${leftLabel || "Left"} | ${rightLabel || "Right"}`,
+        };
+      },
+    },
+  }),
+  defineArrayMember({
     type: "image",
     options: { hotspot: true },
     fields: [

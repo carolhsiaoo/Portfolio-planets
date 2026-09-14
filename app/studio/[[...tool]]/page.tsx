@@ -1,8 +1,11 @@
 "use client";
 
-import { NextStudio } from "next-sanity/studio";
-import config from "@/sanity.config";
+import dynamic from "next/dynamic";
+
+// Sanity Studio touches `window` during module init, so skip the server
+// render entirely and only mount it in the browser
+const Studio = dynamic(() => import("./Studio"), { ssr: false });
 
 export default function StudioPage() {
-  return <NextStudio config={config} />;
+  return <Studio />;
 }

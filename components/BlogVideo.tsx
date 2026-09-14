@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from 'react';
 type BlogVideoProps = {
   src: string;
   autoplay?: boolean;
+  className?: string;
 };
 
 /**
@@ -19,7 +20,7 @@ type BlogVideoProps = {
  *   - for autoplay videos, plays when visible and *unloads* when scrolled away,
  *     freeing the decoded frames so memory doesn't pile up down a long post
  */
-export default function BlogVideo({ src, autoplay }: BlogVideoProps) {
+export default function BlogVideo({ src, autoplay, className = 'w-full' }: BlogVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const [inView, setInView] = useState(false);
 
@@ -66,7 +67,7 @@ export default function BlogVideo({ src, autoplay }: BlogVideoProps) {
       controls={!autoplay}
       playsInline
       preload="none"
-      className="w-full"
+      className={className}
     />
   );
 }

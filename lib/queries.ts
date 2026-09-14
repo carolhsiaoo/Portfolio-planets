@@ -48,6 +48,11 @@ export async function getPost(slug: string, lang: string = "en") {
           _type == "video" => {
             ...,
             "videoUrl": asset->url
+          },
+          _type == "videoCompare" => {
+            ...,
+            "leftUrl": leftVideo.asset->url,
+            "rightUrl": rightVideo.asset->url
           }
         },
         body[] {
@@ -55,6 +60,11 @@ export async function getPost(slug: string, lang: string = "en") {
           _type == "video" => {
             ...,
             "videoUrl": asset->url
+          },
+          _type == "videoCompare" => {
+            ...,
+            "leftUrl": leftVideo.asset->url,
+            "rightUrl": rightVideo.asset->url
           }
         }
       ),

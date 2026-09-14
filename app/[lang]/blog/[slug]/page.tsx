@@ -176,6 +176,54 @@ export default async function PostPage({
                     )}
                   </figure>
                 ),
+                videoCompare: ({ value }) => (
+                  <figure className="my-8">
+                    <div className="flex flex-col gap-6">
+                      {[
+                        { url: value.leftUrl, label: value.leftLabel || "Left" },
+                        { url: value.rightUrl, label: value.rightLabel || "Right" },
+                      ].map(({ url, label }) => (
+                        <div key={label} className="flex flex-col gap-2">
+                          <span className="font-inter text-xs tracking-[0.2em] uppercase text-gray-500 text-center">
+                            {label}
+                          </span>
+                          {url ? (
+                            <div className="rounded-lg overflow-hidden border border-gray-200">
+                              <BlogVideo src={url} autoplay />
+                            </div>
+                          ) : (
+                            <div className="flex items-center justify-center aspect-video rounded-lg border border-dashed border-gray-300 bg-gray-50">
+                              <span className="font-inter text-xs text-gray-400">
+                                {lang === "zh" ? "影片準備中" : "Video coming soon"}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    {value.caption && (
+                      <figcaption className="mt-3 text-sm font-inter text-gray-500 text-center">
+                        <PortableText
+                          value={value.caption}
+                          components={{
+                            marks: {
+                              link: ({ children, value: mark }) => (
+                                <a
+                                  href={mark?.href}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-gray-500! underline hover:text-gray-700! transition-colors"
+                                >
+                                  {children}
+                                </a>
+                              ),
+                            },
+                          }}
+                        />
+                      </figcaption>
+                    )}
+                  </figure>
+                ),
                 image: ({ value }) => (
                   <figure className="my-8">
                     <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden border border-gray-200">
