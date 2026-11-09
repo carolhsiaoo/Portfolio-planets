@@ -46,7 +46,16 @@ export default function BlogVideo({ src, autoplay, className = 'w-full' }: BlogV
         el.load();
       }
       if (autoplay) {
-        el.play().catch(() => {});
+        // Set these imperatively *before* play(): on the first (soft) navigation
+        // the React `muted` prop can lag the play() call, so the browser's
+        // autoplay policy blocks it and the video stays a blank frame until a
+        // reload. Forcing them here makes autoplay reliable on first view.
+        el.muted = true;
+        el.playsInline = true;
+        const tryPlay = () => el.play().catch(() => {});
+        tryPlay();
+        // If play() raced ahead of the first decoded frame, retry once it's ready.
+        el.addEventListener('loadeddata', tryPlay, { once: true });
       }
     } else {
       el.pause();
@@ -68,6 +77,9 @@ export default function BlogVideo({ src, autoplay, className = 'w-full' }: BlogV
       playsInline
       preload="none"
       className={className}
+      // Dark placeholder so the element never flashes the white page behind it
+      // before the first frame is decoded (these clips are dark).
+      style={{ backgroundColor: '#0a0a0a' }}
     />
   );
 }
