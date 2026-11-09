@@ -17,8 +17,9 @@ type BlogVideoProps = {
  * crash the tab on phones / Safari. This component:
  *   - never preloads (`preload="none"`), so nothing downloads until needed
  *   - only attaches the source once the video scrolls near the viewport
- *   - for autoplay videos, plays when visible and *unloads* when scrolled away,
- *     freeing the decoded frames so memory doesn't pile up down a long post
+ *   - once started, muted autoplay loops are left running (not paused or
+ *     unloaded) when scrolled away: iOS Safari repaints a paused/detached
+ *     off-screen video as a black box on return, so keeping it alive avoids that
  */
 export default function BlogVideo({ src, autoplay, className = 'w-full' }: BlogVideoProps) {
   const ref = useRef<HTMLVideoElement>(null);
@@ -57,25 +58,29 @@ export default function BlogVideo({ src, autoplay, className = 'w-full' }: BlogV
         // If play() raced ahead of the first decoded frame, retry once it's ready.
         el.addEventListener('loadeddata', tryPlay, { once: true });
       }
-    } else {
+    } else if (!autoplay) {
+      // Manual (controls) videos pause when scrolled away. Muted autoplay loops
+      // are left running: iOS Safari evicts the decoded frame of a paused or
+      // src-detached off-screen <video> and repaints it black on return, so
+      // keeping them alive (iOS throttles off-screen playback anyway) avoids the
+      // black box. This is also why we no longer remove src here.
       el.pause();
-      // Only autoplay videos get fully unloaded — a manually-played video may
-      // be paused mid-watch, so keep its buffer.
-      if (autoplay && el.getAttribute('src')) {
-        el.removeAttribute('src');
-        el.load();
-      }
     }
   }, [inView, src, autoplay]);
 
   return (
     <video
       ref={ref}
+      autoPlay={autoplay}
       muted={autoplay}
       loop={autoplay}
       controls={!autoplay}
       playsInline
-      preload="none"
+      // Autoplay clips preload their first frame once the src attaches (near the
+      // viewport) so they show a frame instead of a black box; manual videos stay
+      // fully lazy. The native `autoplay` attribute above is the primary trigger
+      // (reliable for muted inline video, esp. iOS); the JS play() is a backup.
+      preload={autoplay ? 'metadata' : 'none'}
       className={className}
       // Dark placeholder so the element never flashes the white page behind it
       // before the first frame is decoded (these clips are dark).
